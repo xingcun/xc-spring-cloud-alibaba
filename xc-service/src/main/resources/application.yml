@@ -1,0 +1,87 @@
+server:
+  port: 8011
+#logging:
+#  level:
+#     root: debug
+      
+# Nacos registry address   
+dubbo:
+  application:
+    name: dubbo-xc-service
+    qosEnable: false
+   
+  registries:
+    registry1:
+        address: nacos://127.0.0.1:8848?namespace=cbe53515-f2ac-4ce1-bf54-c3fd9259a1da
+    #    parameters[a]: bb
+      #  address: nacos://127.0.0.1:8848
+   # group: DEV-GROUP
+  protocol: 
+    name: dubbo
+    port: -1
+   
+
+demo:
+  service:
+    name: demoService8011
+   
+spring:
+  application:
+    name: xc-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  datasource:
+        url: jdbc:postgresql://127.0.0.1:5432/dbxc?autoReconnect=true
+        username: postgres
+        password: www21cncom
+        driverClassName: org.postgresql.Driver
+        type: com.alibaba.druid.pool.DruidDataSource
+        initialSize: 5
+        minIdle: 5
+        maxActive: 50
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+        filters: stat,wall,log4j
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+  jpa:
+      database: POSTGRESQL
+      show-sql: true
+      properties:
+        hibernate.temp.use_jdbc_metadata_defaults: false
+        hibernate.hbm2ddl.auto: update  #validate update
+        hibernate.dialect: com.xc.util.JSONBPostgreSQLDialect
+#        hibernate.cache.use_second_level_cache: true
+#        hibernate.cache.use_query_cache: true
+        hibernate.generate_statistics: true
+        hibernate.enable_lazy_load_no_trans: true #开启懒加载的，但有问题暂未处理
+#        hibernate.cache.region.factory_class: org.apache.ignite.cache.hibernate.HibernateRegionFactory
+#        hibernate.org.apache.ignite.hibernate.ignite_instance_name: hibernate-grid
+#        hibernate.org.apache.ignite.hibernate.default_access_type: TRANSACTIONAL
+        hibernate.connection.release_mode: on_close
+        javax.persistence.sharedCache.mode: ENABLE_SELECTIVE
+#        org.apache.ignite.hibernate.ignite_instance_name: hibernate-grid
+        #org.apache.ignite.hibernate.grid_config: applicationContext-ignite.xml    
+        
+           
+##请求和响应GZIP压缩支持
+#feign:
+#  httpclient:
+#    enabled: false
+#  okhttp:
+#    enabled: true
+#  compression:
+#    request:
+#      enabled: true
+#      mime-types: text/xml,application/xml,application/json
+#      min-request-size: 1
+#    response:
+#      enabled: true           

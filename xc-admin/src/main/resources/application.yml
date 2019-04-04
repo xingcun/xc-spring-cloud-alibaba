@@ -1,0 +1,55 @@
+server:
+  port: 8012
+  compression:
+    enabled: true
+#    mime-types: 
+#      - application/json
+#      - application/xml
+#      - text/html
+#      - text/xml
+#      - text/plain
+    min-response-size: 1
+#logging:
+#  level:
+#     root: debug 
+# Nacos registry address
+dubbo:
+  application:
+    name: dubbo-xc-admin
+    qosEnable: false
+  registry:
+    address: nacos://127.0.0.1:8848?namespace=cbe53515-f2ac-4ce1-bf54-c3fd9259a1da
+  protocol: 
+    name: dubbo
+    port: -1
+ 
+
+spring:
+  application:
+    name: xc-admin
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        
+##请求和响应GZIP压缩支持 
+feign:
+  hystrix:
+    enabled: false
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
+
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+  MaxAutoRetries: 1 #同一台实例最大重试次数,不包括首次调用
+  MaxAutoRetriesNextServer: 1 #重试负载均衡其他的实例最大重试次数,不包括首次调用
+  OkToRetryOnAllOperations: false  #是否所有操作都重试 
+            

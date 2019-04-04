@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.xc.cloud</groupId>
+		<artifactId>xc-spring-cloud</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>xc-admin</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.xc.cloud</groupId>
+			<artifactId>xc-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.xc.cloud</groupId>
+			<artifactId>xc-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+
+
+ 		<dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-okhttp</artifactId>
+        </dependency>
+		<!-- <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-alibaba-dependencies</artifactId> 
+			<version>0.2.1.RELEASE</version> <type>pom</type> <scope>import</scope> </dependency> -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+			<version>0.2.1.RELEASE</version>
+		</dependency>
+
+		<!-- <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId> 
+			<version>0.2.1.RELEASE</version> </dependency> -->
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+			<version>0.2.1.RELEASE</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<version>2.6.6</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.alibaba/dubbo-registry-nacos -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo-registry-nacos</artifactId>
+			<version>2.6.6</version>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/com.alibaba.spring/spring-context-support -->
+		<dependency>
+			<groupId>com.alibaba.spring</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.alibaba.nacos</groupId>
+			<artifactId>nacos-client</artifactId>
+			<version>1.0.0-RC2</version>
+		</dependency>
+	</dependencies>
+</project>

@@ -58,5 +58,5 @@ ribbon:
   
   
 ignore:
-  startWith: /user/login,/test   
+  startWith: /user/login,/user/regist,/test   
             

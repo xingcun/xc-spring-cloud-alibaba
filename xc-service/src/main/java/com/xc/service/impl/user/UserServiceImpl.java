@@ -132,6 +132,49 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 		return this.saveObject(user, userId, filters);
 	}
 
+	@Override
+	public ModelVo regist(User user) {
+		ModelVo vo = new ModelVo();
+		user.setId(null);
+		if(!CommonUtil.isNotNull(user.getUsername()) ) {
+			user.setUsername(user.getMobile());
+		}
+		if(!CommonUtil.isNotNull(user.getUsername()) ) {
+			vo.setCodeEnum(Code.ERROR, "手机号和用户名不能同时为空");
+			return vo;
+		}
+		
+		if(!CommonUtil.isNotNull(user.getPassword())) {
+			vo.setCodeEnum(Code.ERROR, "密码不能为空");
+			return vo;
+		}
+		
+		String t_username = user.getUsername();
+		String mobile = user.getMobile();
+		List<User> users = this.findAll((root, query, cb) -> {
+			List<Predicate> predicates = new ArrayList();
+				if(CommonUtil.isNotNull(mobile)) {
+					predicates.add(cb.or(cb.equal(root.get("username"), t_username),
+							cb.equal(root.get("mobile"), mobile)));
+				}else {
+					predicates.add(cb.equal(root.get("username"), t_username));
+				}
+
+			predicates.add(cb.equal(root.get("deleteStatus"), false));
+			query.where(predicates.toArray(new Predicate[predicates.size()]));
+			return null;
+		}, Sort.by(Direction.DESC, "createTime"));
+		
+		if(users!=null && users.size()>0) {
+			vo.setCodeEnum(Code.ERROR, "用户名或手机号已存在");
+			return vo;
+		}
+		
+		vo = this.saveUser(user, null);
+		
+		
+		return vo;
+	}
 	
 	@Override
 	public ModelVo login(String username,String password,String loginType) {
@@ -141,8 +184,8 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 
 			List<Predicate> predicates = new ArrayList();
 		
-				predicates.add(cb.or(cb.like(root.get("username"), username),
-						cb.like(root.get("mobile"), username)));
+				predicates.add(cb.or(cb.equal(root.get("username"), username),
+						cb.equal(root.get("mobile"), username)));
 
 			predicates.add(cb.equal(root.get("deleteStatus"), false));
 			query.where(predicates.toArray(new Predicate[predicates.size()]));

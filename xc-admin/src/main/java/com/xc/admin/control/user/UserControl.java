@@ -119,4 +119,10 @@ public class UserControl {
 	public ModelVo login(String username,String password) {
 		return userService.login(username, password, "ADMIN");
 	}
+	
+	@RequestMapping(value = "/regist")
+	@ResponseBody
+	public ModelVo regist(@RequestBody User user) {
+		return userService.regist(user);
+	}
 }

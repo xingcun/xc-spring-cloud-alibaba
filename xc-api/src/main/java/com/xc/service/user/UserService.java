@@ -14,4 +14,6 @@ public interface UserService extends BaseService<User, String> {
 	public ModelVo login(String username,String password,String loginType);
 	
 	public ModelVo getJwtUserPubKey();
+	
+	public ModelVo regist(User user);
 }

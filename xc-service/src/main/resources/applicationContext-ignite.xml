@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	You under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+
+<!-- Ignite configuration with all defaults and enabled p2p deployment and 
+	enabled events. -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+ 	<!-- Basic configuration for atomic cache. -->
+	<bean id="atomic-cache" class="org.apache.ignite.configuration.CacheConfiguration" abstract="true">
+	    <property name="cacheMode" value="PARTITIONED"/>
+	    <property name="atomicityMode" value="ATOMIC"/>
+	    <property name="writeSynchronizationMode" value="FULL_SYNC"/>
+	    <property name="backups" value="0"/>
+	    <property name="copyOnRead" value="false"/>
+	    <property name="evictionPolicy">
+	        <!-- LRU eviction policy. -->
+	        <bean class="org.apache.ignite.cache.eviction.lru.LruEvictionPolicy">
+	            <!-- Set the maximum cache size to 1 million (default is 100,000). -->
+	            <property name="maxSize" value="10000"/>
+	        </bean>
+	    </property>
+	    <property name="onheapCacheEnabled" value="true"/>
+	</bean>
+	 
+	<!-- Basic configuration for transactional cache. -->
+	<bean id="transactional-cache" class="org.apache.ignite.configuration.CacheConfiguration" abstract="true">
+	    <property name="cacheMode" value="PARTITIONED"/>
+	    <property name="atomicityMode" value="TRANSACTIONAL"/>
+	    <property name="writeSynchronizationMode" value="FULL_SYNC"/>
+	    <property name="backups" value="0"/>
+	    <property name="copyOnRead" value="false"/>
+	    
+	    <property name="evictionPolicy">
+       		<!-- LRU eviction policy. -->
+	        <bean class="org.apache.ignite.cache.eviction.lru.LruEvictionPolicy">
+	            <!-- Set the maximum cache size to 1 million (default is 100,000). -->
+	            <property name="maxSize" value="100000"/>
+	        </bean>
+   		</property>
+   		<property name="onheapCacheEnabled" value="true"/>
+   		
+	</bean>
+	
+	
+	<bean parent="ignite.cfg">
+		<property name="igniteInstanceName" value="hibernate-grid"/>
+		 <property name="cacheConfiguration">
+	        <list>
+	            <!--
+	                Configurations for entity caches.
+	            -->
+	            
+	           <!-- 
+	            <bean parent="transactional-cache">
+	                <property name="name" value="com.mycompany.MyEntity2"/>
+	            </bean>
+	            <bean parent="transactional-cache">
+	                <property name="name" value="com.mycompany.MyEntity1.children"/>
+	            </bean> -->
+	 
+	            <!-- Configuration for update timestamps cache. -->
+	            <bean parent="atomic-cache">
+	                <property name="name" value="org.hibernate.cache.spi.UpdateTimestampsCache"/>
+	            </bean>
+	 
+	            <!-- Configuration for query result cache. -->
+	            <bean parent="atomic-cache">
+	                <property name="name" value="org.hibernate.cache.internal.StandardQueryCache"/>
+	            </bean>
+	            <!-- Configuration for query result cache. -->
+	            <bean parent="atomic-cache">
+	                <property name="name" value="default-query-results-region"/>
+	            </bean>
+	              <!-- Configuration for query result cache. -->
+	            <bean parent="atomic-cache">
+	                <property name="name" value="default-update-timestamps-region"/>
+	            </bean>
+	        </list>
+	    </property>
+	    
+		<property name="transactionConfiguration">
+	        <bean class="org.apache.ignite.configuration.TransactionConfiguration">
+	        	<property name="txManagerLookupClassName" value="org.springframework.orm.jpa.JpaTransactionManager"/>
+	        </bean>
+		</property>
+		
+		<!--<property name="peerClassLoadingEnabled" value="true"/>-->
+
+
+	</bean>
+
+
+	
+	<bean abstract="true" id="ignite.cfg"
+		class="org.apache.ignite.configuration.IgniteConfiguration">
+      
+        <property name="binaryConfiguration">
+		    <bean class="org.apache.ignite.configuration.BinaryConfiguration">
+		        <property name="compactFooter" value="false"/>
+		    </bean>
+		</property>
+		
+		<property name="includeEventTypes">
+	        <list>
+	            <util:constant static-field="org.apache.ignite.events.EventType.EVT_TASK_STARTED"/>
+	            <util:constant static-field="org.apache.ignite.events.EventType.EVT_TASK_FINISHED"/>
+	            <util:constant static-field="org.apache.ignite.events.EventType.EVT_TASK_FAILED"/>
+	        </list>
+    	</property>
+        <!-- 生产环境，需要把core和mvc/admin做端口隔离 -->
+        <property name="discoverySpi">
+            <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+                <!-- Initial local port to listen to. -->
+                <property name="localPort" value="48610"/>
+                <!-- Changing local port range. This is an optional action. -->
+                <property name="localPortRange" value="20"/>
+                <property name="ipFinder">
+                    <!-- 生产环境 -->
+                    <!--<bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder">
+                          <property name="multicastGroup" value="228.10.10.155"/>
+                    </bean>-->
+                    <!-- 开发环境 -->
+                    <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
+                        <property name="addresses">
+                            <list>
+                                <value>127.0.0.1:48610..48611</value>
+                            </list>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+	</bean>
+	
+	
+	<bean parent="ignite.cfg">
+		<property name="igniteInstanceName" value="service-cache-grid" />
+	</bean>
+
+	
+</beans>

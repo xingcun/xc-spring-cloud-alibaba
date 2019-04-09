@@ -1,12 +1,12 @@
 package com.xc.util.jwt;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Created by ace on 2017/9/10.
- */
-public class JWTInfo extends HashMap implements Serializable, IJWTInfo {
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
+public class JWTInfo implements Serializable {
 	private String username;
 	private String id;
 	private String nickName;
@@ -21,32 +21,28 @@ public class JWTInfo extends HashMap implements Serializable, IJWTInfo {
 		setNickName(name);
 	}
 
-	@Override
+
 	public String getUsername() {
-		return (String) this.get("username");
+		return username;
 	}
 
 	public void setUsername(String username) {
-		this.put("username", username);
 		this.username = username;
 	}
 
-	@Override
 	public String getId() {
-		return (String) this.get("id");
+		return id;
 	}
 
-	public void setId(String userId) {
-		this.put("id", userId);
-		this.id = userId;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getNickName() {
-		return (String) this.get("nickName");
+		return nickName;
 	}
 
 	public void setNickName(String nickName) {
-		this.put("nickName", nickName);
 		this.nickName = nickName;
 	}
 
@@ -68,4 +64,11 @@ public class JWTInfo extends HashMap implements Serializable, IJWTInfo {
 
 	}
 
+	public JSONObject toJsonObj() {
+		return JSON.parseObject(JSON.toJSONString(this));
+	}
+	
+	public static JWTInfo of(Object body) {
+		return JSON.parseObject(JSON.toJSONString(body),JWTInfo.class);
+	}
 }

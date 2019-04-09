@@ -13,9 +13,6 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by ace on 2017/9/10.
- */
 public class RsaKeyHelper {
 	/**
 	 * 获取公钥
@@ -155,12 +152,16 @@ public class RsaKeyHelper {
 		return (new BASE64Decoder()).decodeBuffer(s);
 	}
 
-	public static void main(String[] args) throws NoSuchAlgorithmException {
+	public static void main(String[] args) throws Exception {
 		KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
 		SecureRandom secureRandom = new SecureRandom("123".getBytes());
 		keyPairGenerator.initialize(1024, secureRandom);
 		KeyPair keyPair = keyPairGenerator.genKeyPair();
 		System.out.println(keyPair.getPublic().getEncoded());
+		
+		Map<String, byte[]> map = RsaKeyHelper.generateKey("xxxxxxxx");
+		System.out.println(toHexString(map.get("pri")));
+		System.out.println(toHexString(map.get("pub")));
 	}
 
 }

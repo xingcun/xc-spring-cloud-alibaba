@@ -1,5 +1,5 @@
 server:
-  port: 8011
+  port: 8022
 #logging:
 #  level:
 #     root: debug
@@ -12,10 +12,13 @@ dubbo:
    
   registries:
     registry1:
-        address: nacos://127.0.0.1:8848?namespace=cbe53515-f2ac-4ce1-bf54-c3fd9259a1da
+        address: nacos://127.0.0.1:8848
+        #?namespace=cbe53515-f2ac-4ce1-bf54-c3fd9259a1da
     #    parameters[a]: bb
       #  address: nacos://127.0.0.1:8848
    # group: DEV-GROUP
+  provider: 
+    timeout: 10000
   protocol: 
     name: dubbo
     port: -1
@@ -52,24 +55,24 @@ spring:
         filters: stat,wall,log4j
         poolPreparedStatements: true
         maxPoolPreparedStatementPerConnectionSize: 20
-  jpa:
+  jpa: 
       database: POSTGRESQL
       show-sql: true
       properties:
         hibernate.temp.use_jdbc_metadata_defaults: false
         hibernate.hbm2ddl.auto: update  #validate update
         hibernate.dialect: com.xc.util.JSONBPostgreSQLDialect
-#        hibernate.cache.use_second_level_cache: true
-#        hibernate.cache.use_query_cache: true
+        hibernate.cache.use_second_level_cache: true
+        hibernate.cache.use_query_cache: true
         hibernate.generate_statistics: true
         hibernate.enable_lazy_load_no_trans: true #开启懒加载的，但有问题暂未处理
-#        hibernate.cache.region.factory_class: org.apache.ignite.cache.hibernate.HibernateRegionFactory
-#        hibernate.org.apache.ignite.hibernate.ignite_instance_name: hibernate-grid
-#        hibernate.org.apache.ignite.hibernate.default_access_type: TRANSACTIONAL
+        hibernate.cache.region.factory_class: org.apache.ignite.cache.hibernate.HibernateRegionFactory
+        hibernate.org.apache.ignite.hibernate.ignite_instance_name: hibernate-grid
+        hibernate.org.apache.ignite.hibernate.default_access_type: TRANSACTIONAL
         hibernate.connection.release_mode: on_close
         javax.persistence.sharedCache.mode: ENABLE_SELECTIVE
-#        org.apache.ignite.hibernate.ignite_instance_name: hibernate-grid
-        #org.apache.ignite.hibernate.grid_config: applicationContext-ignite.xml    
+        org.apache.ignite.hibernate.ignite_instance_name: hibernate-grid
+        org.apache.ignite.hibernate.grid_config: applicationContext-ignite.xml    
         
            
 ##请求和响应GZIP压缩支持
@@ -84,4 +87,10 @@ spring:
 #      mime-types: text/xml,application/xml,application/json
 #      min-request-size: 1
 #    response:
-#      enabled: true           
+#      enabled: true   
+
+
+jwt:
+  expire: 2880
+  rsa-secret: xc-service-password
+        

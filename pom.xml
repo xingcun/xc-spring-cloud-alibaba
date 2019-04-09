@@ -64,6 +64,20 @@
 		</dependencies>
 	</dependencyManagement>
 	<repositories>
+
+
+		<repository>
+			<id>gridgainsystems</id>
+			<name>gridgainsystems</name>
+			<url>http://www.gridgainsystems.com/nexus/content/repositories/external/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+
 		<repository>
 			<id>nexus-aliyun</id>
 			<name>Nexus aliyun</name>

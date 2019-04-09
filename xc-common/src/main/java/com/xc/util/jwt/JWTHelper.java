@@ -7,9 +7,6 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-/**
- * Created by ace on 2017/9/10.
- */
 public class JWTHelper {
 	private static RsaKeyHelper rsaKeyHelper = new RsaKeyHelper();
 
@@ -22,10 +19,10 @@ public class JWTHelper {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String generateToken(IJWTInfo jwtInfo, String priKeyPath, int expire) throws Exception {
+	public static String generateToken(JWTInfo jwtInfo, String priKeyPath, int expire) throws Exception {
 		String compactJws = Jwts.builder().setSubject(jwtInfo.getId())
-				.addClaims(jwtInfo)
-				.setExpiration(DateTime.now().plusSeconds(expire).toDate())
+				.addClaims(jwtInfo.toJsonObj())
+				.setExpiration(DateTime.now().plusMinutes(expire).toDate())
 				.signWith(SignatureAlgorithm.RS256, rsaKeyHelper.getPrivateKey(priKeyPath)).compact();
 		return compactJws;
 	}
@@ -39,10 +36,10 @@ public class JWTHelper {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String generateToken(IJWTInfo jwtInfo, byte priKey[], int expire) throws Exception {
+	public static String generateToken(JWTInfo jwtInfo, byte priKey[], int expire) throws Exception {
 		String compactJws = Jwts.builder().setSubject(jwtInfo.getId())
-				.addClaims(jwtInfo)
-				.setExpiration(DateTime.now().plusSeconds(expire).toDate())
+				.addClaims(jwtInfo.toJsonObj())
+				.setExpiration(DateTime.now().plusMinutes(expire).toDate())
 				.signWith(SignatureAlgorithm.RS256, rsaKeyHelper.getPrivateKey(priKey)).compact();
 		return compactJws;
 	}
@@ -80,11 +77,10 @@ public class JWTHelper {
 	 * @return
 	 * @throws Exception
 	 */
-	public static IJWTInfo getInfoFromToken(String token, String pubKeyPath) throws Exception {
+	public static JWTInfo getInfoFromToken(String token, String pubKeyPath) throws Exception {
 		Jws<Claims> claimsJws = parserToken(token, pubKeyPath);
 		Claims body = claimsJws.getBody();
-		JWTInfo info = new JWTInfo();
-		info.putAll(body);
+		JWTInfo info = JWTInfo.of(body);
 		return info;
 	}
 
@@ -96,11 +92,10 @@ public class JWTHelper {
 	 * @return
 	 * @throws Exception
 	 */
-	public static IJWTInfo getInfoFromToken(String token, byte[] pubKey) throws Exception {
+	public static JWTInfo getInfoFromToken(String token, byte[] pubKey) throws Exception {
 		Jws<Claims> claimsJws = parserToken(token, pubKey);
 		Claims body = claimsJws.getBody();
-		JWTInfo info = new JWTInfo();
-		info.putAll(body);
+		JWTInfo info = JWTInfo.of(body);
 		return info;
 	}
 }

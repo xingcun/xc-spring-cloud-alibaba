@@ -14,10 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSONObject;
+import com.xc.base.JwtTokenUtil;
 import com.xc.pojo.user.User;
 import com.xc.service.impl.BaseServiceImpl;
 import com.xc.service.user.UserService;
 import com.xc.util.CommonUtil;
+import com.xc.util.jwt.JWTInfo;
 import com.xc.vo.ModelVo;
 import com.xc.vo.ModelVo.Code;
 
@@ -28,15 +30,18 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	@Autowired
+	private JwtTokenUtil jwtTokenUtil;
 	
 	@Override
 	public ModelVo getUsers(ModelVo pageVo, String userId) {
 		JSONObject input = pageVo.getInput();
+		System.out.println(jwtTokenUtil.getUserSecret());
 
 		ModelVo modelVo = new ModelVo();
-//		if(userId==null) {
-//			return getUsersSql(pageVo,userId);
-//		}
+		if(userId==null) {
+			return getUsersSql(pageVo,userId);
+		}
 		Page<User> pages = this.findAll((root, query, cb) -> {
 
 			List<Predicate> predicates = new ArrayList();
@@ -128,7 +133,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 	}
 
 	
-	
+	@Override
 	public ModelVo login(String username,String password,String loginType) {
 		
 		ModelVo vo = new ModelVo();
@@ -149,7 +154,15 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 			if(!passwordEncoder.matches(password, user.getPassword())) {
 				vo.setCodeEnum(Code.ERROR, "密码不正确");
 			}else {
-				
+				JWTInfo info = JWTInfo.of(user);
+				try {
+					String token = jwtTokenUtil.generateToken(info);
+					vo.getResult().put("token", token);
+					vo.setCodeEnum(Code.SUCCESS);
+				} catch (Exception e) {
+					e.printStackTrace();
+					vo.setCodeEnum(Code.ERROR, "用户获取token失败:"+e.getMessage());
+				}
 			}
 			
 		}else {
@@ -158,5 +171,11 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 		return vo;
 	}
 	
-	
+	@Override
+	public ModelVo getJwtUserPubKey() {
+		ModelVo vo = new ModelVo();
+		vo.setCodeEnum(Code.SUCCESS);
+		vo.getResult().put("pubKey", jwtTokenUtil.getUserPubKey());
+		return vo;
+	}
 }

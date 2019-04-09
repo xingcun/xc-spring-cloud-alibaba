@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.xc.pojo.user.User;
 import com.xc.service.user.UserService;
+import com.xc.util.LoginUserHolder;
 import com.xc.vo.ModelVo;
 import com.xc.vo.ModelVo.Code;
 
@@ -34,7 +35,7 @@ public class UserControl {
 	public ModelVo getUsers(HttpServletRequest request,HttpServletResponse response,
 			@RequestBody ModelVo pageVo) {
 		ModelVo modelVo = new ModelVo();
-
+		System.out.println(LoginUserHolder.getLoginUser().getId());
 		try {
 			modelVo = userService.getUsers(pageVo,null);
 			modelVo.setCodeEnum(Code.SUCCESS);
@@ -111,5 +112,11 @@ public class UserControl {
 			modelVo.setMessage("error:"+e.getMessage());
 		}
 		return modelVo;
+	}
+	
+	@RequestMapping(value = "/login")
+	@ResponseBody
+	public ModelVo login(String username,String password) {
+		return userService.login(username, password, "ADMIN");
 	}
 }

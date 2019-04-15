@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xc.vo.ModelVo;
-import com.xc.vo.ModelVo.Code;
+import com.xc.vo.BaseModelVo;
+import com.xc.vo.BaseModelVo.Code;
 
 @ControllerAdvice()
 @ResponseBody
@@ -18,10 +18,10 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler(Exception.class)
-    public ModelVo otherExceptionHandler(HttpServletResponse response, Exception ex) {
+    public BaseModelVo otherExceptionHandler(HttpServletResponse response, Exception ex) {
         response.setStatus(500);
         logger.error(ex.getMessage(),ex);
-        ModelVo vo = new ModelVo();
+        BaseModelVo vo = new BaseModelVo();
         if(ex instanceof NeedLoginException) {
         	vo.setCodeEnum(Code.USER_NO_LOGIN, ex.getMessage());
         }else {

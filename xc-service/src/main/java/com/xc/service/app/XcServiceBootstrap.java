@@ -1,5 +1,9 @@
 package com.xc.service.app;
 
+import java.util.List;
+
+import org.apache.ignite.Ignite;
+import org.apache.ignite.Ignition;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -26,6 +30,11 @@ public class XcServiceBootstrap {
 //		  new SpringApplicationBuilder(XcServiceBootstrap.class).run(args); 
 		SpringApplication.run(XcServiceBootstrap.class, args);
 		System.out.println("XcServiceBootstrap provider is starting...");
+		List<Ignite> ignites = Ignition.allGrids();
+		for(Ignite ignite : ignites) {
+			System.out.println(ignite.name());
+		}
+				
 	}
 	
 	@Bean

@@ -20,8 +20,8 @@ import com.xc.service.impl.BaseServiceImpl;
 import com.xc.service.user.UserService;
 import com.xc.util.CommonUtil;
 import com.xc.util.jwt.JWTInfo;
+import com.xc.vo.BaseModelVo.Code;
 import com.xc.vo.ModelVo;
-import com.xc.vo.ModelVo.Code;
 
 @Service
 @Transactional

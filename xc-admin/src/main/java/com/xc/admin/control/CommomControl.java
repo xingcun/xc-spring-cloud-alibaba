@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.xc.exception.NeedLoginException;
-import com.xc.vo.ModelVo;
-import com.xc.vo.ModelVo.Code;
+import com.xc.vo.BaseModelVo;
+import com.xc.vo.BaseModelVo.Code;
 
 @RestController
 public class CommomControl {
@@ -21,8 +21,8 @@ public class CommomControl {
 //	}
 	
 	@RequestMapping("/404")
-	public ModelVo notFound() {
-		ModelVo vo = new ModelVo();
+	public BaseModelVo notFound() {
+		BaseModelVo vo = new BaseModelVo();
 		vo.setCodeEnum(Code.NO_FOUND);
 		return vo;
 	}
@@ -30,8 +30,8 @@ public class CommomControl {
 	
 	@RequestMapping("/commomError")
 	@ResponseBody
-	public ModelVo error(HttpServletRequest request) {
-		ModelVo vo = new ModelVo();
+	public BaseModelVo error(HttpServletRequest request) {
+		BaseModelVo vo = new BaseModelVo();
 		Throwable exception  = (Throwable) request.getAttribute("javax.servlet.error.exception");
 		if(exception!=null) {
 			 if(exception instanceof NeedLoginException) {

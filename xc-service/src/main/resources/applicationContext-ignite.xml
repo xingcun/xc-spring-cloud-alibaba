@@ -21,7 +21,7 @@
         http://www.springframework.org/schema/util
         http://www.springframework.org/schema/util/spring-util.xsd">
  	<!-- Basic configuration for atomic cache. -->
-	<bean id="atomic-cache" class="org.apache.ignite.configuration.CacheConfiguration" abstract="true">
+	<bean id="atomic-cache" class="org.apache.ignite.configuration.CacheConfiguration" abstract="true"  >
 	    <property name="cacheMode" value="PARTITIONED"/>
 	    <property name="atomicityMode" value="ATOMIC"/>
 	    <property name="writeSynchronizationMode" value="FULL_SYNC"/>
@@ -38,7 +38,7 @@
 	</bean>
 	 
 	<!-- Basic configuration for transactional cache. -->
-	<bean id="transactional-cache" class="org.apache.ignite.configuration.CacheConfiguration" abstract="true">
+	<bean id="transactional-cache" class="org.apache.ignite.configuration.CacheConfiguration" abstract="true"  >
 	    <property name="cacheMode" value="PARTITIONED"/>
 	    <property name="atomicityMode" value="TRANSACTIONAL"/>
 	    <property name="writeSynchronizationMode" value="FULL_SYNC"/>
@@ -122,7 +122,6 @@
 	            <util:constant static-field="org.apache.ignite.events.EventType.EVT_TASK_FAILED"/>
 	        </list>
     	</property>
-        <!-- 生产环境，需要把core和mvc/admin做端口隔离 -->
         <property name="discoverySpi">
             <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
                 <!-- Initial local port to listen to. -->
@@ -138,7 +137,7 @@
                     <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
                         <property name="addresses">
                             <list>
-                                <value>127.0.0.1:48610..48611</value>
+                                <value>127.0.0.1:48610..48620</value>
                             </list>
                         </property>
                     </bean>

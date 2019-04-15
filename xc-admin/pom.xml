@@ -28,25 +28,22 @@
 		</dependency>
 
 
- 		<dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-okhttp</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-okhttp</artifactId>
+		</dependency>
 		<!-- <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-alibaba-dependencies</artifactId> 
 			<version>0.2.1.RELEASE</version> <type>pom</type> <scope>import</scope> </dependency> -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-			<version>0.2.1.RELEASE</version>
 		</dependency>
 
 		<!-- <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId> 
-			<version>0.2.1.RELEASE</version> </dependency> -->
-
+			</dependency> -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-			<version>0.2.1.RELEASE</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
@@ -62,7 +59,11 @@
 			<artifactId>dubbo-registry-nacos</artifactId>
 			<version>2.6.6</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.alibaba.nacos</groupId>
+			<artifactId>nacos-client</artifactId>
+			<version>1.0.0-RC4</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.alibaba.spring/spring-context-support -->
 		<dependency>
@@ -70,11 +71,14 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>1.0.2</version>
 		</dependency>
-		
+
+
+
+		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
 		<dependency>
-			<groupId>com.alibaba.nacos</groupId>
-			<artifactId>nacos-client</artifactId>
-			<version>1.0.0-RC2</version>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.197</version>
 		</dependency>
 	</dependencies>
 </project>

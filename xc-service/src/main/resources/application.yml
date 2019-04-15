@@ -1,5 +1,5 @@
 server:
-  port: 8022
+  port: 8021
 #logging:
 #  level:
 #     root: debug

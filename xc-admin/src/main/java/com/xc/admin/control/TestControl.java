@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.xc.admin.feign.TestFeign;
 import com.xc.service.TestCacosService;
 import com.xc.service.TestService;
+import com.xc.util.CacheFactory;
 
 @RestController
 public class TestControl {
@@ -26,6 +27,7 @@ public class TestControl {
 	@RequestMapping(value = "/test")
 	public JSONObject test(String msg) {
 		System.out.println("------------------------------");
+		CacheFactory.getInstance().getCache("test").put("msg", msg);
 		JSONObject obj = new JSONObject();
 		testService.test();
 		testCacosService.send(msg);
@@ -35,6 +37,7 @@ public class TestControl {
 	
 	@RequestMapping(value = "/testFeign")
 	public JSONObject testFeign(@RequestBody JSONObject obj) {
+		System.out.println("admin cache msg:"+CacheFactory.getInstance().getCache("test").get("msg"));
 		return testFeign.test(obj);
 	}
 

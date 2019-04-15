@@ -11,11 +11,12 @@
 		<module>xc-api</module>
 		<module>xc-service</module>
 		<module>xc-admin</module>
+		<module>xc-gate</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.2.RELEASE</version>
+		<version>2.1.4.RELEASE</version>
 	</parent>
 	<build>
 		<finalName>xc-spring-cloud</finalName>
@@ -53,10 +54,12 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
-				<version>0.2.1.RELEASE</version>
+				<!-- <version>0.2.1.RELEASE</version> -->
+				<version>2.1.0.BUILD-SNAPSHOT</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -89,6 +92,15 @@
 			<releases>
 				<enabled>true</enabled>
 			</releases>
+		</repository>
+
+		<repository>
+			<id>spring-snapshot</id>
+			<name>Spring Snapshot Repository</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
 		</repository>
 	</repositories>
 

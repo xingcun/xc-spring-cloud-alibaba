@@ -39,6 +39,7 @@
 		</dependency>
 
 
+
 		<dependency>
 			<groupId>org.apache.ignite</groupId>
 			<artifactId>ignite-core</artifactId>
@@ -53,12 +54,19 @@
 			<groupId>org.apache.ignite</groupId>
 			<artifactId>ignite-indexing</artifactId>
 			<version>${ignite.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.h2database</groupId>
+					<artifactId>h2</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.ignite</groupId>
 			<artifactId>ignite-web</artifactId>
 			<version> ${ignite.version}</version>
 		</dependency>
+
 	</dependencies>
 
 </project>

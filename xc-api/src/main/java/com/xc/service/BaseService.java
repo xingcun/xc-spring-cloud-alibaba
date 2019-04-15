@@ -82,4 +82,5 @@ public interface BaseService<M extends BaseEntity<ID>, ID extends Serializable> 
 	public ModelVo saveObject(M obj,String userId,String...filters);
 	
 
+	public ModelVo getPageResult(ModelVo vo);
 }

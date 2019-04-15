@@ -3,6 +3,7 @@ package com.xc.admin;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ignite.Ignition;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
@@ -46,11 +47,23 @@ public class XcAdminBootstrap implements WebMvcConfigurer,ErrorPageRegistrar   {
 //		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 //		context.register(XcServiceBootstrap.class);
 //		context.refresh();
-//		  new SpringApplicationBuilder(XcServiceBootstrap.class).run(args); 
-		 SpringApplication springApplication = new SpringApplication(XcAdminBootstrap.class);
+//		  new SpringApplicationBuilder(XcServiceBootstrap.class).run(args);
+//		 SpringApplication springApplication = new SpringApplication(XcAdminBootstrap.class);
 //	        springApplication.addListeners(new LoginUserHolder());
-	        springApplication.run(args);
-//		ConfigurableApplicationContext context = SpringApplication.run(XcAdminBootstrap.class, args);
+//	        springApplication.run(args);
+		Ignition.start("applicationContext-ignite.xml");
+		ConfigurableApplicationContext context = SpringApplication.run(XcAdminBootstrap.class, args);
+	/*	
+		 String[] beans = context.getBeanDefinitionNames();
+
+	        for (String bean : beans)
+
+	        {
+
+	            System.out.println(bean + " of Type :: " + context.getBean(bean).getClass());
+
+	        }
+	        */
 		System.out.println("XcAdminBootstrap provider is starting...");
 	}
 

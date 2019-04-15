@@ -3,7 +3,6 @@ package com.xc.admin.control.user;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,15 +10,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.xc.control.BaseControl;
 import com.xc.pojo.user.User;
 import com.xc.service.user.UserService;
 import com.xc.util.LoginUserHolder;
+import com.xc.vo.BaseModelVo.Code;
 import com.xc.vo.ModelVo;
-import com.xc.vo.ModelVo.Code;
 
 @RestController
 @RequestMapping(value = "/user")
-public class UserControl {
+public class UserControl extends BaseControl<UserService, User, String>{
 	
 	@Reference
 	private UserService userService;
@@ -37,7 +37,7 @@ public class UserControl {
 		ModelVo modelVo = new ModelVo();
 		System.out.println(LoginUserHolder.getLoginUser().getId());
 		try {
-			modelVo = userService.getUsers(pageVo,null);
+			modelVo = userService.getUsers(pageVo,LoginUserHolder.getLoginUser().getId());
 			modelVo.setCodeEnum(Code.SUCCESS);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,30 +48,6 @@ public class UserControl {
 		return modelVo;
 	}
 
-	/**
-	 * 用户详情
-	 * @param request
-	 * @param response
-	 * @param userId
-	 * @return
-	 */
-	@GetMapping(value = "/get")
-	@ResponseBody
-	public ModelVo getUserDetailsById(HttpServletRequest request,HttpServletResponse response,
-			 String userId) {
-		ModelVo modelVo = new ModelVo();
-
-		try {
-			modelVo = userService.getObject(userId);
-			modelVo.setCodeEnum(Code.SUCCESS);
-		} catch (Exception e) {
-			e.printStackTrace();
-			modelVo.setCode(Code.ERROR);
-			modelVo.setMessage("error:"+e.getMessage());
-		}
-
-		return modelVo;
-	}
 	
 
 	/**
@@ -80,12 +56,12 @@ public class UserControl {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/save")
+	@RequestMapping(value = "/saveUser")
 	@ResponseBody
 	public ModelVo saveUser(@RequestBody User user){
         ModelVo modelVo = new ModelVo();
 		try {
-			modelVo = userService.saveUser(user,user.getId());
+			modelVo = userService.saveUser(user,LoginUserHolder.getLoginUser().getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelVo.setCode(Code.ERROR);
@@ -94,25 +70,6 @@ public class UserControl {
 		return modelVo;
 	}
 
-	/**
-	 * 删除用户
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/delete")
-	@ResponseBody
-	public ModelVo delUser(String userId){
-        ModelVo modelVo = new ModelVo();
-		
-		try {
-			modelVo = userService.deleteStatus(userId, userId);
-		} catch (Exception e) {
-			e.printStackTrace();
-			modelVo.setCode(Code.ERROR);
-			modelVo.setMessage("error:"+e.getMessage());
-		}
-		return modelVo;
-	}
 	
 	@RequestMapping(value = "/login")
 	@ResponseBody
@@ -124,5 +81,12 @@ public class UserControl {
 	@ResponseBody
 	public ModelVo regist(@RequestBody User user) {
 		return userService.regist(user);
+	}
+
+
+
+	@Override
+	public UserService getBaseService() {
+		return this.userService;
 	}
 }

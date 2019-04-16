@@ -28,7 +28,7 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class AccessGatewayFilter implements GlobalFilter {
 
-	@Value("${ignore.startWith}")
+	@Value("${gate.ignore.startWith}")
 	private String startWith;
 
 

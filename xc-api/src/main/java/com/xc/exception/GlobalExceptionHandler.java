@@ -24,6 +24,8 @@ public class GlobalExceptionHandler {
         BaseModelVo vo = new BaseModelVo();
         if(ex instanceof NeedLoginException) {
         	vo.setCodeEnum(Code.USER_NO_LOGIN, ex.getMessage());
+        }else if(ex.getMessage()!=null && ex.getMessage().contains("FlowException")) {
+        	vo.setCodeEnum(Code.SUPER_EXCEPTION, "访问量过高,请稍后访问");
         }else {
         	vo.setCodeEnum(Code.SUPER_EXCEPTION, ex.getMessage());
         }

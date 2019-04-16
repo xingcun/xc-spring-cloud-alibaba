@@ -22,6 +22,24 @@ spring cloud alibaba集成框架
 > *  增加baseControl接口，基本的增删改查，实现该接口即可完成
 > *  增加公共的ignite缓存层,通过CacheFactoryv即可获取.
 
+2019-04-16
+> *  此版本增加了sentinel+dubbo+nacos 服务限流
+
+在nacos配置上自行增加名为dubbo-sentinel-json的配置即可实现限流
+```
+[
+
+   {
+    "resource": "com.xc.service.user.UserService",
+    "count": 1,
+    "controlBehavior":2
+  }
+  
+]
+```
+
+
+
 # Start project
 
 * **先启动nacos，使用的是1.0版的,请自行到nacos官网下载使用**

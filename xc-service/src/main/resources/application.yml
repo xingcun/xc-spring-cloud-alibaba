@@ -20,12 +20,10 @@ dubbo:
    # group: DEV-GROUP
   provider: 
     timeout: 10000
-    retries: 0
+    retries: 1
   protocol: 
     name: dubbo
     port: -1
-  consumer:
-    retries: 1  
    
 
 demo:

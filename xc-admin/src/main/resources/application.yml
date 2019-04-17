@@ -1,5 +1,5 @@
 server:
-  port: 8011
+  port: 8012
   compression:
     enabled: true
 #    mime-types: 
@@ -19,8 +19,8 @@ dubbo:
     qosEnable: false
   registry:
     address: nacos://127.0.0.1:8848
-  provider:
-    host: 127.0.0.1   
+ # provider:
+    #host: 127.0.0.1   
     #?namespace=cbe53515-f2ac-4ce1-bf54-c3fd9259a1da
   protocol: 
     name: nacos

@@ -38,6 +38,8 @@ spring cloud alibaba集成框架
 ]
 ```
 
+2019-04-17
+> *  此版本修改了sentinel+dubbo+nacos 服务限流的方式，更改为spring cloud的引用具体配置在xc-service中的application.yml文件
 
 
 # Start project

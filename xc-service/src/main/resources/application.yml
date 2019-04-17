@@ -1,5 +1,5 @@
 server:
-  port: 8021
+  port: 8020
 #logging:
 #  level:
 #     root: debug
@@ -13,15 +13,19 @@ dubbo:
   registries:
     registry1:
         address: nacos://127.0.0.1:8848
+        retries: 0
         #?namespace=cbe53515-f2ac-4ce1-bf54-c3fd9259a1da
     #    parameters[a]: bb
       #  address: nacos://127.0.0.1:8848
    # group: DEV-GROUP
   provider: 
     timeout: 10000
+    retries: 0
   protocol: 
     name: dubbo
     port: -1
+  consumer:
+    retries: 1  
    
 
 demo:
@@ -35,6 +39,18 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+    sentinel: 
+      enabled: true
+#      transport: 
+#        dashboard: 127.0.0.1:8088
+      datasource:
+        ds1:
+          nacos: 
+            ruleType: flow
+            server-addr: 127.0.0.1:8848
+            dataId: dubbo-sentinel-json
+            groupId: DEFAULT_GROUP
+              
   datasource:
         url: jdbc:postgresql://127.0.0.1:5432/dbxc?autoReconnect=true
         username: postgres

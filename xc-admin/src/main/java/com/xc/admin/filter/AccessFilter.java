@@ -42,7 +42,7 @@ public class AccessFilter implements Filter {
         	chain.doFilter(request, response);
         	return;
         }else {
-        	throw new NeedLoginException("用户未登录");
+        	throw new NeedLoginException(requestUri+"用户未登录");
         }
 //        ctx.header(userAuthConfig.getTokenHeader(), authToken);
 //        BaseContextHandler.setToken(authToken);
@@ -59,13 +59,15 @@ public class AccessFilter implements Filter {
 		if(startWith==null || startWith.length()==0) {
 			return false;
 		}
-		boolean flag = false;
+		if(requestUri.startsWith("/favicon.ico")) {
+			return true;
+		}
 		for (String url : startWith.split(",")) {
 			if (requestUri.startsWith(url)) {
 				return true;
 			}
 		}
-		return flag;
+		return false;
 	}
 
 }

@@ -52,4 +52,8 @@ public class CacheFactory {
 		}
 		return cacheFactory;
 	}
+	
+	public IgniteCache<String,Object> getLockCache(){
+		return getCache("CAHCE-LOCK-DISTRIBUTED");
+	}
 }

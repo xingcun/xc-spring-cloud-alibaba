@@ -42,6 +42,12 @@ spring cloud alibaba集成框架
 > *  此版本修改了sentinel+dubbo+nacos 服务限流的方式，更改为spring cloud的引用具体配置在xc-service中的application.yml文件
 
 
+2019-04-22
+> *  此版本增加了ExecutorThreadConfig 内部线程执行器,可通过xc.executor.enabled进行启用与配置
+> *  增加了BaseSchedule,简易的分布式任务执行功能
+> *  增加分布式锁的使用与监听
+
+
 # Start project
 
 * **先启动nacos，使用的是1.0版的,请自行到nacos官网下载使用**
@@ -54,4 +60,5 @@ spring cloud alibaba集成框架
 > * 数据库配置连接上，直接启动就会自动建表
 > * 访问127.0.0.1:8880/api/admin/user/regist 注册用户
 > * 127.0.0.1:8880/api/admin/user/login?username=xx&password=xx 登录,获取token后放在header请求中,xc-token=xxxxxxxxxxxx
+> * 如需使用sentinel做监听，可打开xc-service配置文件application.yml中的 sentinel.transport.dashboard,  自行到官网下载,[sentinel1.5.1](https://github.com/alibaba/Sentinel/releases)	启动命令 java -Dserver.port=8088 -Dcsp.sentinel.dashboard.server=localhost:8088 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.5.1.jar
  

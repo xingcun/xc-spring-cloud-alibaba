@@ -103,11 +103,11 @@ public class User extends BaseEntity<String> {
 	private JSONObject attrs;
 	
 
-
+	@Override
 	public String getId() {
 		return id;
 	}
-
+	@Override
 	public void setId(String id) {
 		this.id = id;
 	}

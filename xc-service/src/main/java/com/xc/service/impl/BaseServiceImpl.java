@@ -42,10 +42,6 @@ import com.xc.vo.ModelVo;
  * 泛型 ： M 表示实体类型；ID表示主键类型
  * <p/>
  * <p>
- * User: pengxinxin
- * <p>
- * Date: 13-1-12 下午4:43
- * <p>
  * Version: 1.0
  */
 @Transactional
@@ -81,6 +77,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 	 * @param m 实体
 	 * @return 返回保存的实体
 	 */
+	@Override
 	public boolean save(M m) {
 		M m1 = baseRepository.save(m);
 		if (m1 != null) {
@@ -93,7 +90,8 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 		Iterable<M> m1 = baseRepository.saveAll(entities);
 		return m1;
 	}
-
+	
+	@Override
 	public M saveObj(M m) {
 		m = baseRepository.save(m);
 		if (m != null) {
@@ -113,6 +111,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 	 * @param m 实体
 	 * @return 返回更新的实体
 	 */
+	@Override
 	public boolean update(M m) {
 		M m1 = baseRepository.save(m);
 		if (m1.equals(m)) {
@@ -127,6 +126,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 	 * @param id 主键
 	 */
 	@Transactional
+	@Override
 	public boolean delete(ID id) {
 		baseRepository.deleteById(id);
 		return true;
@@ -147,6 +147,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 	 *
 	 * @param m 实体
 	 */
+	@Override
 	public void delete(M m) {
 		baseRepository.delete(m);
 	}
@@ -156,6 +157,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 	 *
 	 * @param id 主键
 	 */
+	@Override
 	public ModelVo deleteStatus(ID id, String userId) {
 		ModelVo vo = new ModelVo();
 		M m = findOne(id);
@@ -177,6 +179,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 	 * @param id 主键
 	 * @return 返回id对应的实体
 	 */
+	@Override
 	public M findOne(ID id) {
 		Optional<M> m = baseRepository.findById(id);
 
@@ -189,6 +192,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 	 * @param id 主键
 	 * @return 存在 返回true，否则false
 	 */
+	@Override
 	public boolean exists(ID id) {
 		return baseRepository.existsById(id);
 	}
@@ -198,6 +202,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 	 *
 	 * @return 实体总数
 	 */
+	@Override
 	public long count() {
 		return baseRepository.count();
 	}
@@ -207,6 +212,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 	 *
 	 * @return
 	 */
+	
 	public List<M> findAll() {
 		return baseRepository.findAll();
 	}
@@ -312,7 +318,8 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 		
 		return modelVo;
 	}
-
+	
+	@Override
 	public ModelVo saveObject(M obj, String userId, String... filters) {
 		ModelVo vo = new ModelVo();
 		vo.setCode(Code.SUCCESS);
@@ -344,7 +351,8 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 		return vo;
 
 	}
-
+	
+	@Override
 	public ModelVo getObject(ID id) {
 		ModelVo vo = new ModelVo();
 		M obj = this.findOne(id);

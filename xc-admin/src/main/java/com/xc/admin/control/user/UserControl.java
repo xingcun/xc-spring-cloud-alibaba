@@ -58,6 +58,7 @@ public class UserControl extends BaseControl<UserService, User, String>{
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/saveUser")
 	@ResponseBody
+	@Override
 	public ModelVo saveUser(@RequestBody User user){
         ModelVo modelVo = new ModelVo();
 		try {

@@ -21,6 +21,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -28,16 +29,19 @@ import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.xc.admin.schedule.TestSchedule;
 import com.xc.exception.GlobalExceptionHandler;
 import com.xc.service.user.UserService;
 import com.xc.util.LoginUserHolder;
+import com.xc.util.SpringUtils;
 
 @EnableDubbo
 //@EnableAutoConfiguration
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class,scanBasePackages= {"com.xc"})
 @EnableFeignClients({ "com.xc.admin.feign" })
 @EnableDiscoveryClient
 @Configuration
+@EnableScheduling
 public class XcAdminBootstrap implements WebMvcConfigurer,ErrorPageRegistrar   {
 
 

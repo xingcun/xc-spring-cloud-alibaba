@@ -169,7 +169,7 @@ public class RepositoryHelper {
             return ((BigDecimal)obj).longValue();
         }
         if(obj == null){
-            return 0l;
+            return 0L;
         }
         return ((Long)obj).longValue();
     }

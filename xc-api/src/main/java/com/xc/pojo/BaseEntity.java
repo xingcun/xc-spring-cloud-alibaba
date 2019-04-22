@@ -93,6 +93,7 @@ public abstract class BaseEntity<ID extends Serializable> implements
 		this.updateUserId = updateUserId;
 	}
 
+	@Override
 	public abstract ID getId();
 
 	/**
@@ -109,6 +110,7 @@ public abstract class BaseEntity<ID extends Serializable> implements
 	 * @see org.springframework.data.domain.Persistable#isNew()
 	 */
 	@JSONField(serialize=false) 
+	@Override
 	public boolean isNew() {
 
 		return null == getId();

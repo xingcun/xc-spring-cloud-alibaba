@@ -25,6 +25,7 @@ public final class SpringUtils implements BeanFactoryPostProcessor {
 	};
 	private static ResourceLoader resourceLoader = new DefaultResourceLoader();
 
+	@Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
         SpringUtils.beanFactory = beanFactory;
     }
@@ -115,7 +116,7 @@ public final class SpringUtils implements BeanFactoryPostProcessor {
 		}
 
 		return new StandardEnvironment() {
-
+			@Override
 			public void customizePropertySources(
 					MutablePropertySources propertySources) {
 				for (int i = 0; i < propertiesFiles.length; i++) {

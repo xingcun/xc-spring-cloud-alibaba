@@ -8,7 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>xc-service</artifactId>
-
+	<name>xc-service</name>
 	<dependencies>
 		<dependency>
 			<groupId>com.xc.cloud</groupId>
@@ -29,6 +29,11 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-apache-dubbo-adapter</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
 		</dependency>
@@ -39,24 +44,18 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>dubbo</artifactId>
-			<version>2.6.6</version>
-		</dependency>
+		<!-- <dependency> <groupId>com.alibaba</groupId> <artifactId>dubbo</artifactId> 
+			<version>2.6.6</version> </dependency> -->
 
 		<!-- https://mvnrepository.com/artifact/com.alibaba/dubbo-registry-nacos -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>dubbo-registry-nacos</artifactId>
 			<version>2.6.6</version>
-		</dependency>
-
-		<!-- <dependency>
-			<groupId>com.alibaba.nacos</groupId>
-			<artifactId>nacos-client</artifactId>
-			<version>1.0.0</version>
 		</dependency> -->
+
+		<!-- <dependency> <groupId>com.alibaba.nacos</groupId> <artifactId>nacos-client</artifactId> 
+			<version>1.0.0</version> </dependency> -->
 		<!-- https://mvnrepository.com/artifact/com.alibaba.spring/spring-context-support -->
 		<dependency>
 			<groupId>com.alibaba.spring</groupId>
@@ -109,6 +108,17 @@
 
 
 	</dependencies>
-
+	<build>
+		 <resources>
+           <!-- 打包时放开 
+           	 <resource>
+                <directory>${project.basedir}/other</directory>
+                <targetPath>BOOT-INF/lib/</targetPath>
+                        <includes>
+                           <include>**/*.jar</include>
+                        </includes>
+            </resource> -->
+       	</resources>
+	</build>
 
 </project>

@@ -3,13 +3,13 @@ package com.xc.admin.control.user;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.xc.control.BaseControl;
 import com.xc.pojo.user.User;
 import com.xc.service.user.UserService;

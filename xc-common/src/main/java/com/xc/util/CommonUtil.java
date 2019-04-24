@@ -39,11 +39,6 @@ public class CommonUtil {
 
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-	/**
-	 * 总线程数控制 获认CPU数量*2
-	 */
-	public static final ExecutorService thread = Executors
-			.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
 
 	/**
 	 * 判断符串是否为空
@@ -60,11 +55,13 @@ public class CommonUtil {
 
 	public static Long nullLong(Object s) {
 		Long v = Long.valueOf(-1L);
-		if (s != null)
+		if (s != null) {
 			try {
 				v = Long.valueOf(Long.parseLong(s.toString()));
 			} catch (Exception localException) {
 			}
+		}
+			
 		return v;
 	}
 
@@ -88,10 +85,12 @@ public class CommonUtil {
 	}
 
 	public synchronized static <T> void mergeObject(T origin, T destination, boolean isNull, String... filters) {
-		if (origin == null || destination == null)
+		if (origin == null || destination == null) {
 			return;
-		if (!origin.getClass().equals(destination.getClass()))
+		}
+		if (!origin.getClass().equals(destination.getClass())) {
 			return;
+		}
 
 		Field[] fields = origin.getClass().getDeclaredFields();
 		List<String> filterList = filters == null ? new ArrayList<String>() : Arrays.asList(filters);
@@ -215,8 +214,9 @@ public class CommonUtil {
 	}
 
 	public static String formatLongDate(Object v) {
-		if ((v == null) || (v.equals("")))
+		if ((v == null) || (v.equals(""))) {
 			return "";
+		}
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return df.format(v);
 	}
@@ -227,8 +227,9 @@ public class CommonUtil {
 	}
 
 	public static Date formatDatePlus(Date date) {
-		if (date == null)
+		if (date == null) {
 			return null;
+		}
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.set(Calendar.HOUR_OF_DAY, 23);
@@ -244,8 +245,9 @@ public class CommonUtil {
 	}
 
 	public static Date formatDateStartPlus(Date date) {
-		if (date == null)
+		if (date == null) {
 			return null;
+		}
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.set(Calendar.HOUR_OF_DAY, 00);
@@ -275,10 +277,12 @@ public class CommonUtil {
 	}
 
 	public static Date formatTime(String format, String v) {
-		if (v == null)
+		if (v == null) {
 			return null;
-		if (v.equals(""))
+		}
+		if (v.equals("")) {
 			return null;
+		}
 		SimpleDateFormat df = new SimpleDateFormat(format);
 		try {
 			return df.parse(v);
@@ -289,10 +293,12 @@ public class CommonUtil {
 	}
 
 	public static String formatTime(String format, Object v) {
-		if (v == null)
+		if (v == null) {
 			return null;
-		if (v.equals(""))
+		}
+		if (v.equals("")) {
 			return "";
+		}
 		SimpleDateFormat df = new SimpleDateFormat(format);
 		return df.format(v);
 	}

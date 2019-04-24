@@ -151,7 +151,7 @@ public class RsaKeyHelper {
 	public static final byte[] toBytes(String s) throws IOException {
 		return (new BASE64Decoder()).decodeBuffer(s);
 	}
-
+/*
 	public static void main(String[] args) throws Exception {
 		KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
 		SecureRandom secureRandom = new SecureRandom("123".getBytes());
@@ -163,5 +163,6 @@ public class RsaKeyHelper {
 		System.out.println(toHexString(map.get("pri")));
 		System.out.println(toHexString(map.get("pub")));
 	}
+	*/
 
 }

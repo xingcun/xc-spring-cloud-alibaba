@@ -43,7 +43,7 @@
 		<dependency>
 			<groupId>com.alibaba.nacos</groupId>
 			<artifactId>nacos-client</artifactId>
-			<version>1.0.0-RC4</version>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 </project>

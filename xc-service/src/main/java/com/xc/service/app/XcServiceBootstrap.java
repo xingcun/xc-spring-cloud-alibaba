@@ -2,10 +2,9 @@ package com.xc.service.app;
 
 import java.util.List;
 
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.Ignition;
-import org.apache.ignite.lang.IgniteCallable;
-import org.apache.ignite.resources.IgniteInstanceResource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -15,8 +14,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
-import com.xc.util.CacheFactory;
 
 @EnableDubbo(scanBasePackages = "com.xc.service.impl")
 //@EnableAutoConfiguration
@@ -26,6 +23,7 @@ import com.xc.util.CacheFactory;
 
 @EntityScan("com.xc.pojo")
 public class XcServiceBootstrap {
+
 
 	public static void main(String[] args) {
 //		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
@@ -47,12 +45,15 @@ public class XcServiceBootstrap {
 	}
 
 	/*
-	 * @Bean public ReadableDataSource<String, List<FlowRule>>
-	 * getReadableDataSource() { ReadableDataSource<String, List<FlowRule>>
-	 * flowRuleDataSource = new NacosDataSource<>(serverAddr, "DEFAULT_GROUP", //
-	 * "Sentinel:Demo", sentinelFlowRule, source -> JSON.parseObject(source, new
-	 * TypeReference<List<FlowRule>>() { }));
-	 * FlowRuleManager.register2Property(flowRuleDataSource.getProperty()); return
-	 * flowRuleDataSource; }
-	 */
+	@Bean
+	public ReadableDataSource<String, List<FlowRule>> getReadableDataSource() {
+		ReadableDataSource<String, List<FlowRule>> flowRuleDataSource = new NacosDataSource<>(serverAddr,
+				"DEFAULT_GROUP", // "Sentinel:Demo",
+				sentinelFlowRule,
+				source -> JSON.parseObject(source, new TypeReference<List<FlowRule>>() {
+				}));
+		FlowRuleManager.register2Property(flowRuleDataSource.getProperty());
+		return flowRuleDataSource;
+	}
+	*/
 }

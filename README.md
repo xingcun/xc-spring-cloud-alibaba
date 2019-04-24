@@ -47,6 +47,9 @@ spring cloud alibaba集成框架
 > *  增加了BaseSchedule,简易的分布式任务执行功能
 > *  增加分布式锁的使用与监听
 
+2019-04-24
+> *  更改dubbo服务连接方式,将alibaba dubbo更换与appache dubbo2.7.1,使用spring-cloud连接方式进行服务注册
+
 
 # Start project
 

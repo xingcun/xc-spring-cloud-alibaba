@@ -12,7 +12,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.dubbo.config.annotation.Service;
+import org.apache.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.xc.base.JwtTokenUtil;
 import com.xc.pojo.user.User;
@@ -24,6 +24,7 @@ import com.xc.vo.BaseModelVo.Code;
 import com.xc.vo.ModelVo;
 
 @Service
+@org.springframework.stereotype.Service
 @Transactional
 public class UserServiceImpl extends BaseServiceImpl<User, String> implements UserService {
 

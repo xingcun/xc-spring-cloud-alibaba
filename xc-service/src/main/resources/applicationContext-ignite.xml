@@ -31,7 +31,7 @@
 	        <!-- LRU eviction policy. -->
 	        <bean class="org.apache.ignite.cache.eviction.lru.LruEvictionPolicy">
 	            <!-- Set the maximum cache size to 1 million (default is 100,000). -->
-	            <property name="maxSize" value="10000"/>
+	            <property name="maxSize" value="1000"/>
 	        </bean>
 	    </property>
 	    <property name="onheapCacheEnabled" value="true"/>
@@ -49,7 +49,7 @@
        		<!-- LRU eviction policy. -->
 	        <bean class="org.apache.ignite.cache.eviction.lru.LruEvictionPolicy">
 	            <!-- Set the maximum cache size to 1 million (default is 100,000). -->
-	            <property name="maxSize" value="100000"/>
+	            <property name="maxSize" value="1000"/>
 	        </bean>
    		</property>
    		<property name="onheapCacheEnabled" value="true"/>
@@ -138,6 +138,7 @@
                         <property name="addresses">
                             <list>
                                 <value>127.0.0.1:48610..48620</value>
+                               <!--  <value>192.168.31.202:48610..48620</value>  -->
                             </list>
                         </property>
                     </bean>

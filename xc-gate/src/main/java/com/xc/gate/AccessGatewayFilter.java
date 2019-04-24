@@ -31,6 +31,8 @@ public class AccessGatewayFilter implements GlobalFilter {
 	@Value("${gate.ignore.startWith}")
 	private String startWith;
 
+	// @Value("${zuul.prefix}")
+//    private String zuulPrefix;
 
 	private static final String GATE_WAY_PREFIX = "/api";
 
@@ -116,5 +118,15 @@ public class AccessGatewayFilter implements GlobalFilter {
 		return flag;
 	}
 
+	/**
+	 * 网关抛异常
+	 *
+	 * @param body
+	 * @param code
+	 */
+	private Mono<Void> setFailedRequest(ServerWebExchange serverWebExchange, String body, int code) {
+		serverWebExchange.getResponse().setStatusCode(HttpStatus.OK);
+		return serverWebExchange.getResponse().setComplete();
+	}
 
 }

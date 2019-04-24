@@ -11,12 +11,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.xc.service.TestCacosService;
 import com.xc.service.TestService;
 import com.xc.service.impl.TestCacosServiceImpl;
+import com.xc.service.impl.TestServiceImpl;
 
 @RestController
 public class TestFeignControl {
 
 	@Autowired
-	private TestService testService;
+	private TestServiceImpl testService;
 
 	@Autowired
 	private TestCacosServiceImpl testCacosService;

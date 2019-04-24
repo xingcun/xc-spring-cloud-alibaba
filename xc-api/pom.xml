@@ -28,11 +28,23 @@
 			<version>42.2.5</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
-		<dependency>
+	<!-- 	<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>dubbo</artifactId>
 			<version>2.6.6</version>
 		</dependency>
+		 -->
+		
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-alibaba-dubbo</artifactId>
+		</dependency>
+		  <!-- Production Ready features -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -80,7 +92,28 @@
 			<artifactId>ignite-web</artifactId>
 			<version> ${ignite.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.alibaba.nacos</groupId>
+			<artifactId>nacos-client</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.nacos</groupId>
+			<artifactId>nacos-api</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

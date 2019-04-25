@@ -28,7 +28,7 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class AccessGatewayFilter implements GlobalFilter {
 
-	@Value("${gate.ignore.startWith}")
+	@Value("${xc.gate.ignore.startWith}")
 	private String startWith;
 
 	// @Value("${zuul.prefix}")
@@ -39,9 +39,21 @@ public class AccessGatewayFilter implements GlobalFilter {
 	@Override
 	public Mono<Void> filter(ServerWebExchange serverWebExchange, GatewayFilterChain gatewayFilterChain) {
 
-		LinkedHashSet requiredAttribute = serverWebExchange
-				.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_ORIGINAL_REQUEST_URL_ATTR);
+		LinkedHashSet requiredAttribute = null;
+		try {
+			requiredAttribute = serverWebExchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_ORIGINAL_REQUEST_URL_ATTR);
+		}catch (Exception e) {
+			System.out.println("-----------------------------------");
+		}
 		ServerHttpRequest request = serverWebExchange.getRequest();
+		final String method = request.getMethod().toString();
+		ServerHttpRequest.Builder mutate = request.mutate();
+		ServerHttpRequest build = mutate.build();
+		
+		if(requiredAttribute==null) {
+			return gatewayFilterChain.filter(serverWebExchange.mutate().request(build).build());
+		}
+		
 		String requestUri = request.getPath().pathWithinApplication().value();
 		if (requiredAttribute != null) {
 			Iterator<URI> iterator = requiredAttribute.iterator();
@@ -52,11 +64,9 @@ public class AccessGatewayFilter implements GlobalFilter {
 				}
 			}
 		}
-		final String method = request.getMethod().toString();
-		ServerHttpRequest.Builder mutate = request.mutate();
+	
 		// 不进行拦截的地址
 		if (isStartWith(requestUri)) {
-			ServerHttpRequest build = mutate.build();
 			return gatewayFilterChain.filter(serverWebExchange.mutate().request(build).build());
 		}
 		JWTInfo user = null;
@@ -67,7 +77,6 @@ public class AccessGatewayFilter implements GlobalFilter {
 			vo.setCodeEnum(Code.ERROR, e.getMessage());
 			return getVoidMono(serverWebExchange, vo);
 		}
-		ServerHttpRequest build = mutate.build();
 		return gatewayFilterChain.filter(serverWebExchange.mutate().request(build).build());
 
 	}

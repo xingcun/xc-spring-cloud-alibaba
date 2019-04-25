@@ -21,7 +21,7 @@ public class TestServiceImpl implements TestService{
 		RpcContext rpcContext = RpcContext.getContext();
 		
 		System.out.println("============================"+ String.format("Service [name :TestServiceImpl , port : %d] %s: Hello, %s",
-               "",// rpcContext.getLocalPort(),
+               0,// rpcContext.getLocalPort(),
                "",// rpcContext.getMethodName(),
                 serviceName
                 ));

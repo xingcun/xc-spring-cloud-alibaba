@@ -51,6 +51,30 @@ spring cloud alibaba集成框架
 > *  更改dubbo服务连接方式,将alibaba dubbo更换与appache dubbo2.7.1,使用spring-cloud连接方式进行服务注册
 
 
+2019-04-25
+> *  此版本增加了gate+sentinel+nacos 服务限流
+
+
+在nacos配置上自行增加名为gate-sentinel-json的配置即可实现限流
+```
+[
+
+   {
+    "resource": "xc-admin",
+    "count": 1,
+    "intervalSec":1
+  },
+   {
+    "resource": "aliyun_route",
+    "count": 1,
+    "intervalSec":1
+  }
+  
+]
+```
+
+
+
 # Start project
 
 * **先启动nacos，使用的是1.0版的,请自行到nacos官网下载使用**

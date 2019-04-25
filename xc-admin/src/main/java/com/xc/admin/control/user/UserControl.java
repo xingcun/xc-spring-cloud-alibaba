@@ -39,6 +39,7 @@ public class UserControl extends BaseControl<UserService, User, String>{
 		try {
 			modelVo = userService.getUsers(pageVo,LoginUserHolder.getLoginUser().getId());
 			modelVo.setCodeEnum(Code.SUCCESS);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelVo.setCode(Code.ERROR);

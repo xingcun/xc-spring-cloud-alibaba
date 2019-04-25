@@ -107,6 +107,10 @@
 			</snapshots>
 		</repository>
 		-->
+		<repository>
+             <id>oss</id>
+             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+         </repository>
 	</repositories>
 
 </project>

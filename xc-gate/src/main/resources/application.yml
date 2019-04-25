@@ -25,10 +25,17 @@ spring:
           - Path=/api/admin/**
           filters:
           - StripPrefix=2
+        # ====test=================================    
+        - id: aliyun_route
+          uri: https://www.aliyun.com/
+          predicates:
+          - Path=/product/** 
+            
      nacos:
         discovery:
-          server-addr: 127.0.0.1:8848
+          server-addr: ${spring.cloud.nacos.config.server-addr}
 
+                
 management:
   endpoints:
     web:
@@ -38,8 +45,14 @@ management:
     enabled: false
 
 
-gate:
-  ignore:
-    startWith: /
 
+
+xc: 
+   sentinel: 
+      serverAddr: ${spring.cloud.nacos.config.server-addr}
+      dataId: gate-sentinel-json
+      groupId: DEFAULT_GROUP
+   gate:
+    ignore:
+      startWith: /   
 

@@ -1,9 +1,6 @@
 server:
   port: 8022
-#logging:
-#  level:
-#     root: debug
-      
+        
 # Nacos registry address   
 dubbo:
   scan:
@@ -42,7 +39,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: ${spring.cloud.nacos.config.server-addr}
     sentinel: 
       enabled: true
 #      transport: 
@@ -51,7 +48,7 @@ spring:
         ds1:
           nacos: 
             ruleType: flow
-            server-addr: 127.0.0.1:8848
+            server-addr: ${spring.cloud.nacos.config.server-addr}
             dataId: dubbo-sentinel-json
             groupId: DEFAULT_GROUP
               

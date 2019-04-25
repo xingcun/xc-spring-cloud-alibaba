@@ -39,6 +39,10 @@ public class CommonUtil {
 
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+	/**
+	 * 注意lock的引用，处理不当会造成死锁
+	 */
+	private static final Object LOCK= new Object();
 
 	/**
 	 * 判断符串是否为空
@@ -258,12 +262,14 @@ public class CommonUtil {
 	}
 
 	public static Date formatDate(String s) {
-		Date d = null;
-		try {
-			d = dateFormat.parse(s);
-		} catch (Exception localException) {
+		synchronized (LOCK) {
+			Date d = null;
+			try {
+				d = dateFormat.parse(s);
+			} catch (Exception localException) {
+			}
+			return d;
 		}
-		return d;
 	}
 
 	public static Date formatDateLong(String s) {

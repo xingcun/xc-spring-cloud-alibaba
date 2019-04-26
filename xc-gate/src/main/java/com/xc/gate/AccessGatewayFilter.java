@@ -90,6 +90,7 @@ public class AccessGatewayFilter implements GlobalFilter {
 		serverWebExchange.getResponse().setStatusCode(HttpStatus.OK);
 		byte[] bytes = JSONObject.toJSONString(body).getBytes(StandardCharsets.UTF_8);
 		DataBuffer buffer = serverWebExchange.getResponse().bufferFactory().wrap(bytes);
+		serverWebExchange.getResponse().getHeaders().set("Content-Type", "application/json;charset=UTF-8");
 		return serverWebExchange.getResponse().writeWith(Flux.just(buffer));
 	}
 

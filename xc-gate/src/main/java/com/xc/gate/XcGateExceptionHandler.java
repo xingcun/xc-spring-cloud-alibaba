@@ -8,7 +8,7 @@ import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebExceptionHandler;
 
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSON;
 import com.xc.vo.BaseModelVo;
 import com.xc.vo.BaseModelVo.Code;
 
@@ -21,8 +21,9 @@ public class XcGateExceptionHandler implements WebExceptionHandler {
 	@Override
 	public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
 		exchange.getResponse().setStatusCode(HttpStatus.OK);
-		byte[] bytes = JSONObject.toJSONString(buildErrorResult(ex)).getBytes(StandardCharsets.UTF_8);
+		byte[] bytes = JSON.toJSONString(buildErrorResult(ex)).getBytes(StandardCharsets.UTF_8);
 		DataBuffer buffer = exchange.getResponse().bufferFactory().wrap(bytes);
+		exchange.getResponse().getHeaders().set("Content-Type", "application/json;charset=UTF-8");
 		return exchange.getResponse().writeWith(Flux.just(buffer));
 		
 	}

@@ -133,7 +133,8 @@ public class RsaKeyHelper {
 
 	public static Map<String, byte[]> generateKey(String password) throws IOException, NoSuchAlgorithmException {
 		KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-		SecureRandom secureRandom = new SecureRandom(password.getBytes());
+		SecureRandom secureRandom =SecureRandom.getInstance("SHA1PRNG"); //new SecureRandom(password.getBytes());
+		secureRandom.setSeed(password.getBytes());
 		keyPairGenerator.initialize(1024, secureRandom);
 		KeyPair keyPair = keyPairGenerator.genKeyPair();
 		byte[] publicKeyBytes = keyPair.getPublic().getEncoded();
@@ -151,18 +152,19 @@ public class RsaKeyHelper {
 	public static final byte[] toBytes(String s) throws IOException {
 		return (new BASE64Decoder()).decodeBuffer(s);
 	}
-/*
+	/*
 	public static void main(String[] args) throws Exception {
+		
 		KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
 		SecureRandom secureRandom = new SecureRandom("123".getBytes());
 		keyPairGenerator.initialize(1024, secureRandom);
 		KeyPair keyPair = keyPairGenerator.genKeyPair();
 		System.out.println(keyPair.getPublic().getEncoded());
-		
-		Map<String, byte[]> map = RsaKeyHelper.generateKey("xxxxxxxx");
+	
+		Map<String, byte[]> map = RsaKeyHelper.generateKey("xx1WET12^%3");
 		System.out.println(toHexString(map.get("pri")));
 		System.out.println(toHexString(map.get("pub")));
 	}
-	*/
-
+	
+	*/	
 }

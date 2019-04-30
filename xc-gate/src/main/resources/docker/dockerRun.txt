@@ -1,0 +1,16 @@
+window 
+
+ docker run  --net docker-xc --ip=172.172.0.30  -p 8880:8880 `
+ -e JAVA_OPTS='-DNACOS_ADDR=192.168.31.14' `
+ -v /e/docker-file/xc-gate/logs:/logs/xc-gate `
+ -v /e/docker-file/xc-gate/application.yml:/application.yml `
+ --name xc-gate xc-gate 
+ 
+linux
+ docker run  --net docker-xc --ip=172.172.0.30  -p 8880:8880 \
+ -e JAVA_OPTS='-DNACOS_ADDR=192.168.31.14' \
+ -v /e/docker-file/xc-gate/logs:/logs/xc-gate \
+ -v /e/docker-file/xc-gate/application.yml:/appication.yml \
+ --name xc-gate xc-gate 
+  
+ 

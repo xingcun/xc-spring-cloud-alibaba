@@ -1,5 +1,5 @@
 server:
-  port: 8012
+  port: 8010
   compression:
     enabled: true
 #    mime-types: 
@@ -23,7 +23,7 @@ dubbo:
     address: spring-cloud://localhost
   cloud:
     # The subscribed services in consumer side
-    subscribed-services: xc-service  
+    subscribed-services:  ${spring.application.name},xc-service 
  # provider:
     #host: 127.0.0.1   
     #?namespace=cbe53515-f2ac-4ce1-bf54-c3fd9259a1da
@@ -34,12 +34,10 @@ dubbo:
  
 
 spring:
-  application:
-    name: xc-admin
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: ${NACOS_ADDR:127.0.0.1}:${NACOS_PORT:8848}
         
 ##请求和响应GZIP压缩支持 
 feign:

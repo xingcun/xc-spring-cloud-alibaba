@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="http://www.padual.com/java/logback.xsd"
     debug="false" scan="true" scanPeriod="30 second">
 
-    <property name="PROJECT" value="xc-service" /> 
+    <property name="PROJECT" value="xc-gate" /> 
     <property name="ROOT" value="logs/${PROJECT}/" />
     <property name="FILESIZE" value="100MB" />
     <property name="MAXHISTORY" value="30" />
@@ -125,6 +125,7 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
     </appender>
+    
     
      <logger name="com.alibaba.nacos.client" level="warn" additivity="false" />
      <logger name="org.apache.ignite.internal" level="warn" additivity="false" />

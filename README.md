@@ -1,5 +1,5 @@
 # xc-spring-cloud-alibaba
-spring cloud alibaba集成框架
+spring cloud alibaba集成框架可应用于docker部署
 
 | package name | remark |
 | ------------ |:-----:|

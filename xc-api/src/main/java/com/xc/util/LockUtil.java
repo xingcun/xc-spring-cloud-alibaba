@@ -1,6 +1,5 @@
 package com.xc.util;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -8,9 +7,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 
+import org.slf4j.Logger;
+
 public class LockUtil {
 	ThreadLocal<Lock> lockLocal = new ThreadLocal<Lock>();
-
+	Logger log = LogUtil.getLogger(LockUtil.class);
 	private static Map<String, Long> map = new ConcurrentHashMap<String, Long>();
 
 	private static Thread checkThread = null;
@@ -44,7 +45,7 @@ public class LockUtil {
 							set.forEach(e ->{
 								Long runTime = e.getValue();
 								if (runTime != null && System.currentTimeMillis() / 1000 - runTime > 10) {
-									System.out.println(e.getKey() + "同步锁超时................");
+									log.info(e.getKey() + "同步锁超时................");
 								}
 							});
 							Thread.sleep(1000L);

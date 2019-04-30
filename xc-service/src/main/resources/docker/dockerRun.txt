@@ -1,0 +1,17 @@
+windows
+
+docker run  --net docker-xc --ip=172.172.0.20 `
+-e JAVA_OPTS='-DNACOS_ADDR=192.168.31.14 -DSQL_HOST=192.168.31.14 -DIGNITE_HOME=/' `
+-v /e/docker-file/xc-service/logs:/logs/xc-service `
+-v /e/docker-file/xc-service/application.yml:/application.yml `
+-v /e/docker-file/xc-service/applicationContext-ignite.xml:/applicationContext-ignite.xml `
+--name xc-service xc-service
+
+linux
+
+docker run  --net docker-xc --ip=172.172.0.20 \
+-e JAVA_OPTS='-DNACOS_ADDR=192.168.31.14 -DSQL_HOST=192.168.31.14 -DIGNITE_HOME=/' \
+-v /e/docker-file/xc-service/logs:/logs/xc-service \
+-v /e/docker-file/xc-service/application.yml:/application.yml \
+-v /e/docker-file/xc-service/applicationContext-ignite.xml:/applicationContext-ignite.xml \
+--name xc-service xc-service

@@ -76,7 +76,7 @@
 			<artifactId>ignite-hibernate_5.3</artifactId>
 			<version>2.8.0-SNAPSHOT</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/other/ignite-hibernate_5.3-2.8.0-SNAPSHOT.jar</systemPath>
+			<systemPath>${project.basedir}/other/ignite-hibernate_5.3-2.8.0-SNAPSHOT.jar</systemPath> 
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
@@ -85,12 +85,13 @@
 			<version>5.4.2.Final</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.ignite/ignite-hibernate-core -->
+		
 		<dependency>
 			<groupId>org.apache.ignite</groupId>
 			<artifactId>ignite-hibernate-core</artifactId>
 			<version>2.8.0-SNAPSHOT</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/other/ignite-hibernate-core-2.8.0-SNAPSHOT.jar</systemPath>
+		<scope>system</scope>
+			<systemPath>${project.basedir}/other/ignite-hibernate-core-2.8.0-SNAPSHOT.jar</systemPath> 
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
@@ -106,19 +107,20 @@
 			<version>1.4.2</version>
 		</dependency>
 
-
 	</dependencies>
 	<build>
-		 <resources>
-           <!-- 打包时放开 
-           	 <resource>
-                <directory>${project.basedir}/other</directory>
-                <targetPath>BOOT-INF/lib/</targetPath>
-                        <includes>
-                           <include>**/*.jar</include>
-                        </includes>
-            </resource> -->
-       	</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				
+				<configuration>
+					<!-- <skip>true</skip> -->
+    				<includeSystemScope>true</includeSystemScope>
+
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
 </project>

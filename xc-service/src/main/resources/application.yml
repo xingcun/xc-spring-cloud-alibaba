@@ -1,5 +1,5 @@
 server:
-  port: 8022
+  port: 8020
         
 # Nacos registry address   
 dubbo:
@@ -24,18 +24,16 @@ dubbo:
     timeout: 10000
     retries: 1
   protocol:
-#   host: 127.0.0.1       #用于多网卡时指定IP，要不然集群会有问题 
+#    host: ${PROTOCOL_HOST:null}       #用于多网卡时指定IP，要不然集群会有问题
     name: dubbo
-    port: -1
+    port: ${PROTOCOL_PORT:-1}
+  cloud:
+    subscribed-services:  ${spring.application.name}
 
-
-demo:
-  service:
-    name: demoService8011
    
 spring:
-  application:
-    name: xc-service
+#  application:
+#    name: xc-service
   cloud:
     nacos:
       discovery:
@@ -53,9 +51,9 @@ spring:
             groupId: DEFAULT_GROUP
               
   datasource:
-        url: jdbc:postgresql://127.0.0.1:5432/dbxc?autoReconnect=true
-        username: postgres
-        password: www21cncom
+        url: jdbc:postgresql://${SQL_HOST:127.0.0.1}:${SQL_PORT:5432}/dbxc?autoReconnect=true
+        username: ${SQL_USERNAME:postgres}
+        password: ${SQL_PASSWORD:www21cncom}
         driverClassName: org.postgresql.Driver
         type: com.alibaba.druid.pool.DruidDataSource
         initialSize: 5

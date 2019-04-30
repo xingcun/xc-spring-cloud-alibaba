@@ -1,0 +1,16 @@
+docker network create --subnet=172.172.0.0/24 docker-xc
+
+docker stop $(docker ps -q)
+
+
+
+
+创建docker image
+docker build -t xc-service .
+
+进入某个image里面
+docker exec -it 2c0c5b04bc0f /bin/bash
+ 
+ 组合启动
+docker-compose up -d
+

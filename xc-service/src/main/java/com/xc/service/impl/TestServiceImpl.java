@@ -13,8 +13,6 @@ import com.xc.service.TestService;
 @Transactional
 public class TestServiceImpl implements TestService{
 
-    @Value("${demo.service.name}")
-    private String serviceName;
     
 	@Override
 	public String test() {
@@ -23,7 +21,7 @@ public class TestServiceImpl implements TestService{
 		System.out.println("============================"+ String.format("Service [name :TestServiceImpl , port : %d] %s: Hello, %s",
                0,// rpcContext.getLocalPort(),
                "",// rpcContext.getMethodName(),
-                serviceName
+                "xc-service"
                 ));
 		return null;
 	}

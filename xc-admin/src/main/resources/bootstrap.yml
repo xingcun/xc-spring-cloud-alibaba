@@ -1,6 +1,6 @@
 spring:
   application:
-    name: xc-gate
+    name: xc-admin
   cloud:
     nacos:
       config:

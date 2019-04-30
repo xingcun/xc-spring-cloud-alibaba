@@ -7,7 +7,7 @@
     <property name="PROJECT" value="xc-admin" /> 
     <property name="ROOT" value="logs/${PROJECT}/" />
     <property name="FILESIZE" value="100MB" />
-    <property name="MAXHISTORY" value="100" />
+    <property name="MAXHISTORY" value="30" />
     <timestamp key="DATETIME" datePattern="yyyy-MM-dd HH:mm:ss" />
     <!-- 控制台打印 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">

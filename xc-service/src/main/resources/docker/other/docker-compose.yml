@@ -1,0 +1,65 @@
+version: '3.7'
+services:
+  xc-service:
+    image: xc-service
+   
+    networks:
+      default:
+        ipv4_address: 172.172.0.20        
+    container_name: "xc-service"
+    environment: 
+        - NACOS_ADDR=192.168.31.14
+        - SQL_HOST=192.168.31.14
+        - IGNITE_HOME=/
+    volumes:
+        - /e/docker-file/xc-service/logs:/logs/xc-service
+        - /e/docker-file/xc-service/application.yml:/application.yml
+        - /e/docker-file/xc-service/applicationContext-ignite.xml:/applicationContext-ignite.xml
+    
+
+
+  xc-admin:
+    image: xc-admin
+    networks:
+      default:
+        ipv4_address: 172.172.0.10        
+    container_name: "xc-admin"
+    ports: 
+        - "8010:8010"
+    environment: 
+        - NACOS_ADDR=192.168.31.14
+        - IGNITE_HOME=/
+    volumes:
+        - /e/docker-file/xc-admin/logs:/logs/xc-admin
+        - /e/docker-file/xc-admin/application.yml:/application.yml
+        - /e/docker-file/xc-admin/applicationContext-ignite.xml:/applicationContext-ignite.xml
+        - /e/docker-file/wait-for-it.sh:/wait-for-it.sh
+    
+    command: ["./wait-for-it.sh", "xc-service:8020", "--", "sh","-c","java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom  -jar app.jar"]    
+     
+  xc-gate:
+    image: xc-gate
+    networks:
+      default:
+        ipv4_address: 172.172.0.30        
+    container_name: "xc-gate"
+    ports: 
+        - "8880:8880"
+    environment: 
+        - NACOS_ADDR=192.168.31.14
+    volumes:
+        - /e/docker-file/xc-gate/logs:/logs/xc-gate
+        - /e/docker-file/xc-gate/application.yml:/appication.yml
+        - /e/docker-file/wait-for-it.sh:/wait-for-it.sh
+    
+    command: ["./wait-for-it.sh", "xc-admin:8010", "--", "sh","-c","java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom  -jar app.jar"]  
+#networks:  #如没有已经定义好的网络,即放开此处，自定义网络
+#  docker-xc:
+#    ipam:
+#      driver: default
+#      config:
+#        - subnet: 172.172.0.0/24
+networks:
+  default:
+    external:
+      name: docker-xc

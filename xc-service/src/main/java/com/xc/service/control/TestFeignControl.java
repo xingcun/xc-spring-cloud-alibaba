@@ -23,8 +23,6 @@ public class TestFeignControl {
 	private TestCacosServiceImpl testCacosService;
 	
 	
-    @Value("${demo.service.name}")
-    private  String serviceName;
     
     
     
@@ -32,7 +30,7 @@ public class TestFeignControl {
 	public JSONObject test(@RequestBody JSONObject obj) {
 		System.out.println("service------------------------------TestControl");
 		testCacosService.send(obj.toJSONString());
-		obj.put("serviceName",serviceName);
+		obj.put("serviceName","xc-service");
 		obj.put("status", 1);
 //		if(1==1) {
 //			throw new RuntimeException("+++++++++++++++++++++++++++++++++++");

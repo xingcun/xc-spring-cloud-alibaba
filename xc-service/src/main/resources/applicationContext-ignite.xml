@@ -108,7 +108,8 @@
 	
 	<bean abstract="true" id="ignite.cfg"
 		class="org.apache.ignite.configuration.IgniteConfiguration">
-      
+		<!-- 可单独使用ignite服务当主服务,减轻service层的压力 -->
+      <!-- <property name="ClientMode" value="true" /> -->
         <property name="binaryConfiguration">
 		    <bean class="org.apache.ignite.configuration.BinaryConfiguration">
 		        <property name="compactFooter" value="false"/>
@@ -135,11 +136,7 @@
                     </bean>-->
                     <!-- 开发环境 -->
                     <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                        <property name="addresses">
-                            <list>
-                                <value>127.0.0.1:48610..48620</value>
-                            </list>
-                        </property>
+                        <property name="addresses" value="#{systemProperties['ignite.ipFinders']!=null?systemProperties['ignite.ipFinders'].split(','):'127.0.0.1:48610..48620'}"/>
                     </bean>
                 </property>
             </bean>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
+import org.apache.ignite.Ignite;
 import org.apache.ignite.Ignition;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -54,7 +55,7 @@ public class XcAdminBootstrap implements WebMvcConfigurer,ErrorPageRegistrar   {
 //		 SpringApplication springApplication = new SpringApplication(XcAdminBootstrap.class);
 //	        springApplication.addListeners(new LoginUserHolder());
 //	        springApplication.run(args);
-		Ignition.start("applicationContext-ignite.xml");
+	
 		ConfigurableApplicationContext context = SpringApplication.run(XcAdminBootstrap.class, args);
 	/*	
 		 String[] beans = context.getBeanDefinitionNames();
@@ -70,6 +71,11 @@ public class XcAdminBootstrap implements WebMvcConfigurer,ErrorPageRegistrar   {
 		System.out.println("XcAdminBootstrap provider is starting...");
 	}
 
+	@Bean
+	public Ignite getIgnite() {
+		return Ignition.start("applicationContext-ignite.xml");
+	}
+	
 	@Bean
 	public HttpMessageConverters fastJsonHttpMessageConverters() {
 		// 1.需要定义一个convert转换消息的对象;

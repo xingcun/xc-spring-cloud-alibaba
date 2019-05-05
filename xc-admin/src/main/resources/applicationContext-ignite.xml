@@ -53,12 +53,7 @@
 					<!-- 开发环境 -->
 					<bean
 						class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-						<property name="addresses">
-							<list>
-								 <value>127.0.0.1:48610..48620</value>
-								<!--  <value>172.17.0.2:48610..48620</value> -->
-							</list>
-						</property>
+						<property name="addresses" value="#{systemProperties['ignite.ipFinders']!=null?systemProperties['ignite.ipFinders'].split(','):'127.0.0.1:48610..48620'}"/>
 					</bean>
 				</property>
 			</bean>

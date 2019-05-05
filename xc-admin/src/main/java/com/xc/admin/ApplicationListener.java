@@ -1,10 +1,10 @@
 package com.xc.admin;
 
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.xc.service.user.UserService;
 import com.xc.util.LoginUserHolder;
 

@@ -14,3 +14,32 @@ docker exec -it 2c0c5b04bc0f /bin/bash
  组合启动
 docker-compose up -d
 
+
+swarm 操作，使用前需自建docker仓库
+docker swarm init --advertise-addr 192.168.31.200
+
+docker network create -d overlay --subnet 172.70.10.0/24  my-overlay
+
+
+docker service create  --replicas 2    --network my-overlay \
+-e JAVA_OPTS='-DNACOS_ADDR=192.168.31.14 -DSQL_HOST=192.168.31.14 -DIGNITE_HOME=/ -Dignite.zkAddress=192.168.31.14:2181' \
+--mount type=bind,src=/root/docker/xc-service/logs,dst=/logs/xc-service \
+--mount type=bind,src=/root/docker/xc-service/application.yml,dst=/application.yml \
+--mount type=bind,src=/root/docker/xc-service/applicationContext-ignite.xml,dst=/applicationContext-ignite.xml \
+--name xc-service 192.168.31.14:5000/xc-service:1.1
+
+
+
+docker service create  --replicas 2     --network my-overlay  \
+-e JAVA_OPTS='-DNACOS_ADDR=192.168.31.14  -DIGNITE_HOME=/ -Dignite.zkAddress=192.168.31.14:2181 -Dspring.networks=172.70。*' \
+--mount type=bind,src=/root/docker/xc-admin/logs,dst=/logs/xc-admin \
+--mount type=bind,src=/root/docker/xc-admin/application.yml,dst=/application.yml \
+--mount type=bind,src=/root/docker/xc-admin/applicationContext-ignite.xml,dst=/applicationContext-ignite.xml \
+--name xc-admin 192.168.31.14:5000/xc-admin:1.1
+
+docker service create  --replicas 1 --network my-overlay  \
+--publish 8880:8880 \
+-e JAVA_OPTS='-DNACOS_ADDR=192.168.31.14'  \
+--mount type=bind,src=/root/docker/xc-gate/logs,dst=/logs/xc-gate \
+--mount type=bind,src=/root/docker/xc-gate/application.yml,dst=/application.yml \
+--name xc-gate 192.168.31.14:5000/xc-gate:1.0

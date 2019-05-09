@@ -92,6 +92,17 @@
 			<artifactId>ignite-web</artifactId>
 			<version> ${ignite.version}</version>
 		</dependency>
+<!-- 		<dependency>
+			<groupId>org.apache.ignite</groupId>
+			<artifactId>ignite-kubernetes</artifactId>
+			<version> ${ignite.version}</version>
+		</dependency> -->
+		<dependency>
+			<groupId>org.apache.ignite</groupId>
+			<artifactId>ignite-zookeeper</artifactId>
+			<version> ${ignite.version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>com.alibaba.nacos</groupId>
 			<artifactId>nacos-client</artifactId>

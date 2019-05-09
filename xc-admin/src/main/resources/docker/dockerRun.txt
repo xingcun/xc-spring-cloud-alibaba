@@ -9,10 +9,10 @@ docker run  --net docker-xc --ip=172.172.0.10 `
 
 linux
 
-docker run  --net docker-xc --ip=172.172.0.10 \
--e JAVA_OPTS='-DNACOS_ADDR=192.168.31.14 -DSQL_HOST=192.168.31.14 -DIGNITE_HOME=/' \
--v /e/docker-file/xc-admin/logs:/logs/xc-admin \
--v /e/docker-file/xc-admin/application.yml:/application.yml \
--v /e/docker-file/xc-admin/applicationContext-ignite.xml:/applicationContext-ignite.xml \
+docker run  --net docker-xc --ip=172.172.1.10 \
+-e JAVA_OPTS='-DNACOS_ADDR=192.168.31.14 -DSQL_HOST=192.168.31.14 -DIGNITE_HOME=/ -Dignite.ipFinders=192.168.31.14:48610..48619' \
+-v /root/docker/xc-admin/logs:/logs/xc-admin \
+-v /root/docker/xc-admin/application.yml:/application.yml \
+-v /root/docker/xc-admin/applicationContext-ignite.xml:/applicationContext-ignite.xml \
 --name xc-admin xc-admin
 

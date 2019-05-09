@@ -34,7 +34,9 @@ spring:
      nacos:
         discovery:
           server-addr: ${spring.cloud.nacos.config.server-addr}
-
+          ip: ${NACOS_REGIST_IP:}
+  inetutils:
+    preferred-networks: ${spring.networks:*}
                 
 management:
   endpoints:

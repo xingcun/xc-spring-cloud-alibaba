@@ -109,7 +109,7 @@
 	<bean abstract="true" id="ignite.cfg"
 		class="org.apache.ignite.configuration.IgniteConfiguration">
 		<!-- 可单独使用ignite服务当主服务,减轻service层的压力 -->
-      <!-- <property name="ClientMode" value="true" /> -->
+       <property name="ClientMode" value="false" /> 
         <property name="binaryConfiguration">
 		    <bean class="org.apache.ignite.configuration.BinaryConfiguration">
 		        <property name="compactFooter" value="false"/>
@@ -124,22 +124,23 @@
 	        </list>
     	</property>
         <property name="discoverySpi">
+        <!--  生产环境应使用zookeeper 特别使用docker时-->
+        <!-- 
+        <bean class="org.apache.ignite.spi.discovery.zk.ZookeeperDiscoverySpi">
+	      <property name="zkConnectionString" value="#{systemProperties['ignite.zkAddress']!=null?systemProperties['ignite.zkAddress'].split(','):'127.0.0.1:2181'}"/>
+	      <property name="sessionTimeout" value="30000"/>
+	      <property name="joinTimeout" value="10000"/>
+   		 </bean>
+    	-->
             <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-                <!-- Initial local port to listen to. -->
                 <property name="localPort" value="48610"/>
-                <!-- Changing local port range. This is an optional action. -->
                 <property name="localPortRange" value="20"/>
                 <property name="ipFinder">
-                    <!-- 生产环境 -->
-                    <!--<bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder">
-                          <property name="multicastGroup" value="228.10.10.155"/>
-                    </bean>-->
-                    <!-- 开发环境 -->
                     <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
                         <property name="addresses" value="#{systemProperties['ignite.ipFinders']!=null?systemProperties['ignite.ipFinders'].split(','):'127.0.0.1:48610..48620'}"/>
                     </bean>
                 </property>
-            </bean>
+            </bean> 
         </property>
 	</bean>
 	

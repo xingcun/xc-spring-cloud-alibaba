@@ -43,14 +43,22 @@
 			</list>
 		</property>
 		<property name="discoverySpi">
+		   <!--  生产环境应使用zookeeper 特别使用docker时-->
+        <!-- 
+        <bean class="org.apache.ignite.spi.discovery.zk.ZookeeperDiscoverySpi">
+	      <property name="zkConnectionString" value="#{systemProperties['ignite.zkAddress']!=null?systemProperties['ignite.zkAddress'].split(','):'127.0.0.1:2181'}"/>
+	      <property name="sessionTimeout" value="30000"/>
+	      <property name="joinTimeout" value="10000"/>
+   		 </bean>
+    	-->
+		
+		<!-- 开发环境 -->
 			<bean
 				class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-				<!-- Initial local port to listen to. -->
 				<property name="localPort" value="48610" />
-				<!-- Changing local port range. This is an optional action. -->
 				<property name="localPortRange" value="20" />
 				<property name="ipFinder">
-					<!-- 开发环境 -->
+					
 					<bean
 						class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
 						<property name="addresses" value="#{systemProperties['ignite.ipFinders']!=null?systemProperties['ignite.ipFinders'].split(','):'127.0.0.1:48610..48620'}"/>

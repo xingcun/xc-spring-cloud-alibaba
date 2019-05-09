@@ -55,6 +55,11 @@ spring cloud alibaba集成框架可应用于docker部署
 > *  此版本增加了gate+sentinel+nacos 服务限流
 
 
+2019-05-09
+> *  此版本主要修改配置文件适配docker swarm部署项目
+
+
+
 在nacos配置上自行增加名为gate-sentinel-json的配置即可实现限流
 ```
 [

@@ -24,7 +24,7 @@ dubbo:
     timeout: 10000
     retries: 1
   protocol:
-#    host: ${PROTOCOL_HOST:null}       #用于多网卡时指定IP，要不然集群会有问题
+#    host: ${PROTOCOLHOST}       #用于多网卡时指定IP，要不然集群会有问题
     name: dubbo
     port: ${PROTOCOL_PORT:-1}
   cloud:
@@ -38,6 +38,7 @@ spring:
     nacos:
       discovery:
         server-addr: ${spring.cloud.nacos.config.server-addr}
+        ip: ${NACOS_REGIST_IP:}
     sentinel: 
       enabled: true
 #      transport: 
@@ -49,6 +50,8 @@ spring:
             server-addr: ${spring.cloud.nacos.config.server-addr}
             dataId: dubbo-sentinel-json
             groupId: DEFAULT_GROUP
+    inetutils:
+      preferred-networks: ${spring.networks:*}
               
   datasource:
         url: jdbc:postgresql://${SQL_HOST:127.0.0.1}:${SQL_PORT:5432}/dbxc?autoReconnect=true

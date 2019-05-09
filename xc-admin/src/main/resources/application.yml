@@ -37,8 +37,11 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: ${NACOS_ADDR:127.0.0.1}:${NACOS_PORT:8848}
-        
+        server-addr: ${spring.cloud.nacos.config.server-addr}
+        ip: ${NACOS_REGIST_IP:}
+  inetutils:
+    preferred-networks: ${spring.networks:*}
+          
 ##请求和响应GZIP压缩支持 
 feign:
   hystrix:

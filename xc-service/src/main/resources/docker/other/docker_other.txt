@@ -43,3 +43,19 @@ docker service create  --replicas 1 --network my-overlay  \
 --mount type=bind,src=/root/docker/xc-gate/logs,dst=/logs/xc-gate \
 --mount type=bind,src=/root/docker/xc-gate/application.yml,dst=/application.yml \
 --name xc-gate 192.168.31.14:5000/xc-gate:1.0
+
+
+//集群nacos
+docker service create  --replicas 1     --network my-overlay  \
+--publish 8848:8848 \
+--hostname="{{.Service.Name}}" \
+-e PREFER_HOST_MODE=hostname \
+-e NACOS_SERVERS="xc-nacos-1:8848 xc-nacos-2:8848 xc-nacos-3:8848" \
+-e MYSQL_MASTER_SERVICE_HOST=192.168.31.14 \
+-e MYSQL_MASTER_SERVICE_DB_NAME=ag_nacos \
+-e MYSQL_MASTER_SERVICE_PORT=3306 \
+-e MYSQL_MASTER_SERVICE_USER=root \
+-e MYSQL_MASTER_SERVICE_PASSWORD=123456 \
+-e MYSQL_SLAVE_SERVICE_HOST=192.168.31.14 \
+-e MYSQL_SLAVE_SERVICE_PORT=3306 \
+--name xc-nacos-1 nacos/nacos-server:latest

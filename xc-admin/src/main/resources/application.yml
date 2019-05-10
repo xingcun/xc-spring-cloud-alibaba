@@ -37,10 +37,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: ${spring.cloud.nacos.config.server-addr}
+        server-addr: 192.168.31.200:8848,192.168.31.200:8849,192.168.31.200:8850 #${spring.cloud.nacos.config.server-addr}
         ip: ${NACOS_REGIST_IP:}
   inetutils:
-    preferred-networks: ${spring.networks:*}
+    preferred-networks: ${spring.networks:}
           
 ##请求和响应GZIP压缩支持 
 feign:

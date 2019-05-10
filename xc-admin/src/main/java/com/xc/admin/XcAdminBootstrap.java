@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.Ignition;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
@@ -44,7 +45,8 @@ import com.xc.util.SpringUtils;
 @EnableScheduling
 public class XcAdminBootstrap implements WebMvcConfigurer,ErrorPageRegistrar   {
 
-
+	@Value("${xc.ignite.config:applicationContext-ignite.xml}")
+	private String ignitePath;
 	
 	
 	public static void main(String[] args) {
@@ -73,7 +75,7 @@ public class XcAdminBootstrap implements WebMvcConfigurer,ErrorPageRegistrar   {
 
 	@Bean
 	public Ignite getIgnite() {
-		return Ignition.start("applicationContext-ignite.xml");
+		return Ignition.start(ignitePath);
 	}
 	
 	@Bean
@@ -103,6 +105,14 @@ public class XcAdminBootstrap implements WebMvcConfigurer,ErrorPageRegistrar   {
 	@Override
 	public void registerErrorPages(ErrorPageRegistry registry) {
 		registry.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR,"/commomError"),new ErrorPage(HttpStatus.NOT_FOUND,"/404"));
+	}
+
+	public String getIgnitePath() {
+		return ignitePath;
+	}
+
+	public void setIgnitePath(String ignitePath) {
+		this.ignitePath = ignitePath;
 	}
 
 }

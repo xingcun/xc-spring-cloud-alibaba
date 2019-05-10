@@ -1,5 +1,5 @@
 server:
-  port: 8020
+  port: 8021
         
 # Nacos registry address   
 dubbo:
@@ -37,7 +37,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: ${spring.cloud.nacos.config.server-addr}
+        server-addr: 192.168.31.200:8848,192.168.31.200:8849,192.168.31.200:8850 #${spring.cloud.nacos.config.server-addr}
         ip: ${NACOS_REGIST_IP:}
     sentinel: 
       enabled: true
@@ -51,7 +51,7 @@ spring:
             dataId: dubbo-sentinel-json
             groupId: DEFAULT_GROUP
     inetutils:
-      preferred-networks: ${spring.networks:*}
+      preferred-networks: ${spring.networks:}
               
   datasource:
         url: jdbc:postgresql://${SQL_HOST:127.0.0.1}:${SQL_PORT:5432}/dbxc?autoReconnect=true
@@ -90,7 +90,8 @@ spring:
         hibernate.connection.release_mode: on_close
         javax.persistence.sharedCache.mode: ENABLE_SELECTIVE
         org.apache.ignite.hibernate.ignite_instance_name: hibernate-grid
-        org.apache.ignite.hibernate.grid_config: applicationContext-ignite.xml    
+        org.apache.ignite.hibernate.grid_config: ${xc.ignite.config:applicationContext-ignite.xml}
+        #http://127.0.0.1:8848/nacos/v1/cs/configs?dataId=applicationContext-ignite.xml&group=DEFAULT_GROUP    
         
            
 ##请求和响应GZIP压缩支持

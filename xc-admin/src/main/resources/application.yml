@@ -37,7 +37,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.31.200:8848,192.168.31.200:8849,192.168.31.200:8850 #${spring.cloud.nacos.config.server-addr}
+        server-addr: ${spring.cloud.nacos.config.server-addr}
         ip: ${NACOS_REGIST_IP:}
   inetutils:
     preferred-networks: ${spring.networks:}

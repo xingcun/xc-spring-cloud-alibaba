@@ -6,8 +6,10 @@ spring:
       config:
         server-addr: ${NACOS_ADDR:127.0.0.1}:${NACOS_PORT:8848}
         file-extension: yaml
-      
 #  profiles:
 #    active: dev
-    
+#抽出最外层,主要目的是为了将配置文件放到nacos中，此时出来订阅服务,会有问题，所以抽出最后一层，获取dubbo注册数据初始化
+dubbo:
+  registry:
+    address: spring-cloud://localhost    
     

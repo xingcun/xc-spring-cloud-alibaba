@@ -33,9 +33,9 @@ services:
         - /e/docker-file/xc-admin/logs:/logs/xc-admin
         - /e/docker-file/xc-admin/application.yml:/application.yml
         - /e/docker-file/xc-admin/applicationContext-ignite.xml:/applicationContext-ignite.xml
-        - /e/docker-file/wait-for-it.sh:/wait-for-it.sh
+        - /e/docker-file/wait-for.sh:/wait-for.sh
     
-    command: ["./wait-for-it.sh", "xc-service:8020", "--", "sh","-c","java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom  -jar app.jar"]    
+    command: ["./wait-for.sh", "xc-service:8020", "--", "sh","-c","java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom  -jar app.jar"]    
      
   xc-gate:
     image: xc-gate
@@ -50,9 +50,9 @@ services:
     volumes:
         - /e/docker-file/xc-gate/logs:/logs/xc-gate
         - /e/docker-file/xc-gate/application.yml:/appication.yml
-        - /e/docker-file/wait-for-it.sh:/wait-for-it.sh
+        - /e/docker-file/wait-for.sh:/wait-for.sh
     
-    command: ["./wait-for-it.sh", "xc-admin:8010", "--", "sh","-c","java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom  -jar app.jar"]  
+    command: ["./wait-for.sh", "xc-admin:8010", "--", "sh","-c","java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom  -jar app.jar"]  
 #networks:  #如没有已经定义好的网络,即放开此处，自定义网络
 #  docker-xc:
 #    ipam:

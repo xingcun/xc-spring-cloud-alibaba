@@ -1,0 +1,65 @@
+version: '3.7'
+services:
+  xc-service:
+    image: 192.168.31.14:5000/xc-service:1.2
+    networks: 
+      - default      
+    container_name: xc-service
+    environment: 
+        - NACOS_ADDR=xc-nacos-1
+        - SQL_HOST=192.168.31.14
+        - spring.networks=172.70.*
+        - xc.ignite.config=http://xc-nacos-1:8848/nacos/v1/cs/configs?dataId=xc-service-ignite-dev.xml&group=DEFAULT_GROUP
+        - ignite.zkAddress=xc-zookeeper:2181
+        - spring.profiles.active=dev
+    volumes:
+        - /root/docker/xc-service/logs:/logs/xc-service
+        - /root/docker/wait-for.sh:/wait-for.sh
+    deploy:  
+      replicas: 2 # replicas模式， 复制数目为1
+    entrypoint: ./wait-for.sh xc-zookeeper:2181 -t 180 -- java  -Djava.security.egd=file:/dev/./urandom  -jar app.jar
+
+
+  xc-admin:
+    image: 192.168.31.14:5000/xc-admin:1.2
+    networks:
+      - default
+    container_name: xc-admin
+    environment:
+        - NACOS_ADDR=xc-nacos-1
+        - xc.ignite.config=http://xc-nacos-1:8848/nacos/v1/cs/configs?dataId=xc-admin-ignite-dev.xml&group=DEFAULT_GROUP
+        - ignite.zkAddress=xc-zookeeper:2181
+        - spring.networks=172.70.*
+        - spring.profiles.active=dev
+    volumes:
+        - /root/docker/xc-admin/logs:/logs/xc-admin
+        - /root/docker/xc-admin/bootstrap.yml:/bootstrap.yml
+        - /root/docker/wait-for.sh:/wait-for.sh
+    deploy:  
+      replicas: 2 # replicas模式， 复制数目为1
+    depends_on: 
+       - xc-service  
+    entrypoint: ./wait-for.sh xc-service:8020 -t 180 -- java  -Djava.security.egd=file:/dev/./urandom  -jar app.jar    
+     
+  xc-gate:
+    image: 192.168.31.14:5000/xc-gate:1.2
+    networks:
+      - default
+    container_name: xc-gate
+    ports: 
+        - "8880:8880"
+    environment:
+        - NACOS_ADDR=xc-nacos-1 
+        - spring.networks=172.70.*
+        - spring.profiles.active=dev
+    volumes:
+        - /root/docker/xc-gate/logs:/logs/xc-gate
+        - /root/docker/wait-for.sh:/wait-for.sh
+    depends_on: 
+       - xc-admin  
+    entrypoint: ./wait-for.sh xc-admin:8010 -t 180 -- java  -Djava.security.egd=file:/dev/./urandom  -jar app.jar  
+
+networks:
+  default:
+    external:
+      name: my-overlay

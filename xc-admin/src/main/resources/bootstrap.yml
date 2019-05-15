@@ -6,7 +6,11 @@ spring:
       config:
         server-addr: ${NACOS_ADDR:127.0.0.1}:${NACOS_PORT:8848}
         file-extension: yaml
-  profiles:
-    active: dev
+#  profiles:
+#    active: dev
   main:
     allow-bean-definition-overriding: true
+
+dubbo:
+  registry:
+    address: spring-cloud://localhost    

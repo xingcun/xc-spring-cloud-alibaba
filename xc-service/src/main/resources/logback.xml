@@ -3,16 +3,17 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://www.padual.com/java/logback.xsd"
     debug="false" scan="true" scanPeriod="30 second">
-
+    
+	<conversionRule conversionWord="ip" converterClass="com.xc.util.LogIpConfig" />
+	
     <property name="PROJECT" value="xc-service" /> 
     <property name="ROOT" value="logs/${PROJECT}/" />
     <property name="FILESIZE" value="100MB" />
     <property name="MAXHISTORY" value="30" />
-    <timestamp key="DATETIME" datePattern="yyyy-MM-dd HH:mm:ss" />
     <!-- 控制台打印 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder charset="utf-8">
-            <pattern>[%-5level] %d{${DATETIME}} [%thread] %logger{36} - %m%n
+            <pattern>[%ip] [%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %m%n
             </pattern>
         </encoder>
          <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -27,7 +28,7 @@
     <!-- ERROR 输入到文件，按日期和文件大小 -->
     <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder charset="utf-8">
-            <pattern>[%-5level] %d{${DATETIME}} [%thread] %logger{36} - %m%n
+            <pattern>[%ip] [%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %m%n
             </pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -48,7 +49,7 @@
     <!-- WARN 输入到文件，按日期和文件大小 -->
     <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder charset="utf-8">
-            <pattern>[%-5level] %d{${DATETIME}} [%thread] %logger{36} - %m%n
+            <pattern>[%ip] [%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %m%n
             </pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -68,7 +69,7 @@
     <!-- INFO 输入到文件，按日期和文件大小 -->
     <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder charset="utf-8">
-            <pattern>[%-5level] %d{${DATETIME}} [%thread] %logger{36} - %m%n
+            <pattern>[%ip] [%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %m%n
             </pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -87,7 +88,7 @@
     <!-- DEBUG 输入到文件，按日期和文件大小 -->
     <appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder charset="utf-8">
-            <pattern>[%-5level] %d{${DATETIME}} [%thread] %logger{36} - %m%n
+            <pattern>[%ip] [%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %m%n
             </pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -107,7 +108,7 @@
     <!-- TRACE 输入到文件，按日期和文件大小 -->
     <appender name="TRACE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder charset="utf-8">
-            <pattern>[%-5level] %d{${DATETIME}} [%thread] %logger{36} - %m%n
+            <pattern>[%ip] [%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %m%n
             </pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">

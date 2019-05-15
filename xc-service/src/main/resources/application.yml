@@ -41,6 +41,7 @@ spring:
         ip: ${NACOS_REGIST_IP:}
     sentinel: 
       enabled: true
+      eager: false
 #      transport: 
 #        dashboard: 127.0.0.1:8088
       datasource:
@@ -90,7 +91,7 @@ spring:
         hibernate.connection.release_mode: on_close
         javax.persistence.sharedCache.mode: ENABLE_SELECTIVE
         org.apache.ignite.hibernate.ignite_instance_name: hibernate-grid
-        org.apache.ignite.hibernate.grid_config: ${xc.ignite.config:applicationContext-ignite.xml}
+        org.apache.ignite.hibernate.grid_config: ${xc.ignite.config:xc-service-ignite.xml}
         #http://127.0.0.1:8848/nacos/v1/cs/configs?dataId=applicationContext-ignite.xml&group=DEFAULT_GROUP    
         
            

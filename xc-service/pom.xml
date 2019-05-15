@@ -117,9 +117,21 @@
 				<configuration>
 					<!-- <skip>true</skip> -->
     				<includeSystemScope>true</includeSystemScope>
-
 				</configuration>
 			</plugin>
+			
+			<!-- 打包时不打配置文件，使用nacos配置单 -->			
+			 <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<excludes>
+						<exclude>application*.*</exclude>
+					</excludes>
+				</configuration>
+			  </plugin> 
+
 		</plugins>
 	</build>
 

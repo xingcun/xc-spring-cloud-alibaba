@@ -36,7 +36,7 @@ import com.xc.service.user.UserService;
 import com.xc.util.LoginUserHolder;
 import com.xc.util.SpringUtils;
 
-@EnableDubbo
+@EnableDubbo(scanBasePackages="com.xc.*")
 //@EnableAutoConfiguration
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class,scanBasePackages= {"com.xc"})
 @EnableFeignClients({ "com.xc.admin.feign" })

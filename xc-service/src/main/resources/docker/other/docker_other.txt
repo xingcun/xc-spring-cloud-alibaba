@@ -22,7 +22,7 @@ docker network create -d overlay --subnet 172.70.10.0/24  my-overlay
 
 
 docker service create  --replicas 2    --network my-overlay \
--e JAVA_OPTS='-DNACOS_ADDR=192.168.31.14 -DSQL_HOST=192.168.31.14 -DIGNITE_HOME=/ -Dignite.zkAddress=192.168.31.14:2181' \
+-e JAVA_OPTS='-DNACOS_ADDR=xc-nacos-1 -DSQL_HOST=192.168.31.14 -DIGNITE_HOME=/ -Dignite.zkAddress=192.168.31.14:2181' \
 --mount type=bind,src=/root/docker/xc-service/logs,dst=/logs/xc-service \
 --mount type=bind,src=/root/docker/xc-service/application.yml,dst=/application.yml \
 --mount type=bind,src=/root/docker/xc-service/applicationContext-ignite.xml,dst=/applicationContext-ignite.xml \
@@ -31,7 +31,7 @@ docker service create  --replicas 2    --network my-overlay \
 
 
 docker service create  --replicas 2     --network my-overlay  \
--e JAVA_OPTS='-DNACOS_ADDR=192.168.31.14  -DIGNITE_HOME=/ -Dignite.zkAddress=192.168.31.14:2181 -Dspring.networks=172.70。*' \
+-e JAVA_OPTS='-DNACOS_ADDR=xc-nacos-1  -DIGNITE_HOME=/ -Dignite.zkAddress=192.168.31.14:2181 -Dspring.networks=172.70。*' \
 --mount type=bind,src=/root/docker/xc-admin/logs,dst=/logs/xc-admin \
 --mount type=bind,src=/root/docker/xc-admin/application.yml,dst=/application.yml \
 --mount type=bind,src=/root/docker/xc-admin/applicationContext-ignite.xml,dst=/applicationContext-ignite.xml \
@@ -39,7 +39,7 @@ docker service create  --replicas 2     --network my-overlay  \
 
 docker service create  --replicas 1 --network my-overlay  \
 --publish 8880:8880 \
--e JAVA_OPTS='-DNACOS_ADDR=192.168.31.14'  \
+-e JAVA_OPTS='-DNACOS_ADDR=xc-nacos-1'  \
 --mount type=bind,src=/root/docker/xc-gate/logs,dst=/logs/xc-gate \
 --mount type=bind,src=/root/docker/xc-gate/application.yml,dst=/application.yml \
 --name xc-gate 192.168.31.14:5000/xc-gate:1.0
@@ -59,3 +59,7 @@ docker service create  --replicas 1     --network my-overlay  \
 -e MYSQL_SLAVE_SERVICE_HOST=192.168.31.14 \
 -e MYSQL_SLAVE_SERVICE_PORT=3306 \
 --name xc-nacos-1 nacos/nacos-server:latest
+
+
+
+command: ["dockerize", "-wait", "tcp://zookeeper:2181", "-wait", "tcp://mysql:3306", "-wait", "http://apphost:8080", "-timeout", "1800s", "/usr/bin/supervisord"]

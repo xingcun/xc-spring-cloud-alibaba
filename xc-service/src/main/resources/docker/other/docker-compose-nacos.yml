@@ -1,0 +1,64 @@
+version: '3.7'
+services:
+  xc-zookeeper:
+    image: zookeeper
+    container_name: xc-zookeeper
+    ports:
+        - "2181:2181"
+        
+  xc-nacos-1:
+    image: nacos/nacos-server:latest
+    hostname: xc-nacos-1
+    container_name: xc-nacos-1
+    ports:
+        - "8848:8848"
+    environment: 
+      - PREFER_HOST_MODE=hostname 
+      - NACOS_SERVERS=xc-nacos-1:8848 xc-nacos-2:8848 xc-nacos-3:8848 
+      - MYSQL_MASTER_SERVICE_HOST=192.168.31.14 
+      - MYSQL_MASTER_SERVICE_DB_NAME=ag_nacos 
+      - MYSQL_MASTER_SERVICE_PORT=3306 
+      - MYSQL_MASTER_SERVICE_USER=root 
+      - MYSQL_MASTER_SERVICE_PASSWORD=123456 
+      - MYSQL_SLAVE_SERVICE_HOST=192.168.31.14 
+      - MYSQL_SLAVE_SERVICE_PORT=3306   
+      
+  xc-nacos-2: 
+    image: nacos/nacos-server:latest
+    hostname: xc-nacos-2
+    container_name: xc-nacos-2
+    ports:
+        - "8849:8848"
+    environment: 
+      - PREFER_HOST_MODE=hostname 
+      - NACOS_SERVERS=xc-nacos-1:8848 xc-nacos-2:8848 xc-nacos-3:8848 
+      - MYSQL_MASTER_SERVICE_HOST=192.168.31.14 
+      - MYSQL_MASTER_SERVICE_DB_NAME=ag_nacos 
+      - MYSQL_MASTER_SERVICE_PORT=3306 
+      - MYSQL_MASTER_SERVICE_USER=root 
+      - MYSQL_MASTER_SERVICE_PASSWORD=123456 
+      - MYSQL_SLAVE_SERVICE_HOST=192.168.31.14 
+      - MYSQL_SLAVE_SERVICE_PORT=3306     
+  
+  xc-nacos-3: 
+    image: nacos/nacos-server:latest
+    hostname: xc-nacos-3
+    container_name: xc-nacos-3
+    ports:
+        - "8850:8848"
+    environment: 
+      - PREFER_HOST_MODE=hostname 
+      - NACOS_SERVERS=xc-nacos-1:8848 xc-nacos-2:8848 xc-nacos-3:8848 
+      - MYSQL_MASTER_SERVICE_HOST=192.168.31.14 
+      - MYSQL_MASTER_SERVICE_DB_NAME=ag_nacos 
+      - MYSQL_MASTER_SERVICE_PORT=3306 
+      - MYSQL_MASTER_SERVICE_USER=root 
+      - MYSQL_MASTER_SERVICE_PASSWORD=123456 
+      - MYSQL_SLAVE_SERVICE_HOST=192.168.31.14 
+      - MYSQL_SLAVE_SERVICE_PORT=3306
+            
+
+networks:
+  default:
+    external:
+      name: my-overlay

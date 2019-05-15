@@ -9,6 +9,10 @@ spring cloud alibaba集成框架可应用于docker部署
 |xc-common|用于提供一些公共库|
 |xc-gate|网关,分配路由,用于调用admin类的control层,无需关注端口，路由分配转发|
 
+# 项目布署图
+![xc-project-deploy](https://user-images.githubusercontent.com/14237778/57747392-02af5700-7708-11e9-8542-9de2fd9a57ce.png)
+
+
 
 # What does it do
 本框架使用spring cloud为基本架构，结合阿里dubbo+nacos提供服务层

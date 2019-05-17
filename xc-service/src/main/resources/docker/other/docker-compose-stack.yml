@@ -11,6 +11,7 @@ services:
         - spring.networks=172.70.*
         - xc.ignite.config=http://xc-nacos-1:8848/nacos/v1/cs/configs?dataId=xc-service-ignite-dev.xml&group=DEFAULT_GROUP
         - ignite.zkAddress=xc-zookeeper:2181
+        - ignite.clientMode=true
         - spring.profiles.active=dev
     volumes:
         - /root/docker/xc-service/logs:/logs/xc-service

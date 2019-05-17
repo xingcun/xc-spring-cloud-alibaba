@@ -5,6 +5,7 @@ services:
     container_name: xc-zookeeper
     ports:
         - "2181:2181"
+  
         
   xc-nacos-1:
     image: nacos/nacos-server:latest

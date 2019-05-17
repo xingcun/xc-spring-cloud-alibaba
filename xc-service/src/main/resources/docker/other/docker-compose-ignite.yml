@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  xc-ignite:
+    image: apacheignite/ignite:2.7.0
+    depends_on: 
+       - xc-zookeeper 
+    environment:     
+      - CONFIG_URI=http://xc-nacos-1:8848/nacos/v1/cs/configs?dataId=applicationContext-ignite.xml&group=DEFAULT_GROUP
+      - JVM_OPTS=$JVM_OPTS -Dignite.zkAddress=xc-zookeeper:2181
+      - OPTION_LIBS=ignite-zookeeper
+    deploy:  
+      replicas: 1 # replicas模式， 复制数目为1
+            
+
+networks:
+  default:
+    external:
+      name: my-overlay

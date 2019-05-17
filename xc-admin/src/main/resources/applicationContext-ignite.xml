@@ -24,7 +24,7 @@
 
 	<bean abstract="true" id="ignite.cfg"
 		class="org.apache.ignite.configuration.IgniteConfiguration">
-		<property name="ClientMode" value="true" />
+		<property name="ClientMode" value="#{systemEnvironment['ignite.clientMode']!=null?systemEnvironment['ignite.clientMode']:systemProperties['ignite.clientMode']!=null?systemProperties['ignite.clientMode']:true}" />
 		<property name="binaryConfiguration">
 			<bean
 				class="org.apache.ignite.configuration.BinaryConfiguration">

@@ -109,7 +109,7 @@
 	<bean abstract="true" id="ignite.cfg"
 		class="org.apache.ignite.configuration.IgniteConfiguration">
 		<!-- 可单独使用ignite服务当主服务,减轻service层的压力 -->
-       <property name="ClientMode" value="false" /> 
+       <property name="ClientMode" value="#{systemEnvironment['ignite.clientMode']!=null?systemEnvironment['ignite.clientMode']:systemProperties['ignite.clientMode']!=null?systemProperties['ignite.clientMode']:false}" />
         <property name="binaryConfiguration">
 		    <bean class="org.apache.ignite.configuration.BinaryConfiguration">
 		        <property name="compactFooter" value="false"/>

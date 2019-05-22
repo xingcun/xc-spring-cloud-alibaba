@@ -21,6 +21,9 @@ docker swarm init --advertise-addr 192.168.31.200
 docker network create -d overlay --subnet 172.70.10.0/24  my-overlay
 
 
+docker stack deploy -c docker-compose-stack.yml xc-app
+
+
 docker service create  --replicas 2    --network my-overlay \
 -e JAVA_OPTS='-DNACOS_ADDR=xc-nacos-1 -DSQL_HOST=192.168.31.14 -DIGNITE_HOME=/ -Dignite.zkAddress=192.168.31.14:2181' \
 --mount type=bind,src=/root/docker/xc-service/logs,dst=/logs/xc-service \

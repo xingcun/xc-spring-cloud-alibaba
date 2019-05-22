@@ -1,5 +1,5 @@
 server:
-  port: 8021
+  port: 8020
         
 # Nacos registry address   
 dubbo:
@@ -57,23 +57,37 @@ spring:
   datasource:
         url: jdbc:postgresql://${SQL_HOST:127.0.0.1}:${SQL_PORT:5432}/dbxc?autoReconnect=true
         username: ${SQL_USERNAME:postgres}
-        password: ${SQL_PASSWORD:www21cncom}
+        password: ${SQL_PASSWORD:123456}
         driverClassName: org.postgresql.Driver
-        type: com.alibaba.druid.pool.DruidDataSource
-        initialSize: 5
-        minIdle: 5
-        maxActive: 50
-        maxWait: 60000
-        timeBetweenEvictionRunsMillis: 60000
-        minEvictableIdleTimeMillis: 300000
-        validationQuery: SELECT 1
-        testWhileIdle: true
-        testOnBorrow: false
-        testOnReturn: false
-        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-        filters: stat,wall,log4j
-        poolPreparedStatements: true
-        maxPoolPreparedStatementPerConnectionSize: 20
+
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        initialSize: 5
+#        minIdle: 5
+#        maxActive: 50
+#        maxWait: 60000
+#        timeBetweenEvictionRunsMillis: 60000
+#        minEvictableIdleTimeMillis: 300000
+#        validationQuery: SELECT 1
+#        testWhileIdle: true
+#        testOnBorrow: false
+#        testOnReturn: false
+#        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+#        filters: stat,wall,log4j
+#        poolPreparedStatements: true
+#        maxPoolPreparedStatementPerConnectionSize: 20
+
+        type: com.zaxxer.hikari.HikariDataSource
+        hikari:
+            minimum-idle: 5
+            maximum-pool-size: 50
+            auto-commit: true
+            idle-timeout: 30000
+            pool-name: DatebookHikariCP
+            max-lifetime: 1800000
+            connection-timeout: 30000
+            connection-test-query: SELECT 1
+
+
   jpa: 
       database: POSTGRESQL
       show-sql: true
@@ -91,7 +105,7 @@ spring:
         hibernate.connection.release_mode: on_close
         javax.persistence.sharedCache.mode: ENABLE_SELECTIVE
         org.apache.ignite.hibernate.ignite_instance_name: hibernate-grid
-        org.apache.ignite.hibernate.grid_config: ${xc.ignite.config:xc-service-ignite.xml}
+        org.apache.ignite.hibernate.grid_config: ${xc.ignite.config:applicationContext-ignite.xml}
         #http://127.0.0.1:8848/nacos/v1/cs/configs?dataId=applicationContext-ignite.xml&group=DEFAULT_GROUP    
         
            

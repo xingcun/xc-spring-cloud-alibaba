@@ -101,6 +101,7 @@ spring cloud alibaba集成框架可应用于docker部署
     "password":123456
 }
 ```
+
 > * 127.0.0.1:8880/api/admin/user/login?username=xx&password=xx 登录,获取token后放在header请求中,xc-token=xxxxxxxxxxxx
 > * 如需使用sentinel做监听，可打开xc-service配置文件application.yml中的 sentinel.transport.dashboard,  自行到官网下载,[sentinel1.5.1](https://github.com/alibaba/Sentinel/releases)	启动命令 java -Dserver.port=8088 -Dcsp.sentinel.dashboard.server=localhost:8088 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.5.1.jar
  

@@ -27,7 +27,7 @@ public class CacheFactory {
 	 */
 	private  String  cacheGrid = "service-cache-grid";
 	
-	public IgniteCache getCache(String cacheName) {
+	private IgniteCache getCache(String cacheName) {
 		Ignite ignite = getIgnite();
 		IgniteCache namedCache = ignite.cache(cacheName);
 		if(namedCache == null){
@@ -55,5 +55,9 @@ public class CacheFactory {
 	
 	public IgniteCache<String,Object> getLockCache(){
 		return getCache("CAHCE-LOCK-DISTRIBUTED");
+	}
+
+	public IgniteCache getTestCache() {
+		return getCache("XC-TEST");
 	}
 }

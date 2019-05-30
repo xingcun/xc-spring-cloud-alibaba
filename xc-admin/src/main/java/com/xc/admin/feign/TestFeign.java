@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.alibaba.fastjson.JSONObject;
 
-//@FeignClient(value = "xc-service",fallback=TestFeignHystrix.class)
-@FeignClient(value = "xc-service")
+@FeignClient(value = "xc-service",fallback=TestFeignHystrix.class)
+//@FeignClient(value = "xc-service")
 public interface TestFeign {
 	
 	@RequestMapping(value = "/testMsg",method = RequestMethod.POST)

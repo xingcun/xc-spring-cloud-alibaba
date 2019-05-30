@@ -2,7 +2,13 @@ package com.xc.admin.control;
 
 import java.util.concurrent.locks.Lock;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.apache.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSONObject;
 import com.xc.admin.feign.TestFeign;
-import com.xc.service.TestCacosService;
 import com.xc.service.TestService;
 import com.xc.util.CacheFactory;
 import com.xc.util.LockUtil;
@@ -20,11 +25,10 @@ import com.xc.vo.ModelVo;
 @RestController
 public class TestControl {
 
+	private static final Logger log = LoggerFactory.getLogger(TestControl.class);
 	@Reference
 	private TestService testService;
 
-	@Reference
-	private TestCacosService testCacosService;
 
 	@Autowired
 	private TestFeign testFeign;
@@ -32,13 +36,14 @@ public class TestControl {
 	@Autowired
 	private ThreadPoolTaskExecutor executor;
 
+
 	@RequestMapping(value = "/test")
 	public JSONObject test(String msg) {
 		System.out.println("------------------------------");
-		CacheFactory.getInstance().getCache("test").put("msg", msg);
+		CacheFactory.getInstance().getTestCache().put("msg", msg);
 		JSONObject obj = new JSONObject();
 		testService.test();
-		testCacosService.send(msg);
+		testService.send(msg);
 		obj.put("status", 1);
 		executor.execute(() -> {
 			try {
@@ -54,7 +59,7 @@ public class TestControl {
 
 	@RequestMapping(value = "/testFeign")
 	public JSONObject testFeign(@RequestBody JSONObject obj) {
-		System.out.println("admin cache msg:" + CacheFactory.getInstance().getCache("test").get("msg"));
+		System.out.println("admin cache msg:" + CacheFactory.getInstance().getTestCache().get("msg"));
 		return testFeign.test(obj);
 	}
 
@@ -144,6 +149,15 @@ public class TestControl {
 		vo.getResult().put("tLock", flag);
 
 		return vo;
+	}
+
+
+	@StreamListener(value = Sink.INPUT)
+	public void receiveAll(Message message,
+						   @Header(value = "type", required = false) String type,
+						   @Header(value = "test", required = false) String test) {
+		log.info("receiveAll msgs, payload: {}, type header: {}, test header: {}",
+				message.getPayload(), type, test);
 	}
 
 }

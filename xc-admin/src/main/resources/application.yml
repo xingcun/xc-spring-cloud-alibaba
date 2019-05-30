@@ -39,9 +39,33 @@ spring:
       discovery:
         server-addr: ${spring.cloud.nacos.config.server-addr}
         ip: ${NACOS_REGIST_IP:}
-  inetutils:
-    preferred-networks: ${spring.networks:}
-          
+    bus:
+      id: ${spring.application.name}:${server.port}
+    stream:
+      bindings:
+        springCloudBusInput:
+          destination: springCloudBus
+        springCloudBusOutput:
+          destination: springCloudBus
+        input:
+          send-message-timeout: 30000
+          group: xc-binder-group
+          destination: xc-binder-topic
+          content-type: application/json
+          consumer:
+            concurrency: 20
+
+      rocketmq:
+        binder:
+          nameServer: localhost:9876
+
+    inetutils:
+      preferred-networks: ${spring.networks:}
+
+
+
+
+
 ##请求和响应GZIP压缩支持 
 feign:
   hystrix:

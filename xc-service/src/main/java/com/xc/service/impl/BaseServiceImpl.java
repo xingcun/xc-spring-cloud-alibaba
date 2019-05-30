@@ -247,7 +247,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 	}
 
 	public Page<M> findAll(Example<M> spec, int page, int size) {
-		return getBaseRepository().findAll(spec, new PageRequest(page, size));
+		return getBaseRepository().findAll(spec, PageRequest.of(page,size));
 	}
 
 	public List<M> findAll(Example<M> spec) {

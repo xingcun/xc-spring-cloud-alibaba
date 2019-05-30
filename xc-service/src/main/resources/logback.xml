@@ -129,7 +129,8 @@
     
      <logger name="com.alibaba.nacos.client" level="warn" additivity="false" />
      <logger name="org.apache.ignite.internal" level="warn" additivity="false" />
-    
+    <logger name="org.hibernate.engine.internal.StatisticalLoggingSessionEventListener" level="off"/>
+    <logger name="logging.level.org.springframework.cloud.stream.binder.rocketmq" level="DEBUG"/>
     <!-- Logger 根目录 -->
     <root level="DEBUG">
         <appender-ref ref="STDOUT" />

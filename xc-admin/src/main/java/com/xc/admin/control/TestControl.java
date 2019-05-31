@@ -2,6 +2,7 @@ package com.xc.admin.control;
 
 import java.util.concurrent.locks.Lock;
 
+import com.xc.admin.feign.TestFeignFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ public class TestControl {
 	private TestFeign testFeign;
 
 	@Autowired
+	private TestFeignFactory testFeignFactory;
+
+	@Autowired
 	private ThreadPoolTaskExecutor executor;
 
 
@@ -45,6 +49,7 @@ public class TestControl {
 		testService.test();
 		testService.send(msg);
 		obj.put("status", 1);
+
 		executor.execute(() -> {
 			try {
 				Thread.sleep(5000L);
@@ -58,9 +63,14 @@ public class TestControl {
 	}
 
 	@RequestMapping(value = "/testFeign")
-	public JSONObject testFeign(@RequestBody JSONObject obj) {
+	public JSONObject testFeign(String msg) {
 		System.out.println("admin cache msg:" + CacheFactory.getInstance().getTestCache().get("msg"));
-		return testFeign.test(obj);
+		return testFeign.testHystrix(msg);
+	}
+
+	@RequestMapping(value = "/testFeignFactory")
+	public JSONObject testFeignFactory(String msg) {
+		return testFeignFactory.testHystrixFactory(msg);
 	}
 
 	@RequestMapping(value = "/testLock")
@@ -160,4 +170,19 @@ public class TestControl {
 				message.getPayload(), type, test);
 	}
 
+	public void setTestService(TestService testService) {
+		this.testService = testService;
+	}
+
+	public void setTestFeign(TestFeign testFeign) {
+		this.testFeign = testFeign;
+	}
+
+	public void setTestFeignFactory(TestFeignFactory testFeignFactory) {
+		this.testFeignFactory = testFeignFactory;
+	}
+
+	public void setExecutor(ThreadPoolTaskExecutor executor) {
+		this.executor = executor;
+	}
 }

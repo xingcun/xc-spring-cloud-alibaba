@@ -11,10 +11,10 @@ import com.alibaba.fastjson.JSONObject;
 public class TestFeignHystrix implements TestFeign {
 
 	@Override
-	public JSONObject test(JSONObject obj) {
-		System.out.println("任务熔断:"+obj.toJSONString());
+	public JSONObject testHystrix(String msg) {
+		System.out.println("任务熔断:"+msg);
 		ModelVo vo = new ModelVo();
-		vo.setCodeEnum(BaseModelVo.Code.ERROR,"任务失败,熔断触发成功");
+		vo.setCodeEnum(BaseModelVo.Code.ERROR,"任务失败,熔断触发成功:"+msg);
 		return (JSONObject)JSON.toJSON(vo);
 	}
 

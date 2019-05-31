@@ -69,7 +69,7 @@ spring:
 ##请求和响应GZIP压缩支持 
 feign:
   hystrix:
-    enabled: false
+    enabled: true #是否开启熔断
   httpclient:
     enabled: false
   okhttp:
@@ -80,9 +80,20 @@ feign:
     response:
       enabled: true
 
+#hystrix的超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000
+
 ribbon:
-  ReadTimeout: 10000
-  ConnectTimeout: 10000
+  ReadTimeout: 5000
+  ConnectTimeout: 4000
   MaxAutoRetries: 1 #同一台实例最大重试次数,不包括首次调用
   MaxAutoRetriesNextServer: 1 #重试负载均衡其他的实例最大重试次数,不包括首次调用
   OkToRetryOnAllOperations: false  #是否所有操作都重试

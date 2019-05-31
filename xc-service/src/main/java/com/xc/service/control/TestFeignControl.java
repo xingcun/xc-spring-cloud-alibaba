@@ -27,8 +27,8 @@ public class TestFeignControl {
 //		}
 		/*
 		 测试熔断
-		ry {
-			Thread.sleep(3000L);
+		try {
+			Thread.sleep(8000L);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

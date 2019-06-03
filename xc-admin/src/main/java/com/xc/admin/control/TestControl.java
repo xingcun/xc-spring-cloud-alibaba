@@ -2,6 +2,7 @@ package com.xc.admin.control;
 
 import java.util.concurrent.locks.Lock;
 
+import com.alibaba.fastjson.JSON;
 import com.xc.admin.feign.TestFeignFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -166,6 +167,7 @@ public class TestControl {
 	public void receiveAll(Message message,
 						   @Header(value = "type", required = false) String type,
 						   @Header(value = "test", required = false) String test) {
+		log.info(JSON.toJSONString(message.getHeaders()));
 		log.info("receiveAll msgs, payload: {}, type header: {}, test header: {}",
 				message.getPayload(), type, test);
 	}

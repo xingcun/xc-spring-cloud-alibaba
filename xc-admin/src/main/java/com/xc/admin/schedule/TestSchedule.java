@@ -11,7 +11,7 @@ import com.xc.util.CommonUtil;
 @Component
 public class TestSchedule extends BaseSchedule {
 	
-	@Scheduled(cron = "0/5 * * * * ?" ) 
+	@Scheduled(cron = "0/5 * * * * ?" )
 	@Override
 	public void schedule() {
 		start("TestSchedule");

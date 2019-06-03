@@ -48,13 +48,9 @@ spring:
         springCloudBusOutput:
           destination: springCloudBus
         input:
-          send-message-timeout: 30000
           group: xc-binder-group
           destination: xc-binder-topic
           content-type: application/json
-          consumer:
-            concurrency: 20
-
       rocketmq:
         binder:
           nameServer: localhost:9876

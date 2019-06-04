@@ -68,7 +68,7 @@ spring:
 
       rocketmq:
          binder:
-           nameServer: localhost:9876
+           nameServer: ${ROCKET_MQ_HOST:127.0.0.1:9876}
          bindings:
            springCloudBusOutput:
              producer:

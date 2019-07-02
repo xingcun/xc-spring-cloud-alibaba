@@ -16,12 +16,13 @@ import {
   DatePicker,
   message,
   Badge,
-  Divider, Popconfirm,
+  Divider,
+  Popconfirm,
 } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
 import { SorterResult } from 'antd/es/table';
 import StandardTable, { StandardTableColumnProps } from './components/StandardTable';
-import {TableListItem, TableListParams, TableListPagination, ModelVo} from './data';
+import { TableListItem, TableListParams, TableListPagination, ModelVo } from './data';
 import { Dispatch } from 'redux';
 import styles from './style.less';
 import UpdateForm, { IFormValsType } from './components/UpdateForm';
@@ -50,7 +51,7 @@ interface TableListState {
   formValues: { [key: string]: string };
   stepFormValues: Partial<TableListItem>;
   expandFormStyle: string;
-  pagination: Partial<TableListPagination>,
+  pagination: Partial<TableListPagination>;
 }
 
 /* eslint react/no-multi-comp:0 */
@@ -105,10 +106,9 @@ class XcUserTableList extends Component<TableListProps, TableListState> {
           text: status[1],
           value: '1',
         },
-
       ],
       render(val: IStatusMapType) {
-        return <Badge status="success" text={status[val]}/>;
+        return <Badge status="success" text={status[val]} />;
       },
     },
 
@@ -124,33 +124,32 @@ class XcUserTableList extends Component<TableListProps, TableListState> {
           <a onClick={() => this.handleUpdateModalVisible(true, record)}>修改</a>
           <Divider type="vertical" />
           <Popconfirm
-            title={`是否设置用户${record.valid?'失':'有'}效?`}
-            onConfirm={(e)=>{
+            title={`是否设置用户${record.valid ? '失' : '有'}效?`}
+            onConfirm={e => {
               this.handleUpdate({
                 id: record.id,
-                valid: !record.valid
-              })
+                valid: !record.valid,
+              });
               // message.success('Click on Yes');
             }}
             okText="是"
             cancelText="否"
           >
-            <a href="#">{record.valid?'有':'失'}效</a>
+            <a href="#">{record.valid ? '有' : '失'}效</a>
           </Popconfirm>
         </Fragment>
       ),
     },
   ];
 
-
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
       type: 'xcUserList/fetch',
       payload: {
-        pageSize:10,
-        pageNo:1
-      }
+        pageSize: 10,
+        pageNo: 1,
+      },
     });
   }
 
@@ -177,8 +176,8 @@ class XcUserTableList extends Component<TableListProps, TableListState> {
       params.sorter = `${sorter.field}_${sorter.order}`;
     }
     this.setState({
-      pagination: pagination
-    })
+      pagination: pagination,
+    });
     dispatch({
       type: 'xcUserList/fetch',
       payload: params,
@@ -197,7 +196,7 @@ class XcUserTableList extends Component<TableListProps, TableListState> {
     const { expandForm } = this.state;
     this.setState({
       expandForm: !expandForm,
-      expandFormStyle: expandForm?'none':null
+      expandFormStyle: expandForm ? 'none' : null,
     });
   };
 
@@ -232,10 +231,9 @@ class XcUserTableList extends Component<TableListProps, TableListState> {
   };
 
   handleSearch = (e: React.FormEvent) => {
-    if(e){
+    if (e) {
       e.preventDefault();
     }
-
 
     const { dispatch, form } = this.props;
 
@@ -250,18 +248,17 @@ class XcUserTableList extends Component<TableListProps, TableListState> {
       this.setState({
         formValues: values,
       });
-      console.log(this.state)
+      console.log(this.state);
       dispatch({
         type: 'xcUserList/fetch',
         payload: {
-          input:values,
-          pageNo:1,
-          pageSize:this.state.pagination && this.state.pagination.pageSize || 10
+          input: values,
+          pageNo: 1,
+          pageSize: (this.state.pagination && this.state.pagination.pageSize) || 10,
         },
       });
     });
   };
-
 
   handleUpdateModalVisible = (flag?: boolean, record?: IFormValsType) => {
     this.setState({
@@ -270,24 +267,21 @@ class XcUserTableList extends Component<TableListProps, TableListState> {
     });
   };
 
-
   handleUpdate = (fields: IFormValsType) => {
     const { dispatch } = this.props;
     dispatch({
       type: 'xcUserList/update',
       payload: fields,
-      callback: (msg)=>{
-        if(msg) {
+      callback: msg => {
+        if (msg) {
           message.error(msg);
-        }else{
+        } else {
           message.success('配置成功');
           this.handleUpdateModalVisible();
           this.handleSearch();
         }
-      }
+      },
     });
-
-
   };
 
   renderSimpleForm() {
@@ -306,14 +300,18 @@ class XcUserTableList extends Component<TableListProps, TableListState> {
               {getFieldDecorator('mobile')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
-          <Col md={8} sm={24} style={{display:this.state.expandFormStyle}}>
+          <Col md={8} sm={24} style={{ display: this.state.expandFormStyle }}>
             <FormItem label="创建日期">
               {getFieldDecorator('_beginTime')(
-                <DatePicker style={{ width: '100%' }} placeholder="请输入创建日期" format={'YYYY-MM-DD'}/>,
+                <DatePicker
+                  style={{ width: '100%' }}
+                  placeholder="请输入创建日期"
+                  format={'YYYY-MM-DD'}
+                />,
               )}
             </FormItem>
           </Col>
-          <Col md={8} sm={24} style={{display:this.state.expandFormStyle}}>
+          <Col md={8} sm={24} style={{ display: this.state.expandFormStyle }}>
             <FormItem label="来源类型">
               {getFieldDecorator('source')(
                 <Select placeholder="请选择" style={{ width: '100%' }} allowClear={true}>
@@ -323,7 +321,7 @@ class XcUserTableList extends Component<TableListProps, TableListState> {
               )}
             </FormItem>
           </Col>
-          <Col md={8} sm={24} style={{display:this.state.expandFormStyle}}>
+          <Col md={8} sm={24} style={{ display: this.state.expandFormStyle }}>
             <FormItem label="是否有效">
               {getFieldDecorator('valid')(
                 <Select placeholder="请选择" style={{ width: '100%' }} allowClear={true}>
@@ -342,7 +340,8 @@ class XcUserTableList extends Component<TableListProps, TableListState> {
                 重置
               </Button>
               <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
-                {this.state.expandFormStyle?'展开':'收起'} <Icon type={this.state.expandFormStyle?"down":"up"} />
+                {this.state.expandFormStyle ? '展开' : '收起'}{' '}
+                <Icon type={this.state.expandFormStyle ? 'down' : 'up'} />
               </a>
             </span>
           </Col>
@@ -351,26 +350,29 @@ class XcUserTableList extends Component<TableListProps, TableListState> {
     );
   }
 
-
   render() {
     const {
       xcUserList: { data },
       loading,
       form,
     } = this.props;
-    const { selectedRows,  updateModalVisible, stepFormValues } = this.state;
+    const { selectedRows, updateModalVisible, stepFormValues } = this.state;
 
     const updateMethods = {
       handleUpdateModalVisible: this.handleUpdateModalVisible,
       handleUpdate: this.handleUpdate,
     };
     return (
-      <PageHeaderWrapper>
+      <div>
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderSimpleForm()}</div>
             <div className={styles.tableListOperator}>
-              <Button icon="plus" type="primary" onClick={() => this.handleUpdateModalVisible(true, {valid:true})}>
+              <Button
+                icon="plus"
+                type="primary"
+                onClick={() => this.handleUpdateModalVisible(true, { valid: true })}
+              >
                 新建
               </Button>
               {selectedRows.length > 0 && (
@@ -397,7 +399,7 @@ class XcUserTableList extends Component<TableListProps, TableListState> {
             values={stepFormValues}
           />
         ) : null}
-      </PageHeaderWrapper>
+      </div>
     );
   }
 }

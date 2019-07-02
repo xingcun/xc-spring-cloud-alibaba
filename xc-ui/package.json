@@ -83,6 +83,7 @@
     "umi-request": "^1.0.7"
   },
   "devDependencies": {
+    "@ant-design/colors": "^3.1.0",
     "@types/classnames": "^2.2.7",
     "@types/history": "^4.7.2",
     "@types/jest": "^24.0.13",
@@ -92,7 +93,6 @@
     "@types/react-document-title": "^2.0.3",
     "@types/react-dom": "^16.8.4",
     "antd-pro-merge-less": "^1.0.0",
-    "@ant-design/colors": "^3.1.0",
     "babel-eslint": "^10.0.1",
     "chalk": "^2.4.2",
     "check-prettier": "^1.0.3",
@@ -110,7 +110,6 @@
     "eslint-plugin-react": "^7.13.0",
     "express": "^4.17.1",
     "gh-pages": "^2.0.1",
-    "husky": "^2.3.0",
     "jest-puppeteer": "^4.2.0",
     "jsdom-global": "^3.0.2",
     "less": "^3.9.0",

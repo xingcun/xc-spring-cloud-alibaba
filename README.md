@@ -37,8 +37,8 @@ spring cloud alibaba集成框架可应用于docker部署
 * **再启动xc-service中的XcServiceBootstrap**
 * **再启动xc-admin中的XcAdminBootstrap**
 * **再启动xc-gate中的GateBootstrap**
-* **配置nginx,配置文件参考[nginx.conf](https://github.com/xingcun/xc-spring-cloud-alibaba/tree/master/xc-ui/docker/nginx.conf),启动前端文件
-
+* **配置nginx,配置文件参考[nginx.conf](https://github.com/xingcun/xc-spring-cloud-alibaba/tree/master/xc-ui/docker/nginx.conf),启动前端文件**
+* **增加Mysql8.0并支持json操作,修改xc-service中的application.yml数据库配置，再修改BaseEntity，User类**
 
 # 注意事项
 > * 数据库配置文件在xc-service中的application.yml配置文件，引用的是pgsql+hibernate，框架解决了pgsql中的jsonb实例化问题，如需引用其它数据库，请自行更改（最简单的方案就是去除json引用，增加pom数据库引用包）

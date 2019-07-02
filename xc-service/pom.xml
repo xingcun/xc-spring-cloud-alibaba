@@ -43,7 +43,7 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
-		<!-- <dependency> <groupId>com.alibaba</groupId> <artifactId>dubbo</artifactId> 
+		<!-- <dependency> <groupId>com.alibaba</groupId> <artifactId>dubbo</artifactId>
 			<version>2.6.6</version> </dependency> -->
 
 		<!-- https://mvnrepository.com/artifact/com.alibaba/dubbo-registry-nacos -->
@@ -53,7 +53,7 @@
 			<version>2.6.6</version>
 		</dependency> -->
 
-		<!-- <dependency> <groupId>com.alibaba.nacos</groupId> <artifactId>nacos-client</artifactId> 
+		<!-- <dependency> <groupId>com.alibaba.nacos</groupId> <artifactId>nacos-client</artifactId>
 			<version>1.0.0</version> </dependency> -->
 		<!-- https://mvnrepository.com/artifact/com.alibaba.spring/spring-context-support -->
 		<dependency>
@@ -75,22 +75,22 @@
 			<artifactId>ignite-hibernate_5.3</artifactId>
 			<version>2.8.0-SNAPSHOT</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/other/ignite-hibernate_5.3-2.8.0-SNAPSHOT.jar</systemPath> 
+			<systemPath>${project.basedir}/other/ignite-hibernate_5.3-2.8.0-SNAPSHOT.jar</systemPath>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>5.4.2.Final</version>
-		</dependency>
+		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/org.apache.ignite/ignite-hibernate-core -->
-		
+
 		<dependency>
 			<groupId>org.apache.ignite</groupId>
 			<artifactId>ignite-hibernate-core</artifactId>
 			<version>2.8.0-SNAPSHOT</version>
 		<scope>system</scope>
-			<systemPath>${project.basedir}/other/ignite-hibernate-core-2.8.0-SNAPSHOT.jar</systemPath> 
+			<systemPath>${project.basedir}/other/ignite-hibernate-core-2.8.0-SNAPSHOT.jar</systemPath>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
@@ -106,20 +106,27 @@
 			<version>1.4.2</version>
 		</dependency>
 
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.16</version>
+		</dependency>
+
+
     </dependencies>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				
+
 				<configuration>
 					<!-- <skip>true</skip> -->
     				<includeSystemScope>true</includeSystemScope>
 				</configuration>
 			</plugin>
-			
-			<!-- 打包时不打配置文件，使用nacos配置单 -->			
+
+			<!-- 打包时不打配置文件，使用nacos配置单 -->
 			 <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -129,7 +136,7 @@
 						<exclude>application*.*</exclude>
 					</excludes>
 				</configuration>
-			  </plugin> 
+			  </plugin>
 
 		</plugins>
 	</build>

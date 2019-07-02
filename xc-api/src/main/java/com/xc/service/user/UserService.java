@@ -10,10 +10,17 @@ public interface UserService extends BaseService<User, String> {
 	
 	
 	public ModelVo saveUser(User user,String userId,String...filters);
-	
-	public ModelVo login(String username,String password,String loginType);
+
+	/**
+	 *
+	 * @param username
+	 * @param password
+	 * @param loginType 0,用户密码登录,1手机号验证码登录
+	 * @param loginSystem
+	 * @return
+	 */
+	public ModelVo login(String username,String password,int loginType,String loginSystem);
 	
 	public ModelVo getJwtUserPubKey();
 	
-	public ModelVo regist(User user);
 }

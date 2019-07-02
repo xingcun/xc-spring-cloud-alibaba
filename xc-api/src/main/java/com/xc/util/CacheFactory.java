@@ -1,10 +1,14 @@
 package com.xc.util;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.cache.expiry.AccessedExpiryPolicy;
+import javax.cache.expiry.CreatedExpiryPolicy;
 import javax.cache.expiry.Duration;
+import javax.cache.expiry.ExpiryPolicy;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
 import org.apache.ignite.Ignition;
@@ -27,7 +31,7 @@ public class CacheFactory {
 	 */
 	private  String  cacheGrid = "service-cache-grid";
 	
-	private IgniteCache getCache(String cacheName) {
+	private IgniteCache getCache(String cacheName, ExpiryPolicy var1) {
 		Ignite ignite = getIgnite();
 		IgniteCache namedCache = ignite.cache(cacheName);
 		if(namedCache == null){
@@ -37,8 +41,14 @@ public class CacheFactory {
 			cacheCfg.setWriteSynchronizationMode(CacheWriteSynchronizationMode.PRIMARY_SYNC);
 			ignite.addCacheConfiguration(cacheCfg);
 			namedCache = ignite.getOrCreateCache(cacheName);
+			if(var1==null) {
+				namedCache.withExpiryPolicy(new AccessedExpiryPolicy(new Duration(TimeUnit.DAYS, 2)));
+			}else{
+				namedCache.withExpiryPolicy(var1);
+			}
+
 		}
-		namedCache.withExpiryPolicy(new AccessedExpiryPolicy(new Duration(TimeUnit.DAYS, 2)));
+
 		return namedCache;
 	}
 	
@@ -54,10 +64,17 @@ public class CacheFactory {
 	}
 	
 	public IgniteCache<String,Object> getLockCache(){
-		return getCache("CAHCE-LOCK-DISTRIBUTED");
+		return getCache("CAHCE-LOCK-DISTRIBUTED",null);
 	}
 
 	public IgniteCache getTestCache() {
-		return getCache("XC-TEST");
+		return getCache("XC-TEST",null);
+	}
+
+
+	private final static ExpiryPolicy codeCacheExpiryPolicy = new CreatedExpiryPolicy(new Duration(TimeUnit.MINUTES, 5));
+
+	public IgniteCache<String, JSONObject> getCodeCache() {
+		return  getCache("XC-GET-CODE",codeCacheExpiryPolicy);
 	}
 }

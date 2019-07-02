@@ -8,22 +8,31 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.xc.util.MySqlJsonType;
+import com.xc.util.PgSqlJsonbType;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 import org.springframework.data.domain.Persistable;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.xc.util.JsonbType;
 
 /**
- * 
+ *
  * @author Administrator
  *
  * @param <ID>
  */
 @MappedSuperclass
-@TypeDefs({ @TypeDef(name = "jsonb", typeClass = JsonbType.class) })
+/**
+ * TODO　mysql8使用的
+ */
+//@TypeDefs({ @TypeDef(name = "json", typeClass = MySqlJsonType.class) })
+
+/**
+ * TODO pgsql使用的
+ */
+@TypeDefs({ @TypeDef(name = "jsonb", typeClass = PgSqlJsonbType.class) })
 public abstract class BaseEntity<ID extends Serializable> implements
 		Serializable, Persistable<ID> {
 
@@ -43,7 +52,7 @@ public abstract class BaseEntity<ID extends Serializable> implements
 	@Column(name = "update_user_id")
 	private String updateUserId;
 
-	@JSONField(serialize=false) 
+	@JSONField(serialize=false)
 	@Column(name = "delete_status")
 	private boolean deleteStatus;
 
@@ -75,7 +84,7 @@ public abstract class BaseEntity<ID extends Serializable> implements
 		this.updateTime = updateTime;
 	}
 
-	
+
 
 	public String getCreateUserId() {
 		return createUserId;
@@ -106,10 +115,10 @@ public abstract class BaseEntity<ID extends Serializable> implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.springframework.data.domain.Persistable#isNew()
 	 */
-	@JSONField(serialize=false) 
+	@JSONField(serialize=false)
 	@Override
 	public boolean isNew() {
 
@@ -118,7 +127,7 @@ public abstract class BaseEntity<ID extends Serializable> implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -142,7 +151,7 @@ public abstract class BaseEntity<ID extends Serializable> implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -161,17 +170,17 @@ public abstract class BaseEntity<ID extends Serializable> implements
 		return super.toString();
 	}
 
-	
+
 	public void initDate(){
 		setCreateTime(new Date());
 		setUpdateTime(getCreateTime());
 	}
-	
+
 	public void initUser(String id){
 		setCreateUserId(id);
 		setUpdateUserId(id);
 	}
-	
+
 	public void setUpdateTime(){
 		setUpdateTime(new Date());
 	}

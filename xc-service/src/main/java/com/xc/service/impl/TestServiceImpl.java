@@ -1,6 +1,7 @@
 package com.xc.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xc.event.XcLocalEvent;
 import com.xc.event.XcRemoteEvent;
 import com.xc.util.CacheFactory;
 import com.xc.vo.MessageVo;
@@ -39,9 +40,11 @@ public class TestServiceImpl implements TestService{
 
 
 	@Override
-	public String test() {
+	public String testDubbo(JSONObject obj) {
 		RpcContext rpcContext = RpcContext.getContext();
-		
+		if(obj!=null) {
+			System.out.println(obj.toJSONString());
+		}
 		System.out.println("============================"+ String.format("Service [name :TestServiceImpl , port : %d] %s: Hello, %s",
                0,// rpcContext.getLocalPort(),
                "",// rpcContext.getMethodName(),
@@ -51,9 +54,10 @@ public class TestServiceImpl implements TestService{
 	}
 
 	@Override
-	public String send(String msg) {
-		System.out.println("msg:"+msg);
-		System.out.println("cache msg:"+ CacheFactory.getInstance().getTestCache().get("msg"));
+	public String getServiceCache(String key) {
+		System.out.println("key:"+key);
+		String msg =(String) CacheFactory.getInstance().getTestCache().get(key);
+		System.out.println("cache msg:"+msg);
 		return msg;
 	}
 
@@ -70,7 +74,13 @@ public class TestServiceImpl implements TestService{
 	}
 
 	@Override
-	public String sendObj( String name,Integer age) {
+	public void testLocalEvent(String msg) {
+		XcLocalEvent event = new XcLocalEvent(this,msg);
+		applicationContext.publishEvent(event);
+	}
+
+	@Override
+	public String testMqEvent( String name,Integer age) {
 		MessageVo message = new MessageVo();
 		message.setSubject("mq-message-subject");
 		JSONObject obj = new JSONObject();

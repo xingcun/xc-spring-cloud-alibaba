@@ -274,7 +274,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 		M m = input.toJavaObject(clazz);
 		
 		Pageable page = vo.getPage();
-		if(page.getSort()==null) {
+		if(vo.getOrders()==null || vo.getOrders().isEmpty()) {
 			page = vo.getPage(Direction.DESC, "createTime");
 		}
 		JSONObject m_obj = (JSONObject) JSON.toJSON(m);
@@ -295,14 +295,14 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 					}
 				}
 			}
-			if (input.getDate("beginTime") != null) {
+			if (input.getDate("_beginTime") != null) {
 				predicates.add(cb.greaterThanOrEqualTo(root.get("createTime"),
-						CommonUtil.formatDateStartPlus(input.getDate("beginTime"))));
+						CommonUtil.formatDateStartPlus(input.getDate("_beginTime"))));
 			}
 
-			if (input.getDate("endTime") != null) {
+			if (input.getDate("_endTime") != null) {
 				predicates.add(cb.lessThanOrEqualTo(root.get("createTime"),
-						CommonUtil.formatDatePlus(input.getDate("endTime"))));
+						CommonUtil.formatDatePlus(input.getDate("_endTime"))));
 			}
 			
 			if(!input.containsKey("deleteStatus")) {
@@ -310,7 +310,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 			}
 			query.where(predicates.toArray(new Predicate[predicates.size()]));
 			return null;
-		}, vo.getPage());
+		}, page);
 		ModelVo modelVo = new ModelVo();
 		modelVo.setPageObje(pages);
 		modelVo.getResult().put("list", pages.getContent());

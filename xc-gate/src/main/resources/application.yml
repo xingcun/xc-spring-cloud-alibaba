@@ -45,7 +45,12 @@ management:
   security:
     enabled: false
 
-
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 9000
+  MaxAutoRetries: 1 #同一台实例最大重试次数,不包括首次调用
+  MaxAutoRetriesNextServer: 1 #重试负载均衡其他的实例最大重试次数,不包括首次调用
+  OkToRetryOnAllOperations: false  #是否所有操作都重试
 
 
 xc: 

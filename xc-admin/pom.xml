@@ -21,7 +21,6 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
@@ -32,7 +31,7 @@
 			<groupId>io.github.openfeign</groupId>
 			<artifactId>feign-okhttp</artifactId>
 		</dependency>
-		<!-- <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-alibaba-dependencies</artifactId> 
+		<!-- <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-alibaba-dependencies</artifactId>
 			<version>0.2.1.RELEASE</version> <type>pom</type> <scope>import</scope> </dependency> -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -43,7 +42,7 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
@@ -84,11 +83,11 @@
 			<version>1.4.197</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<plugins>
-			
-			<!-- 打包时不打配置文件，使用nacos配置单 -->			
+
+			<!-- 打包时不打配置文件，使用nacos配置单 -->
 			 <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -98,9 +97,9 @@
 						<exclude>application*.*</exclude>
 					</excludes>
 				</configuration>
-			  </plugin> 
+			  </plugin>
 
 		</plugins>
 	</build>
-	
+
 </project>

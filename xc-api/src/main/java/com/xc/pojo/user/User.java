@@ -6,21 +6,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import com.xc.util.MySqlJsonType;
+import com.xc.util.PgSqlJsonbType;
 import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Table;
 import org.hibernate.annotations.Type;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.xc.pojo.BaseEntity;
-import com.xc.util.JsonbType;
 
 /**
  * 用户基本信息
  *
  */
 @Entity
-//@Table(appliesTo = "base_user",comment="用户基本信息")
 @javax.persistence.Table(name="base_user")
 public class User extends BaseEntity<String> {
 
@@ -37,7 +36,7 @@ public class User extends BaseEntity<String> {
 	 * 用户名
 	 */
 	@Column(unique=true,nullable=false)
-	private String username;
+	private String userName;
 
 	/**
 	 * 密码
@@ -75,7 +74,10 @@ public class User extends BaseEntity<String> {
 	 * 绑定的机构用户
 	 */
 	@Column(name = "org_ids")
-	@Type(type = "jsonb",parameters={@Parameter(name = JsonbType.ARRAY_CLASS, value = "java.util.ArrayList"),@Parameter(name = JsonbType.CLASS, value = "java.lang.Long") })
+	// TODO mysql8使用
+//	@Type(type = "json",parameters={@Parameter(name = MySqlJsonType.ARRAY_CLASS, value = "java.util.ArrayList"),@Parameter(name = MySqlJsonType.CLASS, value = "java.lang.Long") })
+	// TODO pgsql使用
+	@Type(type = "jsonb",parameters={@Parameter(name = PgSqlJsonbType.ARRAY_CLASS, value = "java.util.ArrayList"),@Parameter(name = PgSqlJsonbType.CLASS, value = "java.lang.Long") })
 	private List<Long> orgIds;
 	/**
 	 * 推荐人用户ID
@@ -94,14 +96,19 @@ public class User extends BaseEntity<String> {
 	 * 头像URL
 	 */
 	private String avatar;
-	
+
 
 	/**
 	 * 用于存放user的其它额外属性，如V盟的帐号密码
 	 */
-	@Type(type = "jsonb",parameters={@Parameter(name = JsonbType.CLASS, value = "com.alibaba.fastjson.JSONObject") })
+	// TODO mysql8使用
+//	@Type(type = "json",parameters={@Parameter(name = MySqlJsonType.CLASS, value = "com.alibaba.fastjson.JSONObject") })
+	// TODO pgsql使用
+	@Type(type = "jsonb",parameters={@Parameter(name = PgSqlJsonbType.CLASS, value = "com.alibaba.fastjson.JSONObject") })
 	private JSONObject attrs;
-	
+
+
+	private Boolean valid;
 
 	@Override
 	public String getId() {
@@ -112,12 +119,12 @@ public class User extends BaseEntity<String> {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public int getSource() {
@@ -132,25 +139,12 @@ public class User extends BaseEntity<String> {
 		return this.password;
 	}
 
-	public boolean isAccountNonExpired() {
-		return true;
-	}
 
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public boolean isEnabled() {
-		return true;
-	}
 
 
 	public String getMobile() {
@@ -212,7 +206,7 @@ public class User extends BaseEntity<String> {
 		this.avatar = avatar;
 	}
 
-	
+
 	public JSONObject getAttrs() {
 		return attrs;
 	}
@@ -221,5 +215,13 @@ public class User extends BaseEntity<String> {
 		this.attrs = attrs;
 	}
 
-	
+
+
+	public Boolean getValid() {
+		return valid;
+	}
+
+	public void setValid(Boolean valid) {
+		this.valid = valid;
+	}
 }

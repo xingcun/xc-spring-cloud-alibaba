@@ -96,9 +96,8 @@ ribbon:
   
   
 ignore:
-  startWith: /user/login,/user/regist,/test
+  startWith: /user/login,/user/regist,/test,/user/getCode
 
 xc: 
   executor: 
     enabled: true #启动线程池 
-            

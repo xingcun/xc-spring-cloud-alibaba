@@ -1,15 +1,19 @@
 package com.xc.service;
 
+import com.alibaba.fastjson.JSONObject;
+
 public interface TestService {
 	
 	
-	public String test();
+	public String testDubbo(JSONObject obj);
 
-	public String send(String msg);
+	public String getServiceCache(String key);
 
 
 	public void testRemoteEvent();
 
-	public String sendObj( String name,Integer age);
+	public void testLocalEvent(String msg);
+
+	public String testMqEvent( String name,Integer age);
 	
 }

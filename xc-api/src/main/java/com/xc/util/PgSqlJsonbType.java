@@ -40,13 +40,13 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JsonbType implements ParameterizedType, UserType {
+public class PgSqlJsonbType implements ParameterizedType, UserType {
 
 	private static final ObjectMapper objectMapper = new ObjectMapper();
 	static{
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
-		objectMapper.setSerializationInclusion(Include.NON_EMPTY); 
+		objectMapper.setSerializationInclusion(Include.NON_EMPTY);
 	}
 	private static final ClassLoaderService classLoaderService = new ClassLoaderServiceImpl();
 
@@ -55,7 +55,7 @@ public class JsonbType implements ParameterizedType, UserType {
 	public static final String ARRAY_CLASS = "ARRAY_CLASS";
 
 	private Class jsonClassType;
-	
+
 	private Class listClassType;
 
 	@Override
@@ -75,7 +75,7 @@ public class JsonbType implements ParameterizedType, UserType {
 		if(clazz!=null){
 			jsonClassType = classLoaderService.classForName(clazz);
 		}
-		
+
 		clazz = (String) parameters.get(ARRAY_CLASS);
 		if(clazz!=null){
 			listClassType = classLoaderService.classForName(clazz);
@@ -166,7 +166,7 @@ public class JsonbType implements ParameterizedType, UserType {
 				return json;
 			}
 			if(listClassType!=null){
-				JavaType javaType = objectMapper.getTypeFactory().constructParametricType(listClassType,jsonClassType);  
+				JavaType javaType = objectMapper.getTypeFactory().constructParametricType(listClassType,jsonClassType);
 				return json == null ? null : objectMapper.readValue(json, javaType);
 			}
 //			return json;
@@ -189,6 +189,6 @@ public class JsonbType implements ParameterizedType, UserType {
 		} catch (Exception e) {
 			throw new HibernateException(e);
 		}
-		
+
 	}
 }

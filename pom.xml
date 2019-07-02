@@ -97,7 +97,7 @@
 			</releases>
 		</repository>
 
-<!--  
+<!--
 		<repository>
 			<id>spring-snapshot</id>
 			<name>Spring Snapshot Repository</name>

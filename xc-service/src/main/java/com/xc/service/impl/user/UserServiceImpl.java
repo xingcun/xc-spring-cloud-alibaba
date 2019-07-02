@@ -48,7 +48,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 			List<Predicate> predicates = new ArrayList();
 			if (CommonUtil.isNotNull(input.getString("keyword"))) {
 				String keyword = "%"+input.getString("keyword")+"%";
-				predicates.add(cb.or(cb.like(root.get("username"), keyword),
+				predicates.add(cb.or(cb.like(root.get("userName"), keyword),
 						cb.like(root.get("mobile"), keyword),cb.like(root.get("nickName"),keyword)));
 			}
 
@@ -92,7 +92,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 		StringBuilder sql = new StringBuilder("select * from base_user where delete_status=false ");
 
 		if (CommonUtil.isNotNull(input.get("keyword"))) {
-			sql.append(" and (username like '%" + input.getString("keyword") + "%' or mobile like '%"
+			sql.append(" and (userName like '%" + input.getString("keyword") + "%' or mobile like '%"
 					+ input.getString("keyword") + "%' or nick_name like '%" + input.getString("keyword") + "%')");
 		}
 		if (CommonUtil.isNotNull(input.get("beginTime"))) {
@@ -123,70 +123,66 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 	@Override
 	public ModelVo saveUser(User user,String userId,String...filters) {
 		ModelVo vo = new ModelVo();
-		if(CommonUtil.isNotNull(user.getPassword())) {
-			user.setPassword(passwordEncoder.encode(user.getPassword()));
-		}else {
-			if(!CommonUtil.isNotNull(user.getId())) {
-				vo.setCodeEnum(Code.ERROR, "新用户密码不能为空");
+		if(!CommonUtil.isNotNull(user.getId())){
+			if(!CommonUtil.isNotNull(user.getUserName()) ) {
+				user.setUserName(user.getMobile());
 			}
-		}
-		return this.saveObject(user, userId, filters);
-	}
+			if(!CommonUtil.isNotNull(user.getUserName()) ) {
+				vo.setCodeEnum(Code.ERROR, "手机号和用户名不能同时为空");
+				return vo;
+			}
 
-	@Override
-	public ModelVo regist(User user) {
-		ModelVo vo = new ModelVo();
-		user.setId(null);
-		if(!CommonUtil.isNotNull(user.getUsername()) ) {
-			user.setUsername(user.getMobile());
+			if(!CommonUtil.isNotNull(user.getPassword())) {
+				vo.setCodeEnum(Code.ERROR, "密码不能为空");
+				return vo;
+			}
+			user.setValid(true);
 		}
-		if(!CommonUtil.isNotNull(user.getUsername()) ) {
-			vo.setCodeEnum(Code.ERROR, "手机号和用户名不能同时为空");
-			return vo;
-		}
-		
-		if(!CommonUtil.isNotNull(user.getPassword())) {
-			vo.setCodeEnum(Code.ERROR, "密码不能为空");
-			return vo;
-		}
-		
-		String t_username = user.getUsername();
+
+		String t_username = user.getUserName();
 		String mobile = user.getMobile();
 		List<User> users = this.findAll((root, query, cb) -> {
 			List<Predicate> predicates = new ArrayList();
-				if(CommonUtil.isNotNull(mobile)) {
-					predicates.add(cb.or(cb.equal(root.get("username"), t_username),
-							cb.equal(root.get("mobile"), mobile)));
-				}else {
-					predicates.add(cb.equal(root.get("username"), t_username));
-				}
-
+			if(CommonUtil.isNotNull(mobile)) {
+				predicates.add(cb.or(cb.equal(root.get("userName"), t_username),
+						cb.equal(root.get("mobile"), mobile)));
+			}else {
+				predicates.add(cb.equal(root.get("userName"), t_username));
+			}
+			if(CommonUtil.isNotNull(user.getId())){
+				predicates.add(cb.notEqual(root.get("id"), user.getId()));
+			}
 			predicates.add(cb.equal(root.get("deleteStatus"), false));
 			query.where(predicates.toArray(new Predicate[predicates.size()]));
 			return null;
 		}, Sort.by(Direction.DESC, "createTime"));
-		
+
 		if(users!=null && users.size()>0) {
 			vo.setCodeEnum(Code.ERROR, "用户名或手机号已存在");
 			return vo;
 		}
-		
-		vo = this.saveUser(user, null);
-		
-		
-		return vo;
+
+		if(CommonUtil.isNotNull(user.getPassword())) {
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+		}
+		return this.saveObject(user, userId, filters);
 	}
-	
+
+
 	@Override
-	public ModelVo login(String username,String password,String loginType) {
+	public ModelVo login(String username,String password,int loginType,String loginSystem) {
 		
 		ModelVo vo = new ModelVo();
 		List<User> users = this.findAll((root, query, cb) -> {
 
 			List<Predicate> predicates = new ArrayList();
-		
-				predicates.add(cb.or(cb.equal(root.get("username"), username),
-						cb.equal(root.get("mobile"), username)));
+
+			if(loginType==0) {
+				predicates.add(cb.equal(root.get("userName"), username));
+			}
+			if(loginType==1) {
+				predicates.add(cb.equal(root.get("mobile"), username));
+			}
 
 			predicates.add(cb.equal(root.get("deleteStatus"), false));
 			query.where(predicates.toArray(new Predicate[predicates.size()]));
@@ -195,7 +191,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 		if(users!=null && !users.isEmpty()) {
 			User user  = users.get(0);
 			
-			if(!passwordEncoder.matches(password, user.getPassword())) {
+			if(loginType==0 && !passwordEncoder.matches(password, user.getPassword())) {
 				vo.setCodeEnum(Code.ERROR, "密码不正确");
 			}else {
 				JWTInfo info = JWTInfo.of(user);

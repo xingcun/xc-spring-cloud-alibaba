@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.ErrorPageRegistrar;
 import org.springframework.boot.web.server.ErrorPageRegistry;
+import org.springframework.cloud.bus.jackson.RemoteApplicationEventScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -46,6 +47,7 @@ import com.xc.util.SpringUtils;
 @Configuration
 @EnableScheduling
 @EnableBinding(Sink.class)
+@RemoteApplicationEventScan(basePackages = "com.xc")
 public class XcAdminBootstrap implements WebMvcConfigurer,ErrorPageRegistrar   {
 
 	@Value("${xc.ignite.config:applicationContext-ignite.xml}")

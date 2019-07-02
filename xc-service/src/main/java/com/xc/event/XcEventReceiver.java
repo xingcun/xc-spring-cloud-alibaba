@@ -15,6 +15,11 @@ public class XcEventReceiver {
     @EventListener(classes =XcRemoteEvent.class)
     public void receiveEvent(XcRemoteEvent xcRemoteEvent) {
         MessageVo message = xcRemoteEvent.getMessageVo();
-        log.info("{}- get remoteEvent: {}", message.getSubject(), message.getContent());
+        log.info("{}- xc-service -- get remoteEvent: {}", message.getSubject(), message.getContent());
+    }
+
+    @EventListener(classes =XcLocalEvent.class)
+    public void receiveLocalEvent(XcLocalEvent xcLocalEvent) {
+        log.info(" xc-service -- get localEvent: {}",xcLocalEvent.getEchoMessage());
     }
 }

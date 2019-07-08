@@ -15,8 +15,9 @@ package com.xc.util;
 import java.sql.Types;
 
 import org.hibernate.dialect.PostgreSQL94Dialect;
+import org.hibernate.dialect.PostgreSQL95Dialect;
 
-public class JSONBPostgreSQLDialect extends PostgreSQL94Dialect {
+public class JSONBPostgreSQLDialect extends PostgreSQL95Dialect {
 
 	public JSONBPostgreSQLDialect() {
 		super();

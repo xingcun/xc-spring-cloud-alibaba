@@ -5,6 +5,7 @@ import java.util.concurrent.locks.Lock;
 
 import com.alibaba.fastjson.JSON;
 import com.xc.admin.feign.TestFeignFactory;
+import com.xc.control.BaseQuartzControl;
 import com.xc.event.XcLocalEvent;
 import com.xc.event.XcRemoteEvent;
 import com.xc.vo.BaseModelVo;
@@ -31,7 +32,7 @@ import com.xc.util.LockUtil;
 import com.xc.vo.ModelVo;
 
 @RestController
-public class TestControl {
+public class TestControl extends BaseQuartzControl {
 
 	private static final Logger log = LoggerFactory.getLogger(TestControl.class);
 	@Reference

@@ -160,6 +160,11 @@ export default {
                   component: './xc/demo',
                 },
                 {
+                  name: 'xc-quartz-list',
+                  path: '/xc-quartz/list',
+                  component: './xc/quartz',
+                },
+                {
                   name: 'xc-test',
                   path: '/xc-demo/test',
                   component: './xc/test',

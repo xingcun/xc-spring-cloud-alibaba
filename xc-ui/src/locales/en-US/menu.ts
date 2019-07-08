@@ -8,6 +8,7 @@ export default {
 
   'menu.xc-demo': 'xc-demo',
   'menu.xc-demo.xc-list': ' xc-table-list',
+  'menu.xc-demo.xc-quartz-list': ' xc-quartz-list',
   'menu.xc-demo.xc-test': ' xc-test',
   'menu.nacos':'nacos',
 

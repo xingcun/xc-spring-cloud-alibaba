@@ -50,15 +50,6 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 	@Autowired
 	protected RepositoryHelper repositoryHelper;
 
-	protected boolean isFullCached = false;
-
-	public boolean isFullCached() {
-		return isFullCached;
-	}
-
-	public void setFullCached(boolean isFullCached) {
-		this.isFullCached = isFullCached;
-	}
 
 	private BaseRepository<M, ID> baseRepository;
 
@@ -90,7 +81,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 		Iterable<M> m1 = baseRepository.saveAll(entities);
 		return m1;
 	}
-	
+
 	@Override
 	public M saveObj(M m) {
 		m = baseRepository.save(m);
@@ -134,7 +125,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 
 	/**
 	 * 批量删除实体
-	 * 
+	 *
 	 * @param entities
 	 */
 	@Transactional
@@ -212,7 +203,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 	 *
 	 * @return
 	 */
-	
+
 	public List<M> findAll() {
 		return baseRepository.findAll();
 	}
@@ -272,18 +263,18 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 		Class<M> clazz = (Class<M>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 		JSONObject input = vo.getInput();
 		M m = input.toJavaObject(clazz);
-		
+
 		Pageable page = vo.getPage();
 		if(vo.getOrders()==null || vo.getOrders().isEmpty()) {
 			page = vo.getPage(Direction.DESC, "createTime");
 		}
 		JSONObject m_obj = (JSONObject) JSON.toJSON(m);
 		Page<M> pages =  this.findAll((root,query,cb)->{
-			
+
 			List<Predicate> predicates = new ArrayList();
-			
+
 			Iterator<Entry<String, Object>> keys = m_obj.entrySet().iterator();
-			
+
 			while(keys.hasNext()) {
 				Entry<String, Object> entry = keys.next();
 				if(input.containsKey(entry.getKey())) {
@@ -304,7 +295,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 				predicates.add(cb.lessThanOrEqualTo(root.get("createTime"),
 						CommonUtil.formatDatePlus(input.getDate("_endTime"))));
 			}
-			
+
 			if(!input.containsKey("deleteStatus")) {
 				predicates.add(cb.equal(root.get("deleteStatus"), false));
 			}
@@ -315,10 +306,10 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 		modelVo.setPageObje(pages);
 		modelVo.getResult().put("list", pages.getContent());
 		modelVo.setCodeEnum(Code.SUCCESS);
-		
+
 		return modelVo;
 	}
-	
+
 	@Override
 	public ModelVo saveObject(M obj, String userId, String... filters) {
 		ModelVo vo = new ModelVo();
@@ -328,7 +319,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 		}
 		if (obj.getId() == null) {
 //			if(ID instanceof String) {
-//				
+//
 //			}
 			Type t = obj.getClass().getGenericSuperclass();
 			if (((ParameterizedType) t).getActualTypeArguments()[0].getTypeName().equals(String.class.getTypeName())) {
@@ -351,7 +342,7 @@ public abstract class BaseServiceImpl<M extends BaseEntity<ID>, ID extends Seria
 		return vo;
 
 	}
-	
+
 	@Override
 	public ModelVo getObject(ID id) {
 		ModelVo vo = new ModelVo();

@@ -11,25 +11,25 @@ import com.alibaba.fastjson.annotation.JSONField;
  *
  */
 public class BaseModelVo implements Serializable {
-	
+
 	/**
 	 * 成功／失败代码
 	 */
 	private int code;
-	
+
 	/**
 	 * 成功／失败代码说明
 	 */
 	private String message;
-	
+
 	/**
 	 * 接口返回内容
 	 */
 	private JSONObject result = new JSONObject();
-	
+
 	@JSONField(serialize=false)
 	private JSONObject input = new JSONObject();
-	
+
 	@JSONField(serialize=false)
 	private List<String> orderBys;
 	/**
@@ -40,13 +40,13 @@ public class BaseModelVo implements Serializable {
 	 * 当前页
 	 */
 	private Integer pageNo;
-	
+
 	/**
 	 * 每页多少数
 	 */
 	private Integer pageSize;
-	
-	
+
+
 	/**
 	 * 总条数
 	 */
@@ -69,7 +69,7 @@ public class BaseModelVo implements Serializable {
 
 	public BaseModelVo(){
 	}
-	
+
 	public JSONObject getResult() {
 		return result;
 	}
@@ -111,21 +111,24 @@ public class BaseModelVo implements Serializable {
 			totalPage = (int) (total/pageSize+(total%pageSize==0?0:1));
 		}
 	}
-	
-	
+
+
 	public int getCode() {
 		return code;
 	}
 
+	public void setCode(int code) {
+		this.code = code;
+	}
 
 	public void setCode(Code code) {
 		this.code = code.getCode();
 	}
-	
+
 	public void setCodeEnum(Code code) {
 		this.code = code.code;
 		this.message = code.message;
-		
+
 	}
 
 	public void setCodeEnum(Code code,String message) {
@@ -142,7 +145,7 @@ public class BaseModelVo implements Serializable {
 		this.totalPage = totalPage;
 	}
 
-	
+
 	public JSONObject getInput() {
 		return input;
 	}
@@ -171,26 +174,26 @@ public class BaseModelVo implements Serializable {
 		,UPLOAD_FILE(101,"需要上传文件")
 		,SAVE_BUT_ERROR(102,"保存成功但核保失败")
 		,ALREAD_RENEWAL(110,"已经投保")
-		
+
 		,NEED_V_USER(-201,"需要绑定V盟帐号")
-		
+
 		;
-		
-	    
+
+
 	    private int code;
-	    
+
 	    private String message;
-	    
+
 	    private Code(int code,String message){
 	    	this.code=code;
 	    	this.message = message;
 	    }
-	    
-	    
+
+
 	    public int getCode(){
 	    	return code;
 	    }
-	    
+
 	}
 
 
@@ -202,7 +205,7 @@ public class BaseModelVo implements Serializable {
 	public void setOrderBys(List<String> orderBys) {
 		this.orderBys = orderBys;
 	}
-	
-	
-	
+
+
+
 }

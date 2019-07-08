@@ -19,8 +19,8 @@ import org.springframework.util.Assert;
 @Component
 public final class SpringUtils implements BeanFactoryPostProcessor {
 
-    private static ConfigurableListableBeanFactory beanFactory; // Spring应用上下文环境
-    
+    public static ConfigurableListableBeanFactory beanFactory; // Spring应用上下文环境
+
     private static Environment parent = new StandardEnvironment() {
 	};
 	private static ResourceLoader resourceLoader = new DefaultResourceLoader();
@@ -52,7 +52,6 @@ public final class SpringUtils implements BeanFactoryPostProcessor {
      *
      */
     public static <T> T getBean(Class<T> clz) throws BeansException {
-        @SuppressWarnings("unchecked")
         T result = (T) beanFactory.getBean(clz);
         return result;
     }
@@ -101,10 +100,10 @@ public final class SpringUtils implements BeanFactoryPostProcessor {
         return beanFactory.getAliases(name);
     }
 
-    
+
 	/**
 	 * 根据属性文件生成环境
-	 * 
+	 *
 	 * @param propertiesFiles
 	 * @return
 	 */

@@ -3,6 +3,7 @@ package com.xc.vo;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,7 @@ import com.alibaba.fastjson.annotation.JSONField;
  */
 public class ModelVo extends BaseModelVo {
 
+	@JsonIgnore
 	@JSONField(serialize = false)
 	public Pageable getPage() {
 		List<Order> orders = getOrders();
@@ -29,11 +31,13 @@ public class ModelVo extends BaseModelVo {
 
 	}
 
+	@JsonIgnore
 	@JSONField(serialize = false)
 	public Pageable getPage(Direction direction, String... properties) {
 		return PageRequest.of(getPageNo() - 1, getPageSize(), direction, properties);
 	}
 
+	@JsonIgnore
 	@JSONField(serialize = false)
 	public List<Order> getOrders() {
 		List<Order> orders = null;

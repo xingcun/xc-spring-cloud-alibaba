@@ -16,6 +16,7 @@
   "/p__user__register-result.js": "/p__user__register-result.async.js",
   "/p__user__register__model.ts.js": "/p__user__register__model.ts.async.js",
   "/p__xc__demo__model.ts.js": "/p__xc__demo__model.ts.async.js",
+  "/p__xc__quartz__model.ts.js": "/p__xc__quartz__model.ts.async.js",
   "/p__xc__test__model.ts.js": "/p__xc__test__model.ts.async.js",
   "/umi.css": "/umi.css",
   "/umi.js": "/umi.js",

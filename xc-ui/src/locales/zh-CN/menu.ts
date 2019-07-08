@@ -8,6 +8,7 @@ export default {
 
   'menu.xc-demo': 'xc案例',
   'menu.xc-demo.xc-list': ' xc表单查询',
+  'menu.xc-demo.xc-quartz-list': ' xc自动化任务查询',
   'menu.xc-demo.xc-test': ' xc测试',
   'menu.nacos':'nacos',
 

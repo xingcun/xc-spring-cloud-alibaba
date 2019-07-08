@@ -80,7 +80,7 @@ class UpdateForm extends Component<UpdateFormProps, UpdateFormState> {
       <FormItem key="password" {...this.formLayout} label="密码">
         {form.getFieldDecorator('password', {
           rules: [{ validator:(rule, value, callback)=>{
-              if(!formVals.id && !value){
+              if(!form.getFieldValue('id') && !value){
                 callback('请输入密码！')
               }else{
                 callback();

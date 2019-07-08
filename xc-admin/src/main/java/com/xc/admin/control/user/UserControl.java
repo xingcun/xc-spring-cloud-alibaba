@@ -25,7 +25,7 @@ import java.util.Date;
 @RestController
 @RequestMapping(value = "/user")
 public class UserControl extends BaseControl<UserService, User, String>{
-	
+
 	@Reference
 	private UserService userService;
 	/**
@@ -44,7 +44,7 @@ public class UserControl extends BaseControl<UserService, User, String>{
 		try {
 			modelVo = userService.getUsers(pageVo,LoginUserHolder.getLoginUser().getId());
 			modelVo.setCodeEnum(Code.SUCCESS);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelVo.setCode(Code.ERROR);
@@ -54,7 +54,7 @@ public class UserControl extends BaseControl<UserService, User, String>{
 		return modelVo;
 	}
 
-	
+
 
 	/**
 	 * 修改和新增用户
@@ -64,7 +64,6 @@ public class UserControl extends BaseControl<UserService, User, String>{
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/saveUser")
 	@ResponseBody
-	@Override
 	public ModelVo saveUser(@RequestBody User user){
         ModelVo modelVo = new ModelVo();
 		try {
@@ -77,7 +76,7 @@ public class UserControl extends BaseControl<UserService, User, String>{
 		return modelVo;
 	}
 
-	
+
 	@RequestMapping(value = "/login")
 	@ResponseBody
 	public ModelVo login(String userName,String password) {

@@ -1,12 +1,23 @@
 package com.xc.service.control;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xc.quartz.DynamicJob;
 import com.xc.service.impl.TestServiceImpl;
+import com.xc.util.SpringUtils;
+import org.quartz.*;
+import org.quartz.impl.matchers.GroupMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.BeanDefinitionBuilder;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Random;
+import java.util.Set;
 
 @RestController
 public class TestFeignControl {
@@ -14,6 +25,21 @@ public class TestFeignControl {
     @Autowired
     private TestServiceImpl testService;
 
+    @Autowired
+    private SchedulerFactoryBean schedulerFactoryBean;
+
+    @Autowired
+    LoadBalancerClient loadBalancerClient;
+    @Autowired
+    RestTemplate restTemplate;
+
+    @RequestMapping("/testRest")
+    public String testRest(String msg){
+        ServiceInstance serviceInstance = loadBalancerClient.choose("xc-admin");
+        String url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/testDubbo";
+        System.out.println(url);
+        return restTemplate.getForObject(url, String.class,msg);
+    }
 
 
 

@@ -1,27 +1,22 @@
 package com.xc.control;
 
-import java.io.Serializable;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.xc.pojo.BaseEntity;
 import com.xc.service.BaseService;
 import com.xc.util.LoginUserHolder;
 import com.xc.vo.BaseModelVo.Code;
 import com.xc.vo.ModelVo;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.Serializable;
 
 public abstract class BaseControl<BS extends BaseService, Entity extends BaseEntity, ID extends Serializable> {
 
-	
+
 	private BS baseService;
 
 	@RequestMapping(value = "/save")
 	@ResponseBody
-	public ModelVo saveUser(@RequestBody Entity obj) {
+	public ModelVo save(@RequestBody Entity obj) {
 		ModelVo modelVo = new ModelVo();
 		modelVo = getBaseService().saveObject(obj, LoginUserHolder.getLoginUser().getId());
 		return modelVo;
@@ -33,7 +28,6 @@ public abstract class BaseControl<BS extends BaseService, Entity extends BaseEnt
 		ModelVo modelVo = new ModelVo();
 
 		modelVo = getBaseService().getObject(id);
-		modelVo.setCodeEnum(Code.SUCCESS);
 
 		return modelVo;
 	}
@@ -48,12 +42,12 @@ public abstract class BaseControl<BS extends BaseService, Entity extends BaseEnt
 
 	@PostMapping(value = "/page")
 	@ResponseBody
-	public ModelVo getUsers(@RequestBody ModelVo pageVo) {
+	public ModelVo getPage(@RequestBody ModelVo pageVo) {
 		return getBaseService().getPageResult(pageVo);
 	}
 
 	public abstract BS getBaseService();
-	
+
 
 
 }

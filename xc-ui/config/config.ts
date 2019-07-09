@@ -161,7 +161,7 @@ export default {
                 },
                 {
                   name: 'xc-quartz-list',
-                  path: '/xc-quartz/list',
+                  path: '/xc-demo/quartzList',
                   component: './xc/quartz',
                 },
                 {
@@ -231,7 +231,7 @@ export default {
   chainWebpack: webpackPlugin,
   proxy: {
     '/api/admin': {
-      target: 'http://localhost:8010/',
+      target: 'http://192.168.31.202:8010/',
       changeOrigin: true,
       pathRewrite: { '^/api/admin': '' },
     },

@@ -9,6 +9,9 @@
 	</parent>
 	<artifactId>xc-service</artifactId>
 	<name>xc-service</name>
+	<properties>
+		<sentinel.version>1.6.2</sentinel.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.xc.cloud</groupId>
@@ -126,7 +129,62 @@
 			<artifactId>quartz-jobs</artifactId>
 			<version>2.3.1</version>
 		</dependency>
-    </dependencies>
+
+		<!-- 升级1.6.2的sentinel start-->
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-core</artifactId>
+			<version>${sentinel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-web-servlet</artifactId>
+			<version>${sentinel.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-transport-simple-http</artifactId>
+			<version>${sentinel.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-annotation-aspectj</artifactId>
+			<version>${sentinel.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-dubbo-adapter</artifactId>
+			<version>${sentinel.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-apache-dubbo-adapter</artifactId>
+			<version>${sentinel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-parameter-flow-control</artifactId>
+			<version>${sentinel.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-cluster-server-default</artifactId>
+			<version>${sentinel.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-cluster-client-default</artifactId>
+			<version>${sentinel.version}</version>
+		</dependency>
+		<!-- 升级1.6.2的sentinel end-->
+
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>

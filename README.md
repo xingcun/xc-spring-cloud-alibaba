@@ -1,6 +1,10 @@
 # xc-spring-cloud-alibaba
 spring cloud alibaba集成框架可应用于docker部署
 
+演示demo:<a href="https://yangxingcun.com" target="_blank">https://yangxingcun.com</a>
+sentinel帐号密码为sentinel
+nacos 帐号密码为nacos
+
 | package name | remark |
 | ------------ |:-----:|
 |xc-service|用于数据库连接，提供service impl类|
@@ -8,7 +12,7 @@ spring cloud alibaba集成框架可应用于docker部署
 |xc-api|用于提供接口信息，和一些共同的实体类|
 |xc-common|用于提供一些公共库|
 |xc-gate|网关,分配路由,用于调用admin类的control层,无需关注端口，路由分配转发|
-|xc-ui|后台页面,使用[ant design pro V4](https://pro.ant.design/index-cn) react技术开发|
+|xc-ui|后台页面,使用<a href="https://pro.ant.design/index-cn" target="_blank">ant design pro V4</a> react技术开发|
 
 # 项目布署图
 ![xc-project-deploy](https://user-images.githubusercontent.com/14237778/57747392-02af5700-7708-11e9-8542-9de2fd9a57ce.png)
@@ -34,18 +38,18 @@ spring cloud alibaba集成框架可应用于docker部署
 
 # Start project
 
-* **先启动nacos，使用的是1.0版的,请自行到[nacos官网下载](https://github.com/alibaba/nacos/releases)使用**
+* **先启动nacos，使用的是1.0版的,请自行到<a href="https://github.com/alibaba/nacos/releases" target="_blank">nacos官网下载</a>使用**
 * **再启动xc-service中的XcServiceBootstrap**
 * **再启动xc-admin中的XcAdminBootstrap**
 * **再启动xc-gate中的GateBootstrap**
-* **配置nginx,配置文件参考[nginx.conf](https://github.com/xingcun/xc-spring-cloud-alibaba/tree/master/xc-ui/docker/nginx.conf),启动前端文件**
+* **配置nginx,配置文件参考<a href="https://github.com/xingcun/xc-spring-cloud-alibaba/tree/master/xc-ui/docker/nginx.conf" target="_blank">nginx.conf</a>,启动前端文件**
 * **增加Mysql8.0并支持json操作,修改xc-service中的application.yml数据库配置，再修改BaseEntity，User类**
 
 # 注意事项
 > * 数据库配置文件在xc-service中的application.yml配置文件，引用的是pgsql+hibernate，框架解决了pgsql中的jsonb实例化问题，如需引用其它数据库，请自行更改（最简单的方案就是去除json引用，增加pom数据库引用包）
 > * 数据库配置连接上，直接启动就会自动建表
 > * 127.0.0.1:8880/api/admin/user/login?username=xx&password=xx 登录,获取token后放在header请求中,xc-token=xxxxxxxxxxxx
-> * 如需使用sentinel做监听，可打开xc-service配置文件application.yml中的 sentinel.transport.dashboard,  自行到官网下载,[sentinel1.5.1](https://github.com/alibaba/Sentinel/releases)	启动命令 java -Dserver.port=8088 -Dcsp.sentinel.dashboard.server=localhost:8088 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.5.1.jar
+> * 如需使用sentinel做监听，可打开xc-service配置文件application.yml中的 sentinel.transport.dashboard,  自行到官网下载,<a href="https://github.com/alibaba/Sentinel/releases" target="_blank">sentinel1.5.1</a>	启动命令 java -Dserver.port=8088 -Dcsp.sentinel.dashboard.server=localhost:8088 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.5.1.jar
 
 # 自动化任务使用说明
 * **在xc-service中的resources中,有quartz_innodb.sql(mysql),另一份是有quartz_innodb_pgsql.sql(pgsql)使用的初始化数据库文件**
@@ -73,7 +77,7 @@ spring cloud alibaba集成框架可应用于docker部署
 
 2019-04-15 
 > *  此版本增加了xc-gate网关功能，下个版本会增加权限检验等功能
-> * 更换nacos-client为1.0.0-RC4主要目的是解决多dubbo客户端注册的问题,[nacos服务端引用正式版1.0](https://github.com/alibaba/nacos/releases)	
+> * 更换nacos-client为1.0.0-RC4主要目的是解决多dubbo客户端注册的问题,<a href="https://github.com/alibaba/nacos/releases" target="_blank">nacos服务端引用正式版1.0</a>	
 > *  增加baseControl接口，基本的增删改查，实现该接口即可完成
 > *  增加公共的ignite缓存层,通过CacheFactoryv即可获取.
 

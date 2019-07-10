@@ -43,8 +43,9 @@ spring:
     sentinel:
       enabled: true
       eager: false
-#      transport:
-#        dashboard: 127.0.0.1:8088
+      transport:
+        dashboard: ${SENTINEL_REGIST_IP:127.0.0.1:8088}
+        clientIp: ${SENTINEL_CLIENT_IP:}
       datasource:
         ds1:
           nacos:

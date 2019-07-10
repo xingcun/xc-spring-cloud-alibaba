@@ -50,32 +50,32 @@
 		<dependency>
 			  <groupId>com.alibaba.csp</groupId>
 			  <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
-			  <version>1.6.0</version>
+			  <version>1.6.2</version>
 		</dependency>
 		<dependency>
 			  <groupId>com.alibaba.csp</groupId>
 			  <artifactId>sentinel-core</artifactId>
-			  <version>1.6.0</version>
+			  <version>1.6.2</version>
 		</dependency>
 		<dependency>
 		  <groupId>com.alibaba.csp</groupId>
 		  <artifactId>sentinel-parameter-flow-control</artifactId>
-		  <version>1.6.0</version>
+		  <version>1.6.2</version>
 		</dependency>
-		
+
 		<dependency>
 		    <groupId>com.alibaba.csp</groupId>
 		    <artifactId>sentinel-datasource-nacos</artifactId>
-		    <version>1.6.0</version>
+		    <version>1.6.2</version>
 		  <!--   <scope>test</scope> -->
 		</dependency>
-		
-		
+
+
 	</dependencies>
-	
+
 	<build>
 		<plugins>
-			<!-- 打包时不打配置文件，使用nacos配置单 -->			
+			<!-- 打包时不打配置文件，使用nacos配置单 -->
 			 <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -85,9 +85,9 @@
 						<exclude>application*.*</exclude>
 					</excludes>
 				</configuration>
-			  </plugin> 
+			  </plugin>
 
 		</plugins>
 	</build>
-	
+
 </project>

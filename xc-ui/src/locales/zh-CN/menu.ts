@@ -11,6 +11,7 @@ export default {
   'menu.xc-demo.xc-quartz-list': ' xc自动化任务查询',
   'menu.xc-demo.xc-test': ' xc测试',
   'menu.nacos':'nacos',
+  'menu.sentinel':'sentinel',
 
   'menu.dashboard': 'Dashboard',
   'menu.dashboard.analysis': '分析页',

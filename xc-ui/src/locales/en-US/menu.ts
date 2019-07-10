@@ -11,6 +11,7 @@ export default {
   'menu.xc-demo.xc-quartz-list': ' xc-quartz-list',
   'menu.xc-demo.xc-test': ' xc-test',
   'menu.nacos':'nacos',
+  'menu.sentinel':'sentinel',
 
   'menu.dashboard': 'Dashboard',
   'menu.dashboard.analysis': 'Analysis',

@@ -16,12 +16,14 @@ import com.xc.exception.NeedLoginException;
 import com.xc.util.CommonUtil;
 import com.xc.util.LoginUserHolder;
 import com.xc.vo.CommonVariable;
+import org.springframework.util.AntPathMatcher;
 
 @Configuration
 public class AccessFilter implements Filter {
 
 	@Value("${ignore.startWith}")
 	private String startWith;
+	private AntPathMatcher matcher = new AntPathMatcher();
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -34,11 +36,11 @@ public class AccessFilter implements Filter {
 			chain.doFilter(request, response);
 			return;
 		}
-		
+
 		//String token = req.getHeader(CommonVariable.REQUEST_HEAD_TOKEN);
-		
+
         if (LoginUserHolder.getLoginUser()!=null) {
-        	
+
         	chain.doFilter(request, response);
         	return;
         }else {
@@ -63,7 +65,7 @@ public class AccessFilter implements Filter {
 			return true;
 		}
 		for (String url : startWith.split(",")) {
-			if (requestUri.startsWith(url)) {
+			if (matcher.match(url,requestUri)) {
 				return true;
 			}
 		}

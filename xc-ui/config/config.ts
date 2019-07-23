@@ -144,14 +144,14 @@ export default {
               component: './Welcome',
             },
             {
-              path: 'https://www.yangxingcun.com/nacos',
+              path: 'http://62.234.130.188/nacos',
               // path: 'http://127.0.0.1:8848/nacos',
               target: '_blank', // 点击新窗口打开
               icon: 'smile',
               name: "nacos",
             },
             {
-              path: 'http://sentinel.yangxingcun.com',
+              path: 'http://62.234.130.188:8088',
               // path: 'http://127.0.0.1:8088',
               target: '_blank', // 点击新窗口打开
               icon: 'smile',

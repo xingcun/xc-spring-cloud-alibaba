@@ -1,7 +1,7 @@
 # xc-spring-cloud-alibaba
 spring cloud alibaba集成框架可应用于docker部署
 
-演示demo:<a href="https://yangxingcun.com" target="_blank">https://yangxingcun.com</a>
+演示demo:<a href="https://yangxingcun.com" target="_blank">http://62.234.130.188</a>
 sentinel帐号密码为sentinel
 nacos 帐号密码为nacos
 

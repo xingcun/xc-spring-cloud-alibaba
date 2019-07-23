@@ -30,3 +30,14 @@ export async function deleteQuartz(params: any) {
     requestType: 'form'
   });
 }
+
+export async function setQuartzState(params: any) {
+  return request(`/api/admin/quartz/setState`, {
+    method: 'POST',
+    data: {
+      ...params,
+    },
+    requestType: 'form'
+  });
+}
+

@@ -9,6 +9,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import com.alibaba.fastjson.JSON;
+import com.xc.vo.BaseModelVo;
+import com.xc.vo.ModelVo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
@@ -44,7 +47,11 @@ public class AccessFilter implements Filter {
         	chain.doFilter(request, response);
         	return;
         }else {
-        	throw new NeedLoginException(requestUri+"用户未登录");
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+			ModelVo vo = new ModelVo();
+			vo.setCodeEnum(BaseModelVo.Code.USER_NO_LOGIN);
+			response.getWriter().println(JSON.toJSONString(vo));
         }
 //        ctx.header(userAuthConfig.getTokenHeader(), authToken);
 //        BaseContextHandler.setToken(authToken);

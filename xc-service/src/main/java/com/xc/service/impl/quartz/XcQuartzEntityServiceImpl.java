@@ -179,6 +179,9 @@ public class XcQuartzEntityServiceImpl implements XcQuartzEntityService {
         TriggerBuilder tb = TriggerBuilder.newTrigger()
                 .withIdentity(entity.getId(), jobGroup);
         if(entity.getStartDate()!=null){
+            if(entity.getStartDate().before(new Date())){
+                throw  new RuntimeException("启动时间不能比当前时间早");
+            }
             tb.startAt(entity.getStartDate());
         }else{
             if(CommonUtil.isNotNull(entity.getCron())){

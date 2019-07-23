@@ -38,11 +38,19 @@ const errorHandler = (error: ResponseError) => {
   const {data={}, response = {} as Response } = error;
 //  const data = error.data;
   const { status, url } = response;
-  if(data && data.code==99){
-    countDown();
-    return data;
+  let errortext = codeMessage[response.status] || response.statusText;
+
+  if(data){
+    if(data.code==99){
+      goToLogin();
+      return data;
+    }
+    if(data.message){
+      errortext = data.message;
+    }
+
   }
-  const errortext = codeMessage[response.status] || response.statusText;
+
 
 
   notification.error({
@@ -52,7 +60,7 @@ const errorHandler = (error: ResponseError) => {
   return data;
 };
 let isShowLogin = false;
-function countDown() {
+function goToLogin() {
   if(isShowLogin) {
     return;
   }
@@ -62,7 +70,7 @@ function countDown() {
     title: '用户未登录',
     content: ` ${secondsToGo}秒后自动跳转登录页,或点击确认跳转`,
     onOk: ()=>{
-        goToLogin();
+      showLogin();
       },
   });
   const timer = setInterval(() => {
@@ -72,10 +80,10 @@ function countDown() {
     });
   }, 1000);
   setTimeout(() => {
-    goToLogin();
+    showLogin();
   }, secondsToGo * 1000);
 
-  function goToLogin(){
+  function showLogin(){
     isShowLogin = false;
     clearInterval(timer);
     modal.destroy();
@@ -105,6 +113,16 @@ request.interceptors.request.use( (url,options) => {
 }
 
 );
+
+request.interceptors.response.use( async (response,options) => {
+    const data =await response.clone().json();
+    if(data && data.code==99){
+      goToLogin();
+    }
+    return response;
+  }
+);
+
 
 export function setRequestToken (token: string):void {
  sessionStorage.setItem("XC-TOKEN",token);

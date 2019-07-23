@@ -20,7 +20,17 @@ public class XcQuartzEntityControl {
     @ResponseBody
     public ModelVo save(@RequestBody XcQuartzEntity obj) {
         ModelVo modelVo = new ModelVo();
-        modelVo = xcQuartzEntityService.saveObject(obj, obj.getUpdateUserId(),"startDate");
+        modelVo = xcQuartzEntityService.saveObject(obj, obj.getUpdateUserId(),"startDate","cron");
+        return modelVo;
+    }
+
+    @RequestMapping(value = "/setState")
+    public ModelVo setState(@RequestParam String id,@RequestParam int state) {
+        ModelVo modelVo = new ModelVo();
+        XcQuartzEntity obj = new XcQuartzEntity();
+        obj.setId(id);
+        obj.setState(state);
+        modelVo = xcQuartzEntityService.saveObject(obj, obj.getUpdateUserId());
         return modelVo;
     }
 

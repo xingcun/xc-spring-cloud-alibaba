@@ -1,4 +1,4 @@
-import { queryQuartzList,saveQuartz,deleteQuartz } from './service';
+import { queryQuartzList,saveQuartz,deleteQuartz,setQuartzState } from './service';
 import { Reducer } from 'redux';
 import { EffectsCommandMap } from 'dva';
 import { AnyAction } from 'redux';
@@ -48,6 +48,20 @@ const Model: ModelType = {
         payload: response,
       });
       if (callback) callback();
+    },
+    *setQuartzState({ payload, callback }, { call, put }) {
+      const response = yield call(setQuartzState, payload);
+      yield put({
+        type: 'save',
+        payload: response,
+      });
+      if (callback){
+        let msg = null;
+        if(response.code!=1) {
+          msg = response.message;
+        }
+        callback(msg);
+      }
     },
     *update({ payload, callback }, { call, put }) {
       const response = yield call(saveQuartz, payload);

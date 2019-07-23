@@ -1,40 +1,40 @@
-package com.xc.base;
+package com.xc.util.jwt;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
-import com.xc.util.jwt.JWTHelper;
-import com.xc.util.jwt.JWTInfo;
-import com.xc.util.jwt.RsaKeyHelper;
-
-/**
- * Created by ace on 2017/9/10.
- */
-@Component
 public class JwtTokenUtil {
 	/**
 	 * 分钟
 	 */
-    @Value("${jwt.expire}")
-    private int expire;
-    @Value("${jwt.rsa-secret}")
+	private int expire;
+
+	/**
+	 * 加密码
+	 */
 	private String userSecret;
-    
+
 	private byte[] userPubKey;
 	private byte[] userPriKey;
 
+	private static JwtTokenUtil single;
 
-    public String generateToken(JWTInfo jwtInfo) throws Exception {
-        return JWTHelper.generateToken(jwtInfo, getUserPriKey(),expire);
-    }
+	public JwtTokenUtil(){
+		if(single==null){
+			single = this;
+		}else{
+			throw new RuntimeException("已经创建,不能再创建JwtTokenUtil");
+		}
+	}
 
-    public JWTInfo getInfoFromToken(String token) throws Exception {
-        return JWTHelper.getInfoFromToken(token, getUserPubKey());
-    }
+	public String generateToken(JWTInfo jwtInfo) throws Exception {
+		return JWTHelper.generateToken(jwtInfo, getUserPriKey(),expire);
+	}
+
+	public JWTInfo getInfoFromToken(String token) throws Exception {
+		return JWTHelper.getInfoFromToken(token, getUserPubKey());
+	}
 
 	public int getExpire() {
 		return expire;
@@ -75,6 +75,12 @@ public class JwtTokenUtil {
 		this.userPriKey = userPriKey;
 	}
 
+	public static JwtTokenUtil getSingle() {
+		if(single==null){
+			return new JwtTokenUtil();
+		}
+		return single;
+	}
 
 	public void init() {
 		try {

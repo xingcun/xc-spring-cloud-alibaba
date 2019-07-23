@@ -8,6 +8,7 @@ import com.xc.vo.MessageVo;
 import com.xc.vo.ModelVo;
 import org.apache.dubbo.config.annotation.Service;
 import org.apache.dubbo.rpc.RpcContext;
+import org.apache.rocketmq.common.message.MessageConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.messaging.Source;
@@ -87,7 +88,7 @@ public class TestServiceImpl implements TestService{
 		obj.put("name",name);
 		obj.put("age",age);
 		message.setContent(obj);
-		source.output().send(MessageBuilder.withPayload(message).build());
+		source.output().send(MessageBuilder.withPayload(message).setHeader(MessageConst.PROPERTY_DELAY_TIME_LEVEL ,"1").build());
 		return "send User payload message success";
 	}
 }

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import org.apache.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSONObject;
-import com.xc.base.JwtTokenUtil;
+import com.xc.util.jwt.JwtTokenUtil;
 import com.xc.pojo.user.User;
 import com.xc.service.impl.BaseServiceImpl;
 import com.xc.service.user.UserService;
@@ -30,10 +30,10 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
-	
+
 	@Override
 	public ModelVo getUsers(ModelVo pageVo, String userId) {
 		JSONObject input = pageVo.getInput();
@@ -119,7 +119,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 		modelVo.setCodeEnum(Code.SUCCESS);
 		return modelVo;
 	}
-	
+
 	@Override
 	public ModelVo saveUser(User user,String userId,String...filters) {
 		ModelVo vo = new ModelVo();
@@ -171,7 +171,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 
 	@Override
 	public ModelVo login(String username,String password,int loginType,String loginSystem) {
-		
+
 		ModelVo vo = new ModelVo();
 		List<User> users = this.findAll((root, query, cb) -> {
 
@@ -190,7 +190,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 		}, Sort.by(Direction.DESC, "createTime"));
 		if(users!=null && !users.isEmpty()) {
 			User user  = users.get(0);
-			
+
 			if(loginType==0 && !passwordEncoder.matches(password, user.getPassword())) {
 				vo.setCodeEnum(Code.ERROR, "密码不正确");
 			}else {
@@ -204,13 +204,13 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 					vo.setCodeEnum(Code.ERROR, "用户获取token失败:"+e.getMessage());
 				}
 			}
-			
+
 		}else {
 			vo.setCodeEnum(Code.ERROR, username+"用户不存在");
 		}
 		return vo;
 	}
-	
+
 	@Override
 	public ModelVo getJwtUserPubKey() {
 		ModelVo vo = new ModelVo();

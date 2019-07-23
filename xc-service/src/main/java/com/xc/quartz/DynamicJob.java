@@ -3,6 +3,7 @@ package com.xc.quartz;
 import com.alibaba.fastjson.JSON;
 import com.xc.pojo.quartz.XcQuartzEntity;
 import com.xc.service.quartz.BaseQuartzJob;
+import com.xc.service.quartz.XcQuartzEntityService;
 import com.xc.util.CommonUtil;
 import com.xc.util.SpringUtils;
 import com.xc.vo.BaseModelVo;
@@ -29,6 +30,8 @@ public class DynamicJob implements Job {
     @Autowired
     RestTemplate restTemplate;
 
+    @Autowired
+    XcQuartzEntityService xcQuartzEntityService;
 
     private static final Logger log = LoggerFactory.getLogger(DynamicJob.class);
 
@@ -66,7 +69,10 @@ public class DynamicJob implements Job {
                 modelVo =  restTemplate.postForObject(url, entity,ModelVo.class);
             }
         }
-
+        if(entity.getStartDate()!=null) {
+            entity.setState(0);
+            xcQuartzEntityService.saveObject(entity,null);
+        }
         long endTime = System.currentTimeMillis();
         log.info(JSON.toJSONString(modelVo));
         log.info("Running Job time : {}ms\n ", (endTime - startTime));

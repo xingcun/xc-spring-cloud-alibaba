@@ -1,5 +1,6 @@
 package com.xc.admin;
 
+import com.xc.util.jwt.JwtTokenUtil;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -15,6 +16,6 @@ public class ApplicationListener implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		LoginUserHolder.setUserPubKey(userService.getJwtUserPubKey().getResult().getBytes("pubKey"));
+		JwtTokenUtil.getSingle().setUserPubKey(userService.getJwtUserPubKey().getResult().getBytes("pubKey"));
 	}
 }

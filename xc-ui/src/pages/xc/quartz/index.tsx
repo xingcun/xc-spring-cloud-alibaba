@@ -22,7 +22,7 @@ import StandardTable, { StandardTableColumnProps } from './components/StandardTa
 import { TableListItem, TableListPagination, ModelVo } from './data';
 import { Dispatch } from 'redux';
 import styles from './style.less';
-import UpdateForm, { IFormValsType } from './components/UpdateForm';
+import UpdateForm from './components/UpdateForm';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -257,26 +257,26 @@ class XQuartzTableList extends Component<TableListProps, TableListState> {
     });
   };
 
-  handleUpdateModalVisible = (flag?: boolean, record?: IFormValsType) => {
+  handleUpdateModalVisible = (flag?: boolean, record?: any) => {
     this.setState({
       updateModalVisible: !!flag,
       stepFormValues: record || {},
     });
   };
 
-  handleUpdate = (fields: IFormValsType) => {
+  handleUpdate = (fields: any) => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'xcQuartz/update',
+      type: 'xcQuartz/setQuartzState',
       payload: fields,
       callback: msg => {
         if (msg) {
           message.error(msg);
         } else {
           message.success('配置成功');
-          this.handleUpdateModalVisible();
-          this.handleSearch();
         }
+        this.handleUpdateModalVisible();
+        this.handleSearch();
       },
     });
   };

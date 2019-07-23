@@ -3,6 +3,7 @@ package com.xc.admin;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.xc.config.LoginUserIdResolver;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.Ignition;
@@ -28,6 +29,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -52,8 +54,8 @@ public class XcAdminBootstrap implements WebMvcConfigurer,ErrorPageRegistrar   {
 
 	@Value("${xc.ignite.config:applicationContext-ignite.xml}")
 	private String ignitePath;
-	
-	
+
+
 	public static void main(String[] args) {
 //		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 //		context.register(XcServiceBootstrap.class);
@@ -62,9 +64,9 @@ public class XcAdminBootstrap implements WebMvcConfigurer,ErrorPageRegistrar   {
 //		 SpringApplication springApplication = new SpringApplication(XcAdminBootstrap.class);
 //	        springApplication.addListeners(new LoginUserHolder());
 //	        springApplication.run(args);
-	
+
 		ConfigurableApplicationContext context = SpringApplication.run(XcAdminBootstrap.class, args);
-	/*	
+	/*
 		 String[] beans = context.getBeanDefinitionNames();
 
 	        for (String bean : beans)
@@ -82,7 +84,7 @@ public class XcAdminBootstrap implements WebMvcConfigurer,ErrorPageRegistrar   {
 	public Ignite getIgnite() {
 		return Ignition.start(ignitePath);
 	}
-	
+
 	@Bean
 	public HttpMessageConverters fastJsonHttpMessageConverters() {
 		// 1.需要定义一个convert转换消息的对象;
@@ -110,6 +112,12 @@ public class XcAdminBootstrap implements WebMvcConfigurer,ErrorPageRegistrar   {
 	@Override
 	public void registerErrorPages(ErrorPageRegistry registry) {
 		registry.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR,"/commomError"),new ErrorPage(HttpStatus.NOT_FOUND,"/404"));
+	}
+
+	@Override
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+		LoginUserIdResolver loginUserIdResolver = new LoginUserIdResolver();
+		argumentResolvers.add(loginUserIdResolver);
 	}
 
 	public String getIgnitePath() {

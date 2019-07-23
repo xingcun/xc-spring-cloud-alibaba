@@ -78,6 +78,7 @@ spring:
            output:
              producer:
                sendMessageTimeout: 30000
+               sync: true
 
   datasource:
 # pgsql

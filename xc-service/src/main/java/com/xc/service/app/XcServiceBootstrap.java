@@ -1,14 +1,13 @@
 package com.xc.service.app;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.xc.util.jwt.JwtTokenUtil;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.Ignition;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -25,6 +24,9 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @EnableDubbo(scanBasePackages = "com.xc.service.impl")
@@ -103,4 +105,19 @@ public class XcServiceBootstrap {
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
+
+	@Value("${jwt.expire}")
+	private int expire;
+
+	@Value("${jwt.rsa-secret}")
+	private String rsaSecret;
+
+	@Bean
+	public JwtTokenUtil getJwtTokenUtil(){
+		JwtTokenUtil util = new JwtTokenUtil();
+		util.setExpire(expire);
+		util.setUserSecret(rsaSecret);
+		return util;
+	}
+
 }

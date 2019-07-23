@@ -1,5 +1,6 @@
 package com.xc.control;
 
+import com.xc.annotation.LoginUserId;
 import com.xc.pojo.BaseEntity;
 import com.xc.service.BaseService;
 import com.xc.util.LoginUserHolder;
@@ -16,9 +17,9 @@ public abstract class BaseControl<BS extends BaseService, Entity extends BaseEnt
 
 	@RequestMapping(value = "/save")
 	@ResponseBody
-	public ModelVo save(@RequestBody Entity obj) {
+	public ModelVo save(@RequestBody Entity obj, @LoginUserId String loginUserId) {
 		ModelVo modelVo = new ModelVo();
-		modelVo = getBaseService().saveObject(obj, LoginUserHolder.getLoginUser().getId());
+		modelVo = getBaseService().saveObject(obj, loginUserId);
 		return modelVo;
 	}
 
@@ -34,9 +35,9 @@ public abstract class BaseControl<BS extends BaseService, Entity extends BaseEnt
 
 	@RequestMapping(value = "/delete")
 	@ResponseBody
-	public ModelVo delete(ID id) {
+	public ModelVo delete(ID id, @LoginUserId String loginUserId) {
 		ModelVo modelVo = new ModelVo();
-		modelVo = getBaseService().deleteStatus(id, LoginUserHolder.getLoginUser().getId());
+		modelVo = getBaseService().deleteStatus(id,loginUserId);
 		return modelVo;
 	}
 

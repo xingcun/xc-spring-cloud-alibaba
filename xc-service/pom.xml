@@ -9,9 +9,7 @@
 	</parent>
 	<artifactId>xc-service</artifactId>
 	<name>xc-service</name>
-	<properties>
-		<sentinel.version>1.6.2</sentinel.version>
-	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.xc.cloud</groupId>
@@ -26,7 +24,7 @@
 
 
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
+			<groupId>com.alibaba.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
 		</dependency>
 
@@ -36,12 +34,12 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
+			<groupId>com.alibaba.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
+			<groupId>com.alibaba.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
 		</dependency>
 
@@ -92,7 +90,7 @@
 			<groupId>org.apache.ignite</groupId>
 			<artifactId>ignite-hibernate-core</artifactId>
 			<version>2.8.0-SNAPSHOT</version>
-		<scope>system</scope>
+			<scope>system</scope>
 			<systemPath>${project.basedir}/other/ignite-hibernate-core-2.8.0-SNAPSHOT.jar</systemPath>
 		</dependency>
 
@@ -131,7 +129,7 @@
 		</dependency>
 
 		<!-- 升级1.6.2的sentinel start-->
-		<dependency>
+		<!--<dependency>
 			<groupId>com.alibaba.csp</groupId>
 			<artifactId>sentinel-core</artifactId>
 			<version>${sentinel.version}</version>
@@ -181,7 +179,7 @@
 			<groupId>com.alibaba.csp</groupId>
 			<artifactId>sentinel-cluster-client-default</artifactId>
 			<version>${sentinel.version}</version>
-		</dependency>
+		</dependency>-->
 		<!-- 升级1.6.2的sentinel end-->
 
 	</dependencies>

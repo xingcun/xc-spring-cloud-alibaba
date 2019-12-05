@@ -9,7 +9,7 @@
 	</parent>
 	<artifactId>xc-api</artifactId>
 	<properties>
-		<ignite.version>2.7.5</ignite.version>
+		<ignite.version>2.7.6</ignite.version>
 	</properties>
 	<dependencies>
 		<dependency>

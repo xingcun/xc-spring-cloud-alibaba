@@ -73,20 +73,8 @@ nacos 帐号密码为nacos
 |description|任务描述|
 
 
-# version log
-
-2019-06-25 
-> *  此版本ant design pro的后台界面，并对后台接口进行整理
 
 
-2019-04-15 
-> *  此版本增加了xc-gate网关功能，下个版本会增加权限检验等功能
-> * 更换nacos-client为1.0.0-RC4主要目的是解决多dubbo客户端注册的问题,<a href="https://github.com/alibaba/nacos/releases" target="_blank">nacos服务端引用正式版1.1.4</a>	
-> *  增加baseControl接口，基本的增删改查，实现该接口即可完成
-> *  增加公共的ignite缓存层,通过CacheFactoryv即可获取.
-
-2019-04-16
-> *  此版本增加了sentinel+dubbo+nacos 服务限流
 
 在nacos配置上自行增加名为dubbo-sentinel-json的配置即可实现限流
 ```
@@ -100,26 +88,6 @@ nacos 帐号密码为nacos
   
 ]
 ```
-
-2019-04-17
-> *  此版本修改了sentinel+dubbo+nacos 服务限流的方式，更改为spring cloud的引用具体配置在xc-service中的application.yml文件
-
-
-2019-04-22
-> *  此版本增加了ExecutorThreadConfig 内部线程执行器,可通过xc.executor.enabled进行启用与配置
-> *  增加了BaseSchedule,简易的分布式任务执行功能
-> *  增加分布式锁的使用与监听
-
-2019-04-24
-> *  更改dubbo服务连接方式,将alibaba dubbo更换与appache dubbo2.7.1,使用spring-cloud连接方式进行服务注册
-
-
-2019-04-25
-> *  此版本增加了gate+sentinel+nacos 服务限流
-
-
-2019-05-09
-> *  此版本主要修改配置文件适配docker swarm部署项目
 
 
 

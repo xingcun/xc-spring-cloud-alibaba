@@ -9,7 +9,7 @@
 	</parent>
 	<artifactId>xc-api</artifactId>
 	<properties>
-		<ignite.version>2.7.6</ignite.version>
+		<ignite.version>2.8.1</ignite.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -129,6 +129,14 @@
 		    <artifactId>poi-ooxml</artifactId>
 		    <version>4.1.0</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/net.logstash.logback/logstash-logback-encoder -->
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>6.3</version>
+		</dependency>
+
 
 	</dependencies>
 

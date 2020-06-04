@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ht.project.mapper.second.SecondUserMapper" >
+
+    <resultMap id="BaseResultMap" type="com.ht.project.pojo.User" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="user_number" property="userNumber" jdbcType="VARCHAR" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+
+
+    </resultMap>
+    <resultMap id="VOMap" type="com.ht.project.pojo.User"
+               extends="com.ht.project.mapper.second.SecondUserMapper.BaseResultMap">
+    </resultMap>
+
+
+    <select id="getPageInfo" resultMap="VOMap" parameterType="com.ht.project.pojo.User" >
+        select *
+        from com_user
+        where 1=1
+
+        <if test="phone != null and phone.trim() != ''" >
+            and phone like concat('%', #{phone,jdbcType=VARCHAR}, '%')
+        </if>
+
+        <if test="nickName != null and nickName.trim() != ''" >
+            and nick_name like concat('%', #{nickName,jdbcType=VARCHAR}, '%')
+        </if>
+
+        order by id desc
+    </select>
+
+
+</mapper>

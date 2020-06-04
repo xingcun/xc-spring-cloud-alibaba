@@ -16,6 +16,7 @@ nacos 帐号密码为nacos
 |xc-common|用于提供一些公共库|
 |xc-gate|网关,分配路由,用于调用admin类的control层,无需关注端口，路由分配转发|
 |xc-ui|后台页面,使用<a href="https://pro.ant.design/index-cn" target="_blank">ant design pro V4</a> react技术开发|
+|ht-project|增加mybatis多数据源操作,引用seate1.2处理分布式事务,多数据源事务|
 
 # 项目布署图
 ![xc-project-deploy](https://user-images.githubusercontent.com/14237778/57747392-02af5700-7708-11e9-8542-9de2fd9a57ce.png)

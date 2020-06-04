@@ -12,6 +12,8 @@
 		<module>xc-service</module>
 		<module>xc-admin</module>
 		<module>xc-gate</module>
+        <module>xc-elasticsearch</module>
+		<module>ht-project</module>
 	</modules>
 
 	<properties>

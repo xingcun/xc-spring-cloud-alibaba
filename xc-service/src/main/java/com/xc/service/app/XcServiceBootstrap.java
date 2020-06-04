@@ -41,6 +41,7 @@ import java.util.List;
 public class XcServiceBootstrap {
 
 
+
 	public static void main(String[] args) {
 //		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 //		context.register(XcServiceBootstrap.class);

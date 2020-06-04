@@ -134,10 +134,10 @@
     	  
             <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
                 <property name="localPort" value="48610"/>
-                <property name="localPortRange" value="20"/>
+                <property name="localPortRange" value="5"/>
                 <property name="ipFinder">
                     <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                        <property name="addresses" value="#{systemEnvironment['ignite.ipFinders']!=null?systemEnvironment['ignite.ipFinders'].split(','):systemProperties['ignite.ipFinders']!=null?systemProperties['ignite.ipFinders'].split(','):'127.0.0.1:48610..48620'}"/>
+                        <property name="addresses" value="#{systemEnvironment['ignite.ipFinders']!=null?systemEnvironment['ignite.ipFinders'].split(','):systemProperties['ignite.ipFinders']!=null?systemProperties['ignite.ipFinders'].split(','):'127.0.0.1:48610..48615'}"/>
                     </bean>
                 </property>
             </bean> 

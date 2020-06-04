@@ -1,0 +1,50 @@
+version: '3.7'
+services:
+  ES01:
+    image: elasticsearch:6.4.3
+    container_name: "ES01"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment: 
+        - ES_JAVA_OPTS=-Xms256m -Xmx256m
+    volumes:
+        - /home/cyjuser/es/config/es1.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+        - /home/cyjuser/es/data1:/usr/share/elasticsearch/data
+    
+
+  ES02:
+    image: elasticsearch:6.4.3
+    container_name: "ES02"
+    ports:
+      - "9201:9201"
+      - "9301:9301"
+    environment:
+      - ES_JAVA_OPTS=-Xms256m -Xmx256m
+
+    volumes:
+      - /home/cyjuser/es/config/es2.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - /home/cyjuser/es/data2:/usr/share/elasticsearch/data
+
+
+  kibana:
+    image: kibana:6.4.3
+    container_name: "kibana"
+    ports: 
+        - "5601:5601"
+    volumes:
+        - /home/cyjuser/es/kibana/config:/usr/share/kibana/config
+
+    
+  logstash:
+    image: logstash:6.4.3
+    container_name: "logstash"
+    ports:
+      - "5044:5044"
+      - "5045:5045"
+      - "5046:5046"
+      - "9600:9600"
+    volumes:
+      - /home/cyjuser/es/logstash/config:/usr/share/logstash/config
+      - /home/cyjuser/es/logstash/pipeline:/usr/share/logstash/pipeline
+      - /usr/local/nginx/logs:/usr/share/logstash/logs/nginx

@@ -3,9 +3,36 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://www.padual.com/java/logback.xsd"
     debug="false" scan="true" scanPeriod="30 second">
-    
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
 	<conversionRule conversionWord="ip" converterClass="com.xc.util.LogIpConfig" />
-	
+    <springProperty scope="context" name="springAppName" source="spring.application.name" />
+  <!--
+   <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>192.168.31.100
+            :5046</destination>
+        <encoder charset="UTF-8"
+                 class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                        "logLevel": "%level",
+                        "serviceName": "${springAppName:-}",
+                        "pid": "${PID:-}",
+                        "thread": "%thread",
+                        "class": "%logger{40}",
+                        "rest": "%message"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+    -->
+
     <property name="PROJECT" value="xc-service" /> 
     <property name="ROOT" value="logs/${PROJECT}/" />
     <property name="FILESIZE" value="100MB" />
@@ -137,7 +164,7 @@
         <appender-ref ref="DEBUG" />  
         <appender-ref ref="ERROR" />
         <appender-ref ref="WARN" />
-        <appender-ref ref="INFO" /> 
+<!-- 使用时打开       <appender-ref ref="LOGSTASH" />-->
         <appender-ref ref="TRACE" />
     </root>
 </configuration>

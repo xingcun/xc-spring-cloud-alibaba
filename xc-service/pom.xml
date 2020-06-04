@@ -43,20 +43,7 @@
 			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
-		<!-- <dependency> <groupId>com.alibaba</groupId> <artifactId>dubbo</artifactId>
-			<version>2.6.6</version> </dependency> -->
 
-		<!-- https://mvnrepository.com/artifact/com.alibaba/dubbo-registry-nacos -->
-		<!-- <dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>dubbo-registry-nacos</artifactId>
-			<version>2.6.6</version>
-		</dependency> -->
-
-		<!-- <dependency> <groupId>com.alibaba.nacos</groupId> <artifactId>nacos-client</artifactId>
-			<version>1.0.0</version> </dependency> -->
-		<!-- https://mvnrepository.com/artifact/com.alibaba.spring/spring-context-support -->
 		<dependency>
 			<groupId>com.alibaba.spring</groupId>
 			<artifactId>spring-context-support</artifactId>

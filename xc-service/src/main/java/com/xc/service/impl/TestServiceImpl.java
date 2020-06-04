@@ -43,6 +43,7 @@ public class TestServiceImpl implements TestService{
 	@Override
 	public String testDubbo(JSONObject obj) {
 		RpcContext rpcContext = RpcContext.getContext();
+
 		if(obj!=null) {
 			System.out.println(obj.toJSONString());
 		}

@@ -15,7 +15,6 @@ import javax.sql.DataSource;
 
 
 @Configuration
-@ConfigurationProperties("second.datasource")
 @tk.mybatis.spring.annotation.MapperScan(basePackages = SecondDataSourceConfig.PACKAGE, sqlSessionFactoryRef = "secondSqlSessionFactory")
 public class SecondDataSourceConfig {
 
@@ -23,28 +22,10 @@ public class SecondDataSourceConfig {
     static final String MAPPER_LOCATION = "classpath:mapper/second/*.xml";
 
 
-    private String url;
-
-
-    private String username;
-
-
-    private String password;
-
-
-    private String driverClassName;
-
-    private String type;
-
     @Bean(name = "secondDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.second")
     public DataSource secondDataSource() {
-        DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setDriverClassName(driverClassName);
-        dataSource.setUrl(url);
-        dataSource.setUsername(username);
-        dataSource.setDbType(type);
-        dataSource.setPassword(password);
-        return dataSource;
+        return new DruidDataSource();
     }
     @Bean(name = "secondDataSourceProxy")
     public DataSourceProxy secondDataSourceProxy(@Qualifier("secondDataSource") DataSource dataSource) {
@@ -66,43 +47,5 @@ public class SecondDataSourceConfig {
         return sessionFactory.getObject();
     }
 
-    public String getUrl() {
-        return url;
-    }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getDriverClassName() {
-        return driverClassName;
-    }
-
-    public void setDriverClassName(String driverClassName) {
-        this.driverClassName = driverClassName;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 }

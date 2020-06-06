@@ -3,11 +3,18 @@ spring:
   application:
     name: ht-server
   datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://${MYSQL_HOST:172.31.1.182}:${MYSQL_PORT:3307}/dbxc?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8
-    username: root
-    password: ${MYSQL_PASSWORD:123456}
+    first:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource
+      url: jdbc:mysql://${MYSQL_HOST:172.31.1.182}:${MYSQL_PORT:3307}/dbxc?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8
+      username: root
+      password: ${MYSQL_PASSWORD:123456}
+    second:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource
+      url: jdbc:mysql://${MYSQL_HOST_2:172.31.1.111}:${MYSQL_PORT_2:3306}/dbxc?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8
+      username: root
+      password: ${MYSQL_PASSWORD_2:123456}
   cloud:
     alibaba:
       seata:
@@ -16,13 +23,7 @@ spring:
       discovery:
         server-addr: ${NACOS_ADDR:127.0.0.1}:${NACOS_PORT:8848}
         group: ${NACOS_GROUP:DEFAULT_GROUP}
-second:
-  datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://${MYSQL_HOST_2:172.31.1.111}:${MYSQL_PORT_2:3306}/dbxc?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8
-    username: root
-    password: ${MYSQL_PASSWORD_2:123456}
+
 server:
   port: 9090
 

@@ -1,8 +1,11 @@
 # spring-cloud-alibaba-by-xc
 spring cloud alibaba集成框架可应用于docker部署
 已更新集成阿里spring cloud 2.2.1.RELEASE版
+
 spring cloud更新为Hoxton.SR3版本
+
 dubbo2.7.6
+
 ps:已将相对应框架升级为最新版本
 
 演示demo:<a href="https://yangxingcun.com" target="_blank">http://62.234.130.188</a>
@@ -26,12 +29,19 @@ nacos 帐号密码为nacos
 
 # What does it do
 本框架使用spring cloud为基本架构，结合阿里dubbo+nacos提供服务层
+
 再结合hibernate+pgsql+jpa为数据库连接层
+
 以ignite强大的缓存能力为hibernate提供L1,L2缓存
 
+整合分布式同步锁
+
+整合消息队列bus event与stream，使用robotMq进行通讯
+
 整合sentinel限流,有sentinel+dubbo+gate
-整合bus event与stream，使用robotMq进行通讯
+
 微服务全新架构，整合阿里系的主流架构应用,完全适用于各大主流业务开发  
+
 
 ![](https://user-images.githubusercontent.com/14237778/60095561-673ae880-9781-11e9-9f05-fb7d04d1a75d.png)
 ![cbc4674336c196da17a8f1716b6d39b](https://user-images.githubusercontent.com/14237778/60095634-9b160e00-9781-11e9-8d83-c928ca4f6a9e.png)

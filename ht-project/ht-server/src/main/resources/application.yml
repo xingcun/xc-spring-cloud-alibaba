@@ -5,7 +5,7 @@ spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://${MYSQL_HOST:172.31.1.182}:${MYSQL_PORT:3307}/db1?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://${MYSQL_HOST:172.31.1.182}:${MYSQL_PORT:3307}/dbxc?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: ${MYSQL_PASSWORD:123456}
   cloud:
@@ -20,7 +20,7 @@ second:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://${MYSQL_HOST_2:172.31.1.179}:${MYSQL_PORT_2:3307}/db2?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://${MYSQL_HOST_2:172.31.1.111}:${MYSQL_PORT_2:3306}/dbxc?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: ${MYSQL_PASSWORD_2:123456}
 server:
@@ -28,12 +28,6 @@ server:
 
 seata:
   enabled: true
-#  service:
-#    disable-global-transaction: false
-#    grouplist:
-#      default: 127.0.0.1:8091
-#    vgroup-mapping:
-#      ht-seata-group: default
   config:
     type: file
 

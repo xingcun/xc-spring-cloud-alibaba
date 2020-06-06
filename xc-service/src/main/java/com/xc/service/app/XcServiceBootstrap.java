@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@EnableDubbo(scanBasePackages = "com.xc.service.impl")
+//@EnableDubbo(scanBasePackages = "com.xc.service.impl")
 //@EnableAutoConfiguration
 @SpringBootApplication(scanBasePackages = "com.xc")
 @EnableDiscoveryClient

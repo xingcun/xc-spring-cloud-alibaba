@@ -62,6 +62,7 @@ public class SecondDataSourceConfig {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(secondDataSource);
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(SecondDataSourceConfig.MAPPER_LOCATION));
+        sessionFactory.setTypeHandlersPackage("com.ht.project.typehandler");
         return sessionFactory.getObject();
     }
 

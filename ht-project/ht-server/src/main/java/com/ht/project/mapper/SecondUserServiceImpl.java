@@ -24,7 +24,7 @@ public class SecondUserServiceImpl {
     @Transactional(transactionManager = "secondTransactionManager")
     public void saveUser() {
         User query = new User();
-        query.setPhone("13450351838");
+        query.setMobile("13800138000");
 
 
         List<User>  userList = secondUserMapper.getPageInfo(query);
@@ -41,7 +41,7 @@ public class SecondUserServiceImpl {
 
     public List<User> getUser(String phone) {
         User query = new User();
-        query.setPhone(phone);
+        query.setMobile(phone);
 
         System.out.println(JSON.toJSONString(secondUserMapper.select(query)));
         System.out.println(JSON.toJSONString(secondUserMapper.getPageInfo(query)));

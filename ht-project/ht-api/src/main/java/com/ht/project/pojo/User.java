@@ -1,80 +1,65 @@
 package com.ht.project.pojo;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
 import com.ht.project.common.BaseEntity;
+import com.ht.project.typehandler.JsonHandler;
+import tk.mybatis.mapper.annotation.ColumnType;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.List;
 
-@Table(name = "com_user")
-public class User  implements Serializable {
+/**
+ * 用户基本信息
+ *
+ */
+@Entity
+@javax.persistence.Table(name="base_user")
+public class User {
 
     /**
      *
      */
-    @Column(name = "id",table = "com_user",columnDefinition = "")
+    private static final long serialVersionUID = 2648791661461435852L;
+
     @Id
-    private Integer id;
+    @Column(unique=true,nullable=false)
+    private String id;
+
 
     /**
-     * 用户编号
+     * 昵称
      */
-
-    @Column(name = "user_number",table = "com_user",columnDefinition = "用户编号")
-    private String userNumber;
-
-    /**
-     * 登陆账号
-     */
-
-    @Column(name = "phone",table = "com_user",columnDefinition = "登陆账号")
-    private String phone;
-
-    /**
-     * 登陆密码
-     */
-
-    @Column(name = "password",table = "com_user",columnDefinition = "登陆密码")
-    private String password;
-
-    /**
-     * 用户昵称
-     */
-
-    @Column(name = "nick_name",table = "com_user",columnDefinition = "用户昵称")
+    @Column(name = "nick_name")
     private String nickName;
 
-    public Integer getId() {
+
+    /**
+     * 手机
+     */
+    @Column(unique=true,nullable=false)
+    private String mobile;
+
+
+
+
+    /**
+     * 用于存放user的其它额外属性，如V盟的帐号密码
+     */
+    @ColumnType(typeHandler = JsonHandler.class)
+    private JSONObject attrs;
+
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public String getUserNumber() {
-        return userNumber;
-    }
-
-    public void setUserNumber(String userNumber) {
-        this.userNumber = userNumber;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getNickName() {
@@ -83,5 +68,21 @@ public class User  implements Serializable {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public JSONObject getAttrs() {
+        return attrs;
+    }
+
+    public void setAttrs(JSONObject attrs) {
+        this.attrs = attrs;
     }
 }

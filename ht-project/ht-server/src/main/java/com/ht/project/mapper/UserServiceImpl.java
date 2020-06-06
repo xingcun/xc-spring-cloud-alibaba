@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @GlobalTransactional
     public void saveUser() {
         User query = new User();
-        query.setPhone("13450351838");
+        query.setMobile("13800138000");
         List<User>  users = userMapper.select(query);
         if(users.size()>0) {
             User user = users.get(0);
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUser(String phone) {
         User query = new User();
-        query.setPhone(phone);
+        query.setMobile(phone);
         System.out.println(JSON.toJSONString(userMapper.select(query)));
 
         System.out.println(JSON.toJSONString(userMapper.getPageInfo(query)));

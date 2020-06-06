@@ -66,6 +66,7 @@ public class FirstDataSourceConfig {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(firstDataSource);
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(FirstDataSourceConfig.MAPPER_LOCATION));
+        sessionFactory.setTypeHandlersPackage("com.ht.project.typehandler");
         return sessionFactory.getObject();
     }
 

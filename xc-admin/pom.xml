@@ -68,12 +68,7 @@
 			<version>1.0.0</version>
 		</dependency> -->
 
-		<!-- https://mvnrepository.com/artifact/com.alibaba.spring/spring-context-support -->
-		<dependency>
-			<groupId>com.alibaba.spring</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>1.0.2</version>
-		</dependency>
+
 
 
 

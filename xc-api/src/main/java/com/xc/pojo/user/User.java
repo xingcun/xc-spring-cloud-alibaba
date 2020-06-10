@@ -35,7 +35,7 @@ public class User extends BaseEntity<String> {
 	/**
 	 * 用户名
 	 */
-	@Column(unique=true,nullable=false)
+	@Column(name = "user_name")
 	private String userName;
 
 	/**

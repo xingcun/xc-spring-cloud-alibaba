@@ -20,11 +20,19 @@ public class SecondUserServiceImpl {
     @Autowired
     private SecondUserMapper secondUserMapper;
 
+    @Transactional(transactionManager = "secondTransactionManager")
+    public void saveUser(User user){
+        User dbUser = new User();
+        dbUser.setMobile("13900190000");
+        dbUser.setId(UUID.randomUUID().toString().replaceAll("-",""));
+        dbUser.setSource(1);
+        secondUserMapper.insert(dbUser);
+    }
 
     @Transactional(transactionManager = "secondTransactionManager")
     public void saveUser() {
         User query = new User();
-        query.setMobile("13800138000");
+        query.setMobile("13800");
 
 
         List<User>  userList = secondUserMapper.getPageInfo(query);

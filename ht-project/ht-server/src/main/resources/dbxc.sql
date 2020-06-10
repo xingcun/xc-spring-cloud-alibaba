@@ -21,11 +21,14 @@ CREATE DATABASE `dbxc` CHARACTER SET 'utf8';
 -- Table structure for base_user
 -- ----------------------------
 use dbxc;
-CREATE TABLE dbxc.`base_user`  (
+
+DROP TABLE IF EXISTS `base_user`;
+CREATE TABLE `base_user`  (
   `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `attrs` json NULL,
   `mobile` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `nick_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `source` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `UK_o6melywlekduad7dk8mog3jyb`(`mobile`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -33,7 +36,7 @@ CREATE TABLE dbxc.`base_user`  (
 -- ----------------------------
 -- Records of base_user
 -- ----------------------------
-INSERT INTO dbxc.`base_user` VALUES ('3d3a8382-dcfb-4e9f-b2ea-8c7138f469ca', '{\"companyName\": \"无厘头公司\", \"companyType\": \"1\"}', '13800138000', '超级管理员');
+INSERT INTO `base_user` VALUES ('3d3a8382-dcfb-4e9f-b2ea-8c7138f469ca', '{\"companyName\": \"无厘头公司\", \"companyType\": \"1\"}', '13800138002', '名', 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
 

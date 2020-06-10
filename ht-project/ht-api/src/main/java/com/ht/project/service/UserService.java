@@ -11,4 +11,8 @@ public interface UserService   {
 
 
     public void saveUser();
+
+    public List<User> getShardingUsers(String phone,Integer source);
+
+    public void saveShardingUser(User user);
 }

@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.ht.project.mapper.first.UserMapper" >
+<mapper namespace="com.ht.project.mapper.sharding.ShardingUserMapper" >
 
     <resultMap id="BaseResultMap" type="com.ht.project.pojo.User" >
         <id column="id" property="id" jdbcType="VARCHAR" />
         <result column="attrs" property="attrs" jdbcType="JAVA_OBJECT" />
         <result column="mobile" property="mobile" jdbcType="VARCHAR" />
-
         <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
         <result column="source" property="source" jdbcType="INTEGER" />
 
     </resultMap>
     <resultMap id="VOMap" type="com.ht.project.pojo.User"
-               extends="com.ht.project.mapper.first.UserMapper.BaseResultMap">
+               extends="com.ht.project.mapper.sharding.ShardingUserMapper.BaseResultMap">
     </resultMap>
 
 

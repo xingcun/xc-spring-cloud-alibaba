@@ -45,6 +45,11 @@ public class User {
     private String mobile;
 
 
+    /**
+     * 用户来源：1用户注册,2后台创建
+     */
+    @Column
+    private Integer source;
 
 
     /**
@@ -84,5 +89,13 @@ public class User {
 
     public void setAttrs(JSONObject attrs) {
         this.attrs = attrs;
+    }
+
+    public Integer getSource() {
+        return source;
+    }
+
+    public void setSource(Integer source) {
+        this.source = source;
     }
 }

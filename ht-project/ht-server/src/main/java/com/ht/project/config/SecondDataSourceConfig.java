@@ -33,8 +33,8 @@ public class SecondDataSourceConfig {
     }
 
     @Bean(name = "secondTransactionManager")
-    public DataSourceTransactionManager secondTransactionManager() {
-        return new DataSourceTransactionManager(secondDataSource());
+    public DataSourceTransactionManager secondTransactionManager(@Qualifier("secondDataSource") DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
     }
 
     @Bean(name = "secondSqlSessionFactory")

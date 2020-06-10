@@ -37,8 +37,8 @@ public class FirstDataSourceConfig {
 
     @Bean(name = "firstTransactionManager")
     @Primary
-    public DataSourceTransactionManager firstTransactionManager() {
-        return new DataSourceTransactionManager(firstDataSource());
+    public DataSourceTransactionManager firstTransactionManager(@Qualifier("firstDataSource") DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
     }
 
     @Bean(name = "firstSqlSessionFactory")

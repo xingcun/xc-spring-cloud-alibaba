@@ -8,7 +8,7 @@
         <result column="mobile" property="mobile" jdbcType="VARCHAR" />
 
         <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
-
+        <result column="source" property="source" jdbcType="INTEGER" />
     </resultMap>
     <resultMap id="VOMap" type="com.ht.project.pojo.User"
                extends="com.ht.project.mapper.second.SecondUserMapper.BaseResultMap">
@@ -27,7 +27,9 @@
         <if test="nickName != null and nickName.trim() != ''" >
             and nick_name like concat('%', #{nickName,jdbcType=VARCHAR}, '%')
         </if>
-
+        <if test="source != null" >
+            and source = #{source}
+        </if>
         order by id desc
     </select>
 

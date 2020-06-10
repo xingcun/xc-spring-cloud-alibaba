@@ -27,12 +27,12 @@ spring:
 server:
   port: 9090
 
-seata:
-  enabled: true
-  config:
-    type: file
+
 
 logging:
   level:
     io:
       seata: debug
+    com:
+      ht: debug
+

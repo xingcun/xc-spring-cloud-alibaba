@@ -3,7 +3,7 @@
 引用tkmybatis进行数据库连接，多数据源管理
 引用seata1.2进行分布式事务处理
 引用nacos进行服务管理
-
+引用shardingSphere进行分库分表处理
 
 
 # Start project
@@ -47,64 +47,3 @@ registry {
 
 
 
-
-# 注意事项
-> * 数据库配置文件在xc-service中的application.yml配置文件，引用的是pgsql+hibernate，框架解决了pgsql中的jsonb实例化问题，如需引用其它数据库，请自行更改（最简单的方案就是去除json引用，增加pom数据库引用包）
-> * 数据库配置连接上，直接启动就会自动建表
-> * 127.0.0.1:8880/api/admin/user/login?username=xx&password=xx 登录,获取token后放在header请求中,xc-token=xxxxxxxxxxxx
-> * 如需使用sentinel做监听，可打开xc-service配置文件application.yml中的 sentinel.transport.dashboard,  自行到官网下载,<a href="https://github.com/alibaba/Sentinel/releases" target="_blank">sentinel1.7.0</a>	启动命令 java -Dserver.port=8088 -Dcsp.sentinel.dashboard.server=localhost:8088 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.7.0.jar
-
-# 自动化任务使用说明
-* **在xc-service中的resources中,有quartz_innodb.sql(mysql),另一份是有quartz_innodb_pgsql.sql(pgsql)使用的初始化数据库文件**
-* **在xc-service中使用job,直接实现接口BaseQuartzJob,并注入到spring bean管理,可使用@Component等方式实现**
-* **在xc-admin中使用job,与xc-service相同,然后需有control继承BaseQuartzControl用于远程调度使用,或者可自行实现接收接口**
-* **配置参数说明**
-
-| 参数名 | remark |
-| ------------ |:-----:|
-| name |任务名称|
-| cron |cron表达式|
-| startDate |运行时间，如果存在，即cron失效|
-| isLocalProject |是否xc-service本地运行job|
-| url |如果isLocalProject=true,url为空，否则需填入接收任务运行的接口地址,可以直接填xc-admin、或者是http://127.0.0.1/xxxxxxx|
-| runJobClass |运行job的class,必须是直接实现接口BaseQuartzJob|
-|param|运行时所需要的参数(json)|
-|state|0为暂停,1为开始|
-|description|任务描述|
-
-
-
-
-
-在nacos配置上自行增加名为dubbo-sentinel-json的配置即可实现限流
-```
-[
-
-   {
-    "resource": "com.xc.service.user.UserService",
-    "count": 1,
-    "controlBehavior":2
-  }
-  
-]
-```
-
-
-
-在nacos配置上自行增加名为gate-sentinel-json的配置即可实现限流
-```
-[
-
-   {
-    "resource": "xc-admin",
-    "count": 1,
-    "intervalSec":1
-  },
-   {
-    "resource": "aliyun_route",
-    "count": 1,
-    "intervalSec":1
-  }
-  
-]
-```

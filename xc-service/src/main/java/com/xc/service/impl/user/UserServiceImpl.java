@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.persistence.criteria.Predicate;
 
+import com.alibaba.fastjson.JSON;
+import org.apache.ignite.Ignite;
+import org.apache.ignite.Ignition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -171,7 +174,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 
 	@Override
 	public ModelVo login(String username,String password,int loginType,String loginSystem) {
-
+		this.findOne("3d3a8382-dcfb-4e9f-b2ea-8c7138f469ca");
 		ModelVo vo = new ModelVo();
 		List<User> users = this.findAll((root, query, cb) -> {
 
@@ -208,6 +211,23 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 		}else {
 			vo.setCodeEnum(Code.ERROR, username+"用户不存在");
 		}
+
+		JSONObject dbObj = new JSONObject();
+		List<Ignite> ignites = Ignition.allGrids();
+		for(Ignite ignite : ignites){
+			JSONObject cacheObj = new JSONObject();
+
+			ignite.cacheNames().forEach((key)->{
+
+				cacheObj.put(key, JSON.toJSONString(ignite.cache(key)));
+				ignite.cache(key).forEach((entry)->{
+					System.out.println(entry.getKey()+"================"+ JSON.toJSONString(entry.getValue()));
+				});
+			});
+			dbObj.put(ignite.name()+"",cacheObj);
+
+		}
+
 		return vo;
 	}
 

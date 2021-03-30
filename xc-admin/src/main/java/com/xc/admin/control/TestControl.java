@@ -1,5 +1,6 @@
 package com.xc.admin.control;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 
@@ -10,6 +11,8 @@ import com.xc.event.XcLocalEvent;
 import com.xc.event.XcRemoteEvent;
 import com.xc.vo.BaseModelVo;
 import com.xc.vo.MessageVo;
+import org.apache.ignite.Ignite;
+import org.apache.ignite.Ignition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -213,6 +216,25 @@ public class TestControl extends BaseQuartzControl {
 		return obj;
 	}
 
+	@RequestMapping(value = "/getCache")
+	public JSONObject getCache() {
+		JSONObject dbObj = new JSONObject();
+		List<Ignite> ignites = Ignition.allGrids();
+		for(Ignite ignite : ignites){
+			JSONObject cacheObj = new JSONObject();
+
+			ignite.cacheNames().forEach((key)->{
+
+				cacheObj.put(key, JSON.toJSONString(ignite.cache(key)));
+				ignite.cache(key).forEach((entry)->{
+					System.out.println(entry.getKey()+"================"+ JSON.toJSONString(entry.getValue()));
+				});
+			});
+			dbObj.put(ignite.name()+"",cacheObj);
+
+		}
+		return dbObj;
+	}
 
 	public void setTestService(TestService testService) {
 		this.testService = testService;

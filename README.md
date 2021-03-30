@@ -2,9 +2,9 @@
 spring cloud alibaba集成框架可应用于docker部署
 已更新集成阿里spring cloud 2.2.1.RELEASE版
 
-spring cloud更新为Hoxton.SR3版本
+spring cloud更新为Hoxton.SR8版本
 
-dubbo2.7.6
+dubbo2.7.8
 
 ps:已将相对应框架升级为最新版本
 

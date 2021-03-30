@@ -44,7 +44,7 @@
 	    <property name="writeSynchronizationMode" value="FULL_SYNC"/>
 	    <property name="backups" value="0"/>
 	    <property name="copyOnRead" value="false"/>
-	    
+
 	    <property name="evictionPolicy">
        		<!-- LRU eviction policy. -->
 	        <bean class="org.apache.ignite.cache.eviction.lru.LruEvictionPolicy">
@@ -58,13 +58,15 @@
 	
 	
 	<bean parent="ignite.cfg">
-		<property name="igniteInstanceName" value="hibernate-grid"/>
+		<property name="igniteInstanceName" value="service-cache-grid"/>
 		 <property name="cacheConfiguration">
 	        <list>
 	            <!--
 	                Configurations for entity caches.
 	            -->
-	            
+				<bean parent="transactional-cache">
+					<property name="name" value="com.xc.pojo.user.User"/>
+				</bean>
 	           <!-- 
 	            <bean parent="transactional-cache">
 	                <property name="name" value="com.mycompany.MyEntity2"/>
@@ -72,17 +74,17 @@
 	            <bean parent="transactional-cache">
 	                <property name="name" value="com.mycompany.MyEntity1.children"/>
 	            </bean> -->
-	 
+
 	            <!-- Configuration for update timestamps cache. -->
 	            <bean parent="atomic-cache">
-	                <property name="name" value="org.hibernate.cache.spi.UpdateTimestampsCache"/>
+	                <property name="name" value="org.hibernate.cache.spi.TimestampsCache"/>
 	            </bean>
-	 
+
 	            <!-- Configuration for query result cache. -->
 	            <bean parent="atomic-cache">
-	                <property name="name" value="org.hibernate.cache.internal.StandardQueryCache"/>
+	                <property name="name" value="org.hibernate.cache.internal.QueryResultsCacheImpl"/>
 	            </bean>
-	            <!-- Configuration for query result cache. -->
+	          <!--  Configuration for query result cache. -->
 	            <bean parent="atomic-cache">
 	                <property name="name" value="default-query-results-region"/>
 	            </bean>
@@ -144,10 +146,10 @@
         </property>
 	</bean>
 	
-	
-	<bean parent="ignite.cfg">
+
+	<!--<bean parent="ignite.cfg">
 		<property name="igniteInstanceName" value="service-cache-grid" />
 	</bean>
-
+-->
 	
 </beans>

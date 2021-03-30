@@ -8,6 +8,8 @@ import javax.persistence.Id;
 
 import com.xc.util.MySqlJsonType;
 import com.xc.util.PgSqlJsonbType;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
@@ -21,6 +23,7 @@ import com.xc.pojo.BaseEntity;
  */
 @Entity
 @javax.persistence.Table(name="base_user")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User extends BaseEntity<String> {
 
 	/**

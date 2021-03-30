@@ -38,6 +38,7 @@ spring:
       discovery:
         server-addr: ${spring.cloud.nacos.config.server-addr}
         ip: ${NACOS_REGIST_IP:}
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
     bus:
       id: ${spring.application.name}:${server.port}
     stream:
@@ -95,7 +96,7 @@ ribbon:
 
 
 ignore:
-  startWith: /user/login,/user/regist,/test,/user/getCode,/xc/executorQuartz,/quartz
+  startWith: /user/login,/user/regist,/test,/user/getCode,/xc/executorQuartz,/quartz,/getCache
 
 xc:
   executor:
